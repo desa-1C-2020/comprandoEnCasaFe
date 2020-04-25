@@ -1,15 +1,14 @@
 import React from 'react'
+import '../styles/HomeScreen.css'
 import HomeNavBar from '../components/HomeNavBar'
 
 class HomeScreen extends React.Component {
 
   render(){
     return (
-      <div>
+      <div className="fondo">
         <HomeNavBar></HomeNavBar>
-        <p style={{marginTop: '200px', marginLeft: '35%'}}>
-          <h1>¡¡Soy la página Home!!</h1>
-        </p>
+        <p>Página home</p>    
       </div>
     )
   }
