@@ -3,19 +3,22 @@ import '../styles/HomeNavBar.css'
 import { InputGroup, Button } from '@blueprintjs/core'
 import SearchResult from './SearchResult';
 
+
 export class ShopSearch extends React.Component {
 
   constructor(){
     super();
     this.state = {
-      showResults: false
+      showResults: false,
+      lat: '-34.7058979',
+      lng: '-58.2775644',
+      max: '2000'
     }
     this.openResultsModal = this.openResultsModal.bind(this)
     this.closeResultsModal = this.closeResultsModal.bind(this)
   }
 
   openResultsModal(){
-    //consulta al back
     this.setState({showResults: true})
   }
 
@@ -35,7 +38,7 @@ export class ShopSearch extends React.Component {
         <h2 style={{color: 'white'}}>Distancia máxima (en metros)</h2>
         <InputGroup type="number" placeholder="Max metros de distancia"></InputGroup>
         <Button onClick={this.openResultsModal}>Buscar</Button>
-        <SearchResult isOpen={this.state.showResults} closeModal={this.closeResultsModal}/>
+        {this.state.showResults && <SearchResult isOpen={this.state.showResults} closeModal={this.closeResultsModal} {...this.state}/>}
       </div>
 		);
 	}
