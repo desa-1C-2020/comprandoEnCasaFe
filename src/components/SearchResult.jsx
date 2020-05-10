@@ -41,7 +41,7 @@ export class SearchResult extends React.Component {
         isOpen={this.props.isOpen} 
         onClose={this.handleClose}
         title="Resultados">
-        {this.state.results.length == 0 ? "No hay resultados" : this.state.results}
+        {this.state.results.length === 0 ? "No hay resultados" : this.state.results}
       </Dialog>
 		);
 	}
