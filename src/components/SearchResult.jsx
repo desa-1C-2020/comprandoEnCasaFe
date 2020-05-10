@@ -1,7 +1,8 @@
 import React from 'react'
-import '../styles/HomeNavBar.css'
+import '../styles/ResultBox.css'
 import { getShops } from '../services/ProductService'
 import { Dialog } from '@blueprintjs/core';
+import ResultBox from './ResultBox';
 
 export class SearchResult extends React.Component {
 
@@ -29,7 +30,10 @@ export class SearchResult extends React.Component {
   createBoxesFromArray(shops){
     const shopList = []
     shops.forEach((shop) =>{
-    const box = <p key={shop.name}>{shop.name} - {shop.address}</p>
+    const box = <ResultBox
+      name={shop.name}
+      address={shop.address}
+    />
       shopList.push(box)
     })
     return shopList;
@@ -40,8 +44,12 @@ export class SearchResult extends React.Component {
       <Dialog 
         isOpen={this.props.isOpen} 
         onClose={this.handleClose}
-        title="Resultados">
-        {this.state.results.length === 0 ? "No hay resultados" : this.state.results}
+        title="Resultados de la búsqueda">
+        {this.state.results.length === 0 ? 
+          <div className="no-results">
+            <h3>No se encontraron resultados</h3>
+          </div> 
+          : this.state.results}
       </Dialog>
 		);
 	}
