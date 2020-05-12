@@ -1,0 +1,41 @@
+.background {
+  background-color: white;
+  border-radius: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  max-width: 30%;
+  border: solid rgb(255, 167, 5);
+  border-width: 0 10px;
+}
+
+.title{
+  color: black;
+}
+
+h1{
+  text-align: center;
+}
+
+.input-container{
+  display: inline-flex;
+}
+
+.input {
+  margin-right: 20px;
+  margin-bottom: 20px;
+  width: 50%
+}
+
+.search-button {
+  width: 100px;
+  margin-left: calc(50% - 50px);
+  margin-top: 10px;
+}
+
+@media (max-width: 1024px){  
+  .background {
+    width: 100%;
+    max-width: 100%;
+  } 
+}

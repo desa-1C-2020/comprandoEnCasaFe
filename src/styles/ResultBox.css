@@ -1,0 +1,18 @@
+.box {
+  background-color: rgb(247, 247, 123);
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.text {
+  margin-top: 7px;
+  margin-left: 10px;
+}
+
+h3 {
+  text-align: center;
+}
+
