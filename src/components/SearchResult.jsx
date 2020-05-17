@@ -31,13 +31,15 @@ export class SearchResult extends React.Component {
 
   createBoxesFromArray(shops){
     const shopList = []
-    shops.forEach((shop) =>{
+    let key = 2000
+    shops.forEach((shop) =>{ 
     const box = <ResultBox
-      key={shop.name + shop.adress}
+      key={key}
       name={shop.name}
-      address={shop.adress}
+      address={shop.address.street}
     />
       shopList.push(box)
+      key = key + 1;
     })
     return shopList;
   }

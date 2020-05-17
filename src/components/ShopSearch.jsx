@@ -39,7 +39,7 @@ export class ShopSearch extends React.Component {
           <div className="input-container">
             <InputGroup className="input" 
                         type="text" 
-                        name="lgn"
+                        name="lng"
                         value={this.state.lng}
                         onChange={this.handleChange} 
                         placeholder="Longitud"
