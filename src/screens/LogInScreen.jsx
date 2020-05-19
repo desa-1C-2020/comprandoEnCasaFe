@@ -1,22 +1,73 @@
 import React from 'react'
 import logo from '../CEC.png'
-import { InputGroup, Button } from '@blueprintjs/core'
+import { InputGroup, Button, Alert } from '@blueprintjs/core'
+import { withRouter } from "react-router-dom";
 import '../styles/LogInScreen.css'
 
 class LogInScreen extends React.Component {
 
+  constructor(){
+    super();
+    this.state = {
+      user: '',
+      pass: '',
+      alert: false,
+      msg: ''
+    }
+    this.logIn = this.logIn.bind(this);
+    this.isValid = this.isValid.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  logIn(){
+    if(this.isValid()){
+      //TODO - LLAMADO AL BACK CON USER Y PASS
+      this.props.history.push('/home');
+    } else {
+      const msgError = this.state.user === '' ? 
+        'Por favor, ingrese su nombre de usuario' 
+        : 'Por favor, ingrese su contraseña'
+      this.setState({alert: true, msg: msgError});
+    }
+  }
+
+  isValid(){
+    return this.state.user !== '' && this.state.pass !== ''
+  }
+
+  handleChange(event){
+    this.setState({[event.target.name]: event.target.value})
+  }
+
   render(){
     return (        
       <div>
+        <Alert isOpen={this.state.alert}
+               confirmButtonText='ACEPTAR'
+               icon={this.state.icon}
+               intent='primary'
+               onClose={() => {this.setState({alert: false})}}>
+              {this.state.msg}
+        </Alert>
         <span>
           <img className="logo-login" alt="Comprando en casa" src={logo} />
           <div className="login-container">
             <p className="title">Ingrese para continuar</p>
             <div className="input-container">
-              <InputGroup className="input" type="text" placeholder="Usuario"/>
-              <InputGroup className="input" type="password" placeholder="Contraseña"/>
+              <InputGroup className="input" 
+                          name="user"
+                          value={this.state.user}
+                          type="text" 
+                          onChange={this.handleChange}
+                          placeholder="Usuario"/>
+              <InputGroup className="input"
+                          name="pass" 
+                          value={this.state.pass}
+                          type="password" 
+                          onChange={this.handleChange}
+                          placeholder="Contraseña"/>
             </div>
-            <Button className="button">Ingresar</Button>
+            <Button className="button" onClick={this.logIn}>Ingresar</Button>
             <p className="register-text">¿Nuevo en la aplicación? <span className="register">Registrate</span></p>
           </div>
         </span>
@@ -26,4 +77,4 @@ class LogInScreen extends React.Component {
 
 }
 
-export default LogInScreen
+export default withRouter(LogInScreen)
