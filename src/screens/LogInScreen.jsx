@@ -17,6 +17,7 @@ class LogInScreen extends React.Component {
     this.logIn = this.logIn.bind(this);
     this.isValid = this.isValid.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.goRegister = this.goRegister.bind(this);
   }
 
   logIn(){
@@ -29,6 +30,10 @@ class LogInScreen extends React.Component {
         : 'Por favor, ingrese su contraseña'
       this.setState({alert: true, msg: msgError});
     }
+  }
+
+  goRegister(){
+    this.props.history.push('/register');
   }
 
   isValid(){
@@ -68,7 +73,9 @@ class LogInScreen extends React.Component {
                           placeholder="Contraseña"/>
             </div>
             <Button className="button" onClick={this.logIn}>Ingresar</Button>
-            <p className="register-text">¿Nuevo en la aplicación? <span className="register">Registrate</span></p>
+            <p className="register-text">¿Nuevo en la aplicación? 
+              <span className="register" onClick={this.goRegister}> Registrate</span>
+            </p>
           </div>
         </span>
       </div>      

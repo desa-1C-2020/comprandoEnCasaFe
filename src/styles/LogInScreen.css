@@ -42,6 +42,7 @@
 .register{
   font-weight: bold;
   color: blue;
+  cursor: pointer;
 }
 
 @media (max-width: 1024px){
