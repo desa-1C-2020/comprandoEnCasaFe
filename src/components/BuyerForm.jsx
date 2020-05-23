@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/BuyerForm.css'
 import { InputGroup } from '@blueprintjs/core'
 
 export class BuyerForm extends React.Component {
@@ -41,6 +42,7 @@ export class BuyerForm extends React.Component {
     return (
       <div>
         <p>Datos personales</p>
+        <span className="personal">
         <InputGroup className="input" 
                         type="text" 
                         name="name"
@@ -55,6 +57,8 @@ export class BuyerForm extends React.Component {
                         onChange={this.handleChange} 
                         placeholder="Apellido"
             />
+          </span>
+          <span className="personal">
          <InputGroup className="input" 
                         type="text" 
                         name="email"
@@ -62,7 +66,16 @@ export class BuyerForm extends React.Component {
                         onChange={this.handleChange} 
                         placeholder="Correo electrónico"
             />
+          <InputGroup className="input" 
+                        type="password" 
+                        name="password"
+                        value={this.state.password}
+                        onChange={this.handleChange} 
+                        placeholder="Contraseña"
+            />
+          </span>
           <p>Datos del domicilio</p>
+          <span className="address">
           <InputGroup className="input" 
                         type="text" 
                         name="street"
@@ -84,6 +97,7 @@ export class BuyerForm extends React.Component {
                         onChange={this.handleChange} 
                         placeholder="Longitud"
             /> 
+            </span>
       </div>
 		);
 	}

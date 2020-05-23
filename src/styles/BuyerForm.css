@@ -1,0 +1,21 @@
+.personal {
+  display: block;
+  width: 250px;
+}
+
+.address {
+  display: block;
+  width: 250px;
+}
+
+@media (min-width: 1024px){
+  .personal {
+    display: inline-flex;
+    width: 100%;
+  }
+
+  .address {
+    display: inline-flex;
+    width: 100%;
+  }
+}

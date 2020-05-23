@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/SellerForm.css'
 import { InputGroup, Button, Checkbox } from '@blueprintjs/core'
 
 export class SellerForm extends React.Component {
@@ -27,6 +28,7 @@ export class SellerForm extends React.Component {
     return (
       <div>
         <p>Datos del comercio</p>
+        <span className="shop">
         <InputGroup className="input" 
                         type="text" 
                         name="name"
@@ -41,7 +43,9 @@ export class SellerForm extends React.Component {
                         onChange={this.handleChange} 
                         placeholder="Rubro"
             />
+        </span>
           <p>Dirección del comercio</p>
+        <span className="address">
         <InputGroup className="input" 
                         type="text" 
                         name="address"
@@ -63,7 +67,9 @@ export class SellerForm extends React.Component {
                         onChange={this.handleChange} 
                         placeholder="Longitud"
             />
+            </span>
       <p>Formas de pago</p>
+      <span className="payments">
       <Checkbox checked={this.state.money}
                  onChange={() => this.setState({money: !this.state.money})}>
                    Efectivo
@@ -76,8 +82,12 @@ export class SellerForm extends React.Component {
                  onChange={() => this.setState({credit: !this.state.credit})}>
                   Tarjetas de crédito
       </Checkbox>
-      <Button>Personalizar horarios</Button>
+      </span>
+      <div>
+        <Button>Personalizar horarios</Button>
+      </div>
       <p>Distancia máxima de entregas (en metros)</p>
+      <span className="range">
       <InputGroup className="input" 
                         type="number" 
                         name="radio"
@@ -85,6 +95,7 @@ export class SellerForm extends React.Component {
                         onChange={this.handleChange} 
                         placeholder="Ej: 2000"
             />
+      </span>
       </div>
 		);
 	}

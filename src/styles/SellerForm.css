@@ -1,0 +1,44 @@
+.shop {
+  display: block;
+  width: 250px;
+}
+
+.address {
+  display: block;
+  width: 250px;
+}
+
+.range {
+  display: block;
+  width: 250px;
+}
+
+.payments {
+  display: block;
+  width: 250px;
+}
+
+
+@media (min-width: 1024px){
+
+  .shop {
+    display: inline-flex;
+    width: 100%;
+  }
+
+  .address {
+    display: inline-flex;
+    width: 100%;
+  }
+
+  .range {
+    display: inline-flex;
+    width: 100%;
+  }
+
+  .payments {
+    display: inline-flex;
+    width: 100%;
+  }
+
+}
