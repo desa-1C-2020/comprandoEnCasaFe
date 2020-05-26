@@ -1,21 +1,37 @@
-.personal {
+.personal-buyer {
   display: block;
-  width: 250px;
+  width: 100%;
 }
 
-.address {
+.address-buyer {
   display: block;
-  width: 250px;
+  width: 100%;
+}
+
+.dp {
+  margin-top: 20px;
+}
+
+.dd {
+  margin-top: 20px;
+}
+
+.field {
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
 
 @media (min-width: 1024px){
-  .personal {
+  .personal-buyer {
     display: inline-flex;
-    width: 100%;
   }
 
-  .address {
+  .address-buyer {
     display: inline-flex;
-    width: 100%;
+  }
+
+  .field {
+    margin-left: 0px;
   }
 }

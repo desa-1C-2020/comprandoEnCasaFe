@@ -31,19 +31,22 @@ class RegisterScreen extends React.Component {
     return (        
       <div>
         <div className="register-container">
-        <p>Registrarse en Comprando en Casa</p>
-        <p>¿Cómo quiere registrarse?</p>
+        <p className="register-title">Bienvenido a Comprando en Casa</p>
+        <p className="register-sub">¿Cómo quiere registrarse?</p>
         <RadioGroup
+          className="radio"
           inline={true}
           onChange={this.handleRadio}
           selectedValue={this.state.form}>
           <Radio label='Comprador' value='buyer' large={true}/>
           <Radio label='Vendedor' value='seller' large={true}/>
         </RadioGroup>
-        {this.state.form === 'buyer' ? <BuyerForm /> : <SellerForm />}
-        <div>
-          <Button>Registarse</Button>
-          <Button>Volver</Button>
+        {this.state.form === 'buyer' ? 
+          <div className="buyer-form" ><BuyerForm/></div>
+          : <div className="seller-form"><SellerForm /></div>}
+        <div className="buttons">
+          <Button className="register-btn" intent="success">Registarse</Button>
+          <Button intent="danger">Volver</Button>
         </div>
        </div>
       </div>      
