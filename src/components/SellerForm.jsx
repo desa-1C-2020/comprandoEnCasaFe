@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/SellerForm.css'
 import { InputGroup, Button, Checkbox } from '@blueprintjs/core'
+import TimeTablePopUp from './TimeTablePopUp'
 
 export class SellerForm extends React.Component {
 
@@ -15,13 +16,41 @@ export class SellerForm extends React.Component {
       radio: '',
       money: false,
       debit: false,
-      credit: false
+      credit: false,
+      schedule: [],
+      timeTable: false
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.updateParent = this.updateParent.bind(this);
   }
 
   handleChange(event){
     this.setState({[event.target.name]: event.target.value})
+  }
+
+  updateParent(){
+    this.props.update({
+      commerceName: this.state.name,
+      commerceBussinessSector: this.state.sector,
+      commerceAddress: {
+        street: this.state.address,
+        latitud: this.state.lat,
+        longitud: this.state.lng
+      }
+    })
+    /**
+     * { //faltan estas definiciones
+      paymentMethods [
+        {
+          type
+          accept
+        }
+      ]
+      daysAndHoursOpen -> lista strings
+      arrivalRange -> string
+    }
+     * 
+     */
   }
 
 	render() {
@@ -34,6 +63,7 @@ export class SellerForm extends React.Component {
                       name="name"
                       value={this.state.name}
                       onChange={this.handleChange} 
+                      onBlur={this.updateParent}
                       placeholder="Nombre"
           />
           <InputGroup className="field" 
@@ -41,6 +71,7 @@ export class SellerForm extends React.Component {
                       name="sector"
                       value={this.state.sector}
                       onChange={this.handleChange} 
+                      onBlur={this.updateParent}
                       placeholder="Rubro"
           />
         </span>
@@ -51,6 +82,7 @@ export class SellerForm extends React.Component {
                       name="address"
                       value={this.state.address}
                       onChange={this.handleChange} 
+                      onBlur={this.updateParent}
                       placeholder="Dirección"
           />
           <InputGroup className="field" 
@@ -58,6 +90,7 @@ export class SellerForm extends React.Component {
                       name="lat"
                       value={this.state.lat}
                       onChange={this.handleChange} 
+                      onBlur={this.updateParent}
                       placeholder="Latitud"
           />
           <InputGroup className="field" 
@@ -65,6 +98,7 @@ export class SellerForm extends React.Component {
                       name="lng"
                       value={this.state.lng}
                       onChange={this.handleChange} 
+                      onBlur={this.updateParent}
                       placeholder="Longitud"
           />
         </span>
@@ -72,22 +106,25 @@ export class SellerForm extends React.Component {
         <span className="payments">
           <Checkbox className="check"
                     checked={this.state.money}
+                    onBlur={this.updateParent}
                     onChange={() => this.setState({money: !this.state.money})}>
                     Efectivo
           </Checkbox>
           <Checkbox className="check"
                     checked={this.state.debit}
+                    onBlur={this.updateParent}
                     onChange={() => this.setState({debit: !this.state.debit})}>
                     Tarjetas de débito
           </Checkbox>
           <Checkbox className="check"
                     checked={this.state.credit}
+                    onBlur={this.updateParent}
                     onChange={() => this.setState({credit: !this.state.credit})}>
                     Tarjetas de crédito
           </Checkbox>
         </span>
         <div className="seller-btn">
-          <Button>Personalizar horarios</Button>
+          <Button onClick={() => this.setState({timeTable: true})}>Personalizar horarios</Button>
         </div>
         <p className="d-max">Distancia máxima de entregas (en metros)</p>
         <span className="range">
@@ -95,10 +132,12 @@ export class SellerForm extends React.Component {
                       type="number" 
                       name="radio"
                       value={this.state.radio}
+                      onBlur={this.updateParent}
                       onChange={this.handleChange} 
                       placeholder="Ej: 2000"
           />
         </span>
+        <TimeTablePopUp isOpen={this.state.timeTable} closeModal={() => this.setState({timeTable: false})}/>
       </div>
 		);
 	}

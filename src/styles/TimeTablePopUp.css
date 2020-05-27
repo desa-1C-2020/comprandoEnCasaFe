@@ -1,0 +1,50 @@
+.day-container {
+  display: inline-flex;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: rgb(248, 217, 41);
+  border-radius: 15px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.day-check{
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
+.hours {
+  display: inline-flex;
+  font-size: 30px;
+}
+
+.time {
+  width: 40px;
+  margin-left: 10px;
+}
+
+.h-text {
+  margin-top: 3px;
+}
+
+.h-btn {
+  width: 200px;
+  margin-left: calc(50% - 100px);
+  margin-top: 10px;
+}
+
+@media (max-width: 1024px){
+  .hours {
+    font-size: 18px;
+    margin-top: 10px
+  }
+
+  .day-check {
+    margin-right: 0px;
+  }
+  .time {
+    margin-left: 4px;
+  }
+}

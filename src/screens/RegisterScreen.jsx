@@ -24,6 +24,7 @@ class RegisterScreen extends React.Component {
     this.handleRegister = this.handleRegister.bind(this);
     this.registerBuyer = this.registerBuyer.bind(this);
     this.isValidBuyer = this.isValidBuyer.bind(this);
+    this.registerSeller = this.registerSeller.bind(this);
   }
 
   handleChange(event){
@@ -50,8 +51,7 @@ class RegisterScreen extends React.Component {
     if(this.state.form === 'buyer'){
       this.registerBuyer();
     } else {
-      //TODO - request vendedor
-      this.setState({alertSuccess: true})
+      this.registerSeller();
     }
   }
 
@@ -62,6 +62,11 @@ class RegisterScreen extends React.Component {
     } else {
       this.setState({alertField: true})
     }
+  }
+
+  registerSeller(){
+    //TODO - validacioness if(isvalidseller)
+    this.setState({alertSuccess: true})
   }
 
   isValidBuyer(){
