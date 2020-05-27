@@ -4,8 +4,8 @@ import { InputGroup } from '@blueprintjs/core'
 
 export class BuyerForm extends React.Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       name: '',
       surname: '',
@@ -15,27 +15,26 @@ export class BuyerForm extends React.Component {
       lat: '',
       lng: ''
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.updateParent = this.updateParent.bind(this);
   }
 
   handleChange(event){
     this.setState({[event.target.name]: event.target.value})
-    //update parent
-    /* 
-    data = {
+  }
+
+  updateParent(){
+    this.props.update({
       name: this.state.name,
       surname: this.state.surname,
       email: this.state.email,
       password: this.state.password,
       address: {
         street: this.state.street,
-        latitud: this.state, lat,
+        latitud: this.state.lat,
         longitud: this.state.lng
       }
-      
-    }
-    
-    */
+    })
   }
 
 	render() {
@@ -48,6 +47,7 @@ export class BuyerForm extends React.Component {
                       name="name"
                       value={this.state.name}
                       onChange={this.handleChange} 
+                      onBlur={this.updateParent}
                       placeholder="Nombre"
           />
           <InputGroup className="field" 
@@ -55,6 +55,7 @@ export class BuyerForm extends React.Component {
                       name="surname"
                       value={this.state.surname}
                       onChange={this.handleChange} 
+                      onBlur={this.updateParent}
                       placeholder="Apellido"
             />
         </span>
@@ -64,6 +65,7 @@ export class BuyerForm extends React.Component {
                       name="email"
                       value={this.state.email}
                       onChange={this.handleChange} 
+                      onBlur={this.updateParent}
                       placeholder="Correo electrónico"
           />
           <InputGroup className="field"
@@ -71,6 +73,7 @@ export class BuyerForm extends React.Component {
                       name="password"
                       value={this.state.password}
                       onChange={this.handleChange} 
+                      onBlur={this.updateParent}
                       placeholder="Contraseña"
           />
         </span>
@@ -81,6 +84,7 @@ export class BuyerForm extends React.Component {
                       name="street"
                       value={this.state.street}
                       onChange={this.handleChange} 
+                      onBlur={this.updateParent}
                       placeholder="Dirección"
           /> 
           <InputGroup className="field" 
@@ -88,6 +92,7 @@ export class BuyerForm extends React.Component {
                       name="lat"
                       value={this.state.lat}
                       onChange={this.handleChange} 
+                      onBlur={this.updateParent}
                       placeholder="Latitud"
           /> 
           <InputGroup className="field" 
@@ -95,6 +100,7 @@ export class BuyerForm extends React.Component {
                       name="lng"
                       value={this.state.lng}
                       onChange={this.handleChange} 
+                      onBlur={this.updateParent}
                       placeholder="Longitud"
           /> 
         </span>
