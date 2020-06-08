@@ -65,8 +65,12 @@ class RegisterScreen extends React.Component {
   }
 
   registerSeller(){
-    //TODO - validacioness if(isvalidseller)
-    this.setState({alertSuccess: true})
+    if(this.isValidSeller()){
+      //TODO - request vendedor
+      this.setState({alertSuccess: true})
+    } else {
+      this.setState({alertField: true})
+    }
   }
 
   isValidBuyer(){
@@ -75,6 +79,17 @@ class RegisterScreen extends React.Component {
             buyer.surname !== '' && buyer.email !== '' && 
             buyer.password !== '' && buyer.address.street !== '' && 
             buyer.address.latitud !== '' && buyer.address.longitud !== '')
+  }
+
+  isValidSeller(){
+    const seller = this.state.sellerInfo;
+    return (
+      seller.commerceName !== undefined && seller.commerceName !== '' &&
+      seller.commerceBussinessSector !== '' && seller.commerceAddress.street !== '' &&
+      seller.commerceAddress.latitud !== '' && seller.commerceAddress.longitud !== '' &&
+      (seller.paymentMethods.money || seller.paymentMethods.credit || seller.paymentMethods.debit) &&
+      seller.arrivalRange !== ''
+    )
   }
 
   render(){

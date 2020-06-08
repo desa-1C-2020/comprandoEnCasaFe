@@ -38,11 +38,11 @@ export class SellerForm extends React.Component {
         latitud: this.state.lat,
         longitud: this.state.lng
       },
-      paymentMethods: [
-        {money: this.state.money},
-        {credit: this.state.credit},
-        {debit: this.state.debit}
-      ],
+      paymentMethods: {
+        money: this.state.money,
+        credit: this.state.credit,
+        debit: this.state.debit
+      },
       daysAndHoursOpen: this.state.schedule,
       arrivalRange: this.state.radio
     })
