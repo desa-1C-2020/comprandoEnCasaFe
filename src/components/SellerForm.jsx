@@ -22,6 +22,7 @@ export class SellerForm extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.updateParent = this.updateParent.bind(this);
+    this.addSchedule = this.addSchedule.bind(this);
   }
 
   handleChange(event){
@@ -36,21 +37,19 @@ export class SellerForm extends React.Component {
         street: this.state.address,
         latitud: this.state.lat,
         longitud: this.state.lng
-      }
+      },
+      paymentMethods: [
+        {money: this.state.money},
+        {credit: this.state.credit},
+        {debit: this.state.debit}
+      ],
+      daysAndHoursOpen: this.state.schedule,
+      arrivalRange: this.state.radio
     })
-    /**
-     * { //faltan estas definiciones
-      paymentMethods [
-        {
-          type
-          accept
-        }
-      ]
-      daysAndHoursOpen -> lista strings
-      arrivalRange -> string
-    }
-     * 
-     */
+  }
+
+  addSchedule(sched){
+    this.setState({schedule: sched});
   }
 
 	render() {
@@ -137,7 +136,9 @@ export class SellerForm extends React.Component {
                       placeholder="Ej: 2000"
           />
         </span>
-        <TimeTablePopUp isOpen={this.state.timeTable} closeModal={() => this.setState({timeTable: false})}/>
+        <TimeTablePopUp isOpen={this.state.timeTable} 
+                        closeModal={() => this.setState({timeTable: false})}
+                        sendTimeTable={this.addSchedule}/>
       </div>
 		);
 	}

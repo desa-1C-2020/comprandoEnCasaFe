@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/TimeTablePopUp.css'
-import { Dialog, Button } from '@blueprintjs/core';
+import { Dialog, Button, Alert } from '@blueprintjs/core';
 import TickDate from './TickDate';
 
 export class TimeTablePopUp extends React.Component {
@@ -14,11 +14,15 @@ export class TimeTablePopUp extends React.Component {
       thursday: {},
       friday: {},
       saturday: {},
-      sunday: {}
+      sunday: {},
+      alert: false
     }
     this.handleClose = this.handleClose.bind(this);
     this.handleDay = this.handleDay.bind(this);
-    this.save = this.save();
+    this.save = this.save.bind(this);
+    this.isValidTimeTable = this.isValidTimeTable.bind(this);
+    this.isValidDay = this.isValidDay.bind(this);
+    this.zipTimetable = this.zipTimetable.bind(this);
   }
 
   handleClose(){
@@ -30,7 +34,52 @@ export class TimeTablePopUp extends React.Component {
   }
 
   save(){
-    // TODO 
+    if(this.isValidTimeTable()){
+      const timeTable = this.zipTimetable();
+      this.props.sendTimeTable(timeTable);
+      this.handleClose();
+    } else {
+      this.setState({alert: true})
+    }
+  }
+
+  isValidTimeTable(){
+    return (
+      this.isValidDay('monday') &&
+      this.isValidDay('tuesday') &&
+      this.isValidDay('wednesday') &&
+      this.isValidDay('thursday') &&
+      this.isValidDay('friday') &&
+      this.isValidDay('saturday') &&
+      this.isValidDay('sunday') 
+    )
+  }
+
+  isValidDay(dayName){
+    const day = this.state[dayName]
+    if(day.open){
+      let f = parseInt(day.from)
+      let t = parseInt(day.to)
+      return (
+        f !== '' && t !== '' && f < t &&
+        f < 25 && f >= 0 && t < 25 && t >= 0
+      )
+    } else {
+      return true
+    }
+  }
+
+  zipTimetable(){
+    const days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+    const zipped = []
+    days.forEach((d) =>{
+      let day = this.state[d]
+      if(day.open){
+        let dayString = `${d}-${day.from}-${day.to}`
+        zipped.push(dayString)
+      }
+    })
+    return zipped;
   }
 
 	render() {
@@ -49,6 +98,12 @@ export class TimeTablePopUp extends React.Component {
           <TickDate dia="Domingo" value="sunday" updateTT={this.handleDay}/>
           <Button className="h-btn" intent='success' onClick={this.save}>Guardar Horarios</Button>
         </Dialog>
+        <Alert isOpen={this.state.alert}
+               confirmButtonText='ACEPTAR'
+               intent='danger'
+               onClose={() => {this.setState({alert: false})}}>
+              Algunos de los horarios ingresados son inválidos.
+        </Alert>
       </div>
 		);
 	}

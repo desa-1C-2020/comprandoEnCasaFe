@@ -12,21 +12,39 @@ class TickDate extends React.Component {
       to: ''
     }
     this.updateCheck = this.updateCheck.bind(this);
-    this.updateInfo = this.updateInfo.bind(this);
+    this.updateFrom = this.updateFrom.bind(this);
+    this.updateTo = this.updateTo.bind(this);
   }
 
   componentDidMount(){
     this.props.updateTT(this.props.value, this.state);
   }
 
-  updateInfo(event, attr){
-    this.setState({[attr]: event.target.value});
-    this.props.updateTT(this.props.value, this.state);
-  }
-
   updateCheck(){
     this.setState({open: !this.state.open});
-    this.props.updateTT(this.props.value, this.state);
+    this.props.updateTT(this.props.value, {
+      open: !this.state.open,
+      from: this.state.from,
+      to: this.state.to
+    });
+  }
+
+  updateFrom(event){
+    this.setState({from: event.target.value});
+    this.props.updateTT(this.props.value, {
+      open: this.state.open,
+      from: event.target.value,
+      to: this.state.to
+    });
+  }
+
+  updateTo(event){
+    this.setState({to: event.target.value});
+    this.props.updateTT(this.props.value, {
+      open: this.state.open,
+      from: this.state.from,
+      to: event.target.value
+    });
   }
 
   render(){
@@ -44,12 +62,12 @@ class TickDate extends React.Component {
           <InputGroup className="time"
                       type="text"
                       value={this.state.from}
-                      onChange={(e) => this.updateInfo(e, "from")}/>
+                      onChange={this.updateFrom}/>
           <span className="h-text">Hs. a</span>
           <InputGroup className="time"
                       type="text"
                       value={this.state.to}
-                      onChange={(e) => this.updateInfo(e, "to")}/> 
+                      onChange={this.updateTo}/> 
           <span className="h-text">Hs.</span>
         </div>
       </div>
