@@ -1,6 +1,7 @@
 import React from 'react'
 import BuyerForm from '../components/BuyerForm'
 import SellerForm from '../components/SellerForm'
+import { registerBuyer, registerSeller } from '../services/UserService'
 import { withRouter } from "react-router-dom";
 import { RadioGroup, Radio, Button, Alert } from '@blueprintjs/core'
 import '../styles/RegisterScreen.css'
@@ -14,7 +15,8 @@ class RegisterScreen extends React.Component {
       buyerInfo: {},
       sellerInfo: {},
       alertSuccess: false,
-      alertField: false
+      alertField: false,
+      errorMsg: ""
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleRadio = this.handleRadio.bind(this);
@@ -57,19 +59,41 @@ class RegisterScreen extends React.Component {
 
   registerBuyer(){
     if(this.isValidBuyer()){
-      //TODO - request comprador
-      this.setState({alertSuccess: true})
+      registerBuyer(this.state.buyerInfo, (err, _res) =>{
+        if(err){
+          this.setState({
+            errorMsg: "Algo salió mal: " + err,
+            alertField: true
+          })
+        } else {
+          this.setState({alertSuccess: true})
+        }
+      })
     } else {
-      this.setState({alertField: true})
+      this.setState({
+        errorMsg: "Por favor, complete todos los campos",
+        alertField: true
+      })
     }
   }
 
   registerSeller(){
     if(this.isValidSeller()){
-      //TODO - request vendedor
-      this.setState({alertSuccess: true})
+      registerSeller(this.state.sellerInfo, (err, _res) =>{
+        if(err){
+          this.setState({
+            errorMsg: "Algo salió mal: " + err,
+            alertField: true
+          })
+        } else {
+          this.setState({alertSuccess: true})
+        }
+      })
     } else {
-      this.setState({alertField: true})
+      this.setState({
+        errorMsg: "Por favor, complete todos los campos",
+        alertField: true
+      })
     }
   }
 
@@ -119,7 +143,7 @@ class RegisterScreen extends React.Component {
         </Alert>
         <Alert isOpen={this.state.alertField} confirmButtonText='ACEPTAR' intent='danger' 
                onClose={() => this.setState({alertField: false})}>    
-          Por favor, complete todos los campos
+          {this.state.errorMsg}
         </Alert>
       </div>      
     )

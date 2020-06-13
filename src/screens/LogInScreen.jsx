@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from '../CEC.png'
+import { login } from '../services/UserService'
 import { InputGroup, Button, Alert } from '@blueprintjs/core'
 import { withRouter } from "react-router-dom";
 import '../styles/LogInScreen.css'
@@ -22,8 +23,17 @@ class LogInScreen extends React.Component {
 
   logIn(){
     if(this.isValid()){
-      //TODO - LLAMADO AL BACK CON USER Y PASS
-      this.props.history.push('/home');
+      const info = {user: this.state.user, pass: this.state.pass}
+      login(info, (err, _res) =>{
+        if(err){
+          this.setState({
+            alert: true, 
+            msg: "Usuario y/o contraseña incorrecto/s"
+          })
+        } else {
+          this.props.history.push('/home');
+        }
+      })
     } else {
       const msgError = this.state.user === '' ? 
         'Por favor, ingrese su nombre de usuario' 
@@ -50,7 +60,7 @@ class LogInScreen extends React.Component {
         <Alert isOpen={this.state.alert}
                confirmButtonText='ACEPTAR'
                icon={this.state.icon}
-               intent='primary'
+               intent='danger'
                onClose={() => {this.setState({alert: false})}}>
               {this.state.msg}
         </Alert>
