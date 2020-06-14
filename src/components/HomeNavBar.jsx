@@ -2,14 +2,15 @@ import React from 'react'
 import '../styles/HomeNavBar.css'
 import logo from '../CEC.png'
 import { Alignment, Button, Classes, Navbar, NavbarDivider, NavbarGroup, NavbarHeading, InputGroup,
-Menu, MenuItem, MenuDivider, Popover, Position} from '@blueprintjs/core'
+Menu, MenuItem, MenuDivider, Popover, Position, Alert} from '@blueprintjs/core'
 
 export class HomeNavBar extends React.PureComponent {
 
 	constructor(props){
 		super(props);
 		this.state = {
-			search: ''
+			search: '',
+			alert: false
 		}
 		this.openProfile = this.openProfile.bind(this);
 		this.logOut = this.logOut.bind(this);
@@ -43,7 +44,9 @@ export class HomeNavBar extends React.PureComponent {
 				<MenuItem icon="id-number" 
 									text={isSeller ? 'Información' : 'Mis datos'} 
 									onClick={this.openProfile}/>
-				{!isSeller && <MenuItem icon="notifications" text="Alertas" />}
+				{!isSeller && <MenuItem icon="notifications" 
+																text="Alertas" 
+																onClick={() => {this.setState({alert: true})}}/>}
 				<MenuDivider />
 				<MenuItem icon="log-out" 
 									text="Cerrar sesión"
@@ -54,9 +57,10 @@ export class HomeNavBar extends React.PureComponent {
 			<Menu large={true} className="mobile">
 				<MenuItem icon="home" text="Inicio" onClick={this.goHome}/>
 				<MenuDivider />
-				<MenuItem icon="shop" text="Mis productos" />
-				{!isSeller && <MenuDivider />}
-				{!isSeller && <MenuItem icon="shopping-cart" text="Mis compras" />}
+				{isSeller && <MenuItem icon="shop" text="Mis productos" />}
+				{!isSeller && <MenuItem icon="shopping-cart" 
+																text="Mis compras" 
+																onClick={()=> this.setState({alert: true})}/>}
 			</Menu>
 		);
 		const searchButton = <Button minimal={true} onClick={this.doSearch}>BUSCAR</Button>
@@ -70,7 +74,10 @@ export class HomeNavBar extends React.PureComponent {
 						<NavbarDivider />
 						<Button className={Classes.MINIMAL} icon="home" text="Inicio" onClick={this.goHome}/>
 						{isSeller && <Button className={Classes.MINIMAL} icon="shop" text="Mis productos" />}
-						{!isSeller && <Button className={Classes.MINIMAL} icon="shopping-cart" text="Mis compras" />}
+						{!isSeller && <Button className={Classes.MINIMAL} 
+																	icon="shopping-cart" 
+																	text="Mis compras" 
+																	onClick={()=> this.setState({alert: true})}/>}
 						<NavbarDivider />
 						{!isSeller &&<InputGroup style={{width: '300px'}} 
 																		 type="search" 
@@ -111,6 +118,13 @@ export class HomeNavBar extends React.PureComponent {
             </Popover>
 					</NavbarGroup>
 				</div>
+				<Alert isOpen={this.state.alert}
+               confirmButtonText='ACEPTAR'
+							 intent='warning'
+							 icon='wrench'
+               onClose={() => {this.setState({alert: false})}}>
+              Próximamente!
+        </Alert>
 			</Navbar>
 		);
 	}

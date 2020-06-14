@@ -1,5 +1,6 @@
 import React from 'react'
 import { Dialog } from '@blueprintjs/core'
+import '../styles/ProfileInfo.css'
 
 class ProfileInfo extends React.Component {
 
@@ -12,18 +13,19 @@ class ProfileInfo extends React.Component {
     this.props.handleProfile();
   }
 
-  //TODO - estilos para este modal
   render(){
     const info = this.props.info
     return (  
       <div>
-        <Dialog isOpen={this.props.isOpen} onClose={this.close} title="Mis datos">
+        <Dialog isOpen={this.props.isOpen} onClose={this.close} title='Mis datos' icon='info-sign'>
         {this.props.accountType === 'buyer' ? 
-        <div>
-          <p>Nombre: {`${info.name} ${info.surname}`}</p>
-          <p>Correo electrónico: {info.email}</p>
-          <p>Dirección: {info.street}</p>
-          <p>Coordenadas: {`Latitud:${info.lat}  Longitud:${info.lgn}`}</p>
+        <div className='info-container'>
+          <p className='text-format'><b>Nombre:</b> {`${info.name} ${info.surname}`}</p>
+          <p className='text-format'><b>Correo electrónico:</b> {info.email}</p>
+          <p className='text-format'><b>Dirección:</b> {info.street}</p>
+          <p className='text-format'><b>Coordenadas:</b>
+            <br/>{`Latitud: ${info.lat} - Longitud: ${info.lgn}`}
+          </p>
         </div> 
         :
         <div>
