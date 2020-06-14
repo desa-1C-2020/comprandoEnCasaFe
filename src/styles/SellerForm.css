@@ -1,0 +1,69 @@
+.shop {
+  display: block;
+  width: 100%;
+}
+
+.address {
+  display: block;
+  width: 100%;
+}
+
+.range {
+  display: block;
+  width: 100%;
+}
+
+.payments {
+  display: block;
+  width: 100%;
+  text-align: left;
+  width: 150px;
+  margin-left: calc(50% - 75px)
+}
+
+.field {
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.ddc {
+  margin-top: 15px;
+}
+
+.seller-btn {
+  margin-top: 20px;
+}
+
+.d-max {
+  margin-top: 20px;
+}
+
+@media (min-width: 1024px){
+
+  .shop {
+    display: inline-flex;
+  }
+
+  .address {
+    display: inline-flex;
+  }
+
+  .range {
+    display: inline-flex;
+  }
+
+  .payments {
+    display: inline-flex;
+    width: 100%;
+    margin-left: 0px;
+  }
+
+  .field {
+    margin-left: 0px;
+  }
+
+  .ddc {
+    margin-top: 0px;
+  }
+}
