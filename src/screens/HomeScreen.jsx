@@ -13,7 +13,8 @@ class HomeScreen extends React.Component {
     this.state = {
       shopSearch: true,
       profile: false,
-      searchResult: false
+      searchResult: false,
+      products: []
     }
     this.handleEvent = this.handleEvent.bind(this);
     this.logOut = this.logOut.bind(this);
@@ -47,7 +48,8 @@ class HomeScreen extends React.Component {
       } else {
         this.setState({
           shopSearch: false,
-          searchResult: true
+          searchResult: true,
+          products: res.products
         })
       }
     })

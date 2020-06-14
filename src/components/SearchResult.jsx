@@ -22,7 +22,9 @@ export class SearchResult extends React.Component {
 
   componentDidMount(){
     searchForShops(this.props.lat, this.props.lng, this.props.max, (err, result) =>{
-      if(err) console.log("Algo salió mal!")
+      if(err) {
+        //TODO - err alert
+      }
       else {
         this.setState({isLoaded: true, results: this.createBoxesFromArray(result.data)})
       }

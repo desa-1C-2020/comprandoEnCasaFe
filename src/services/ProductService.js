@@ -18,7 +18,8 @@ export function searchProduct(text, callback){
   })
   .catch((error) => callback(error, null)) */
   //TODO - eliminar estos mocks
- let res = [
+  let res = {
+  products: [
     {
       price: '70.00',
       product: {
@@ -44,5 +45,6 @@ export function searchProduct(text, callback){
       }
     }
   ]
+  }
   callback(null, res);
 }
