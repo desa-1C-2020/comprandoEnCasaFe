@@ -1,34 +1,36 @@
 import React from 'react'
 import HomeNavBar from '../components/HomeNavBar'
 import ShopSearch from '../components/ShopSearch'
+import ProfileInfo from '../components/ProfileInfo';
 
 class HomeScreen extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
-      shopSearch: false
+      profile: false
     }
+    this.handleEvent = this.handleEvent.bind(this);
   }
 
-  //TODO - funcion para mostrar ocultar cosas
+  handleEvent(name, value){
+    this.setState({[name]: value})
+  }
 
   render(){
     const account = this.props.location.state !== undefined &&
                     this.props.location.state.account === 'seller' ?
                     'seller' : 'buyer'
+    const info = this.props.location.state !== undefined ? 
+                 this.props.location.state.accountInfo : {}
     return (        
       <div>
-        <HomeNavBar accountType={account}/>
-        {account === 'seller' ?  //TODO - refactor, sacar el operador.
-        <div>
-          <p>Home vendedor!</p>
-        </div>
-        :
-        <div>
-          <ShopSearch />
-        </div>
-        }
+        <HomeNavBar accountType={account} handleProfile={() => this.handleEvent('profile', true)}/>
+        {account === 'buyer' && <ShopSearch/>}
+        {this.state.profile && <ProfileInfo isOpen={this.state.profile} 
+                                            accountType={account} 
+                                            info={info}
+                                            handleProfile={() => this.handleEvent('profile', false)}/>}
       </div>      
     )
   }

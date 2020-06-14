@@ -6,11 +6,22 @@ Menu, MenuItem, MenuDivider, Popover, Position} from '@blueprintjs/core'
 
 export class HomeNavBar extends React.PureComponent {
 
+	constructor(props){
+		super(props);
+		this.openProfile = this.openProfile.bind(this);
+	}
+
+	openProfile(){
+		this.props.handleProfile();
+	}
+
 	render() {
 		const isSeller = this.props.accountType === 'seller'
 		const profileMenu = (
 			<Menu>
-				<MenuItem icon="id-number" text={isSeller ? 'Información' : 'Mis datos'} />
+				<MenuItem icon="id-number" 
+									text={isSeller ? 'Información' : 'Mis datos'} 
+									onClick={this.openProfile}/>
 				{!isSeller && <MenuItem icon="notifications" text="Alertas" />}
 				<MenuDivider />
 				<MenuItem icon="log-out" text="Cerrar sesión"/>

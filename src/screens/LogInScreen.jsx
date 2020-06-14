@@ -31,8 +31,7 @@ class LogInScreen extends React.Component {
             msg: "Usuario y/o contraseña incorrecto/s"
           })
         } else {
-          // TODO - obtener de res si es vendedor o comprador
-          this.props.history.push('/home', {account: 'seller'});
+          this.props.history.push('/home', {account: res.type, accountInfo: res.info});
         }
       })
     } else {
