@@ -24,14 +24,15 @@ class LogInScreen extends React.Component {
   logIn(){
     if(this.isValid()){
       const info = {user: this.state.user, pass: this.state.pass}
-      login(info, (err, _res) =>{
+      login(info, (err, res) =>{
         if(err){
           this.setState({
             alert: true, 
             msg: "Usuario y/o contraseña incorrecto/s"
           })
         } else {
-          this.props.history.push('/home');
+          // TODO - obtener de res si es vendedor o comprador
+          this.props.history.push('/home', {account: 'seller'});
         }
       })
     } else {

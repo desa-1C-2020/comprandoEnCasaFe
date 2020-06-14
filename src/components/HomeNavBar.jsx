@@ -7,10 +7,11 @@ Menu, MenuItem, MenuDivider, Popover, Position} from '@blueprintjs/core'
 export class HomeNavBar extends React.PureComponent {
 
 	render() {
+		const isSeller = this.props.accountType === 'seller'
 		const profileMenu = (
 			<Menu>
-				<MenuItem icon="id-number" text="Mis datos" />
-				<MenuItem icon="notifications" text="Alertas" />
+				<MenuItem icon="id-number" text={isSeller ? 'Información' : 'Mis datos'} />
+				{!isSeller && <MenuItem icon="notifications" text="Alertas" />}
 				<MenuDivider />
 				<MenuItem icon="log-out" text="Cerrar sesión"/>
 			</Menu>
@@ -19,9 +20,9 @@ export class HomeNavBar extends React.PureComponent {
 			<Menu large={true} className="mobile">
 				<MenuItem icon="home" text="Inicio" />
 				<MenuDivider />
-				<MenuItem icon="shop" text="Mi comercio" />
-				<MenuDivider />
-				<MenuItem icon="shopping-cart" text="Mis compras" />
+				<MenuItem icon="shop" text="Mis productos" />
+				{!isSeller && <MenuDivider />}
+				{!isSeller && <MenuItem icon="shopping-cart" text="Mis compras" />}
 			</Menu>
 		);
 		return (
@@ -33,14 +34,16 @@ export class HomeNavBar extends React.PureComponent {
 						</NavbarHeading>
 						<NavbarDivider />
 						<Button className={Classes.MINIMAL} icon="home" text="Inicio" />
-						<Button className={Classes.MINIMAL} icon="shop" text="Mi comercio" />
-						<Button className={Classes.MINIMAL} icon="shopping-cart" text="Mis compras" />
+						{isSeller && <Button className={Classes.MINIMAL} icon="shop" text="Mis productos" />}
+						{!isSeller && <Button className={Classes.MINIMAL} icon="shopping-cart" text="Mis compras" />}
 						<NavbarDivider />
-						<InputGroup style={{width: '300px'}} type="search" leftIcon="search" placeholder="Buscar un producto" />					
+						{!isSeller &&<InputGroup style={{width: '300px'}} type="search" leftIcon="search" placeholder="Buscar un producto" />}				
 					</NavbarGroup>
 					<NavbarGroup align={Alignment.RIGHT}>
 						<Popover content={profileMenu} position={Position.RIGHT_BOTTOM}>
-							<Button className={Classes.MINIMAL} icon="user" text="Mi perfil" />
+							<Button className={Classes.MINIMAL} 
+											icon={isSeller ? 'shop' : 'user'} 
+											text={isSeller ? 'Mi comercio' : 'Mi perfil'} />
 						</Popover>
 					</NavbarGroup>
 				</div>
@@ -50,7 +53,7 @@ export class HomeNavBar extends React.PureComponent {
 							<img className="logo" alt="Comprando en casa" src={logo} />
 						</NavbarHeading>
 						<span style={{width: '100%'}}>
-							<InputGroup style={{width: '100%'}} type="search" leftIcon="search" placeholder="Buscar un producto" />	
+		{!isSeller && <InputGroup style={{width: '100%'}} type="search" leftIcon="search" placeholder="Buscar un producto" />}	
 						</span>
 						<NavbarDivider />
 						<Popover content={dropdownMenu} position={Position.RIGHT_BOTTOM}>
@@ -58,7 +61,7 @@ export class HomeNavBar extends React.PureComponent {
             </Popover>
 						<NavbarDivider />
 						<Popover content={profileMenu} position={Position.RIGHT_BOTTOM}>
-              <Button className={Classes.MINIMAL} icon="person"/>
+              <Button className={Classes.MINIMAL} icon={isSeller ? 'shop' : 'person'}/>
             </Popover>
 					</NavbarGroup>
 				</div>

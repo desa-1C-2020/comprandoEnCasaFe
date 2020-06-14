@@ -19,9 +19,10 @@ export function registerSeller(userInfo, callback) {
 }
 
 export function login(credentials, callback){
-  axios.post(`${host}/account/login`, credentials)
-  .then((response) => {
-    callback(null, response)   
-  })
-  .catch((error) => callback(error, null))
+  // axios.post(`${host}/account/login`, credentials)
+  // .then((response) => {
+  //   callback(null, response)   
+  // })
+  // .catch((error) => callback(error, null))
+  callback(null, null);
 }
