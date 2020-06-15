@@ -106,13 +106,15 @@ class RegisterScreen extends React.Component {
   }
 
   isValidSeller(){
-    const seller = this.state.sellerInfo;
+    const seller = this.state.sellerInfo.user
+    const shop = this.state.sellerInfo.commerce
     return (
-      seller.commerceName !== undefined && seller.commerceName !== '' &&
-      seller.commerceBussinessSector !== '' && seller.commerceAddress.street !== '' &&
-      seller.commerceAddress.latitud !== '' && seller.commerceAddress.longitud !== '' &&
-      (seller.paymentMethods.money || seller.paymentMethods.credit || seller.paymentMethods.debit) &&
-      seller.arrivalRange !== ''
+      seller !== undefined && seller.name !== '' &&
+      seller.surname !== '' && seller.email !== '' &&
+      seller.password !== '' && shop.commerceName !== '' &&
+      shop.commerceBussinessSector !== '' && shop.commerceAddress.street !== '' &&
+      shop.commerceAddress.latitud !== '' && shop.commerceAddress.longitud !== '' &&
+      shop.arrivalRange !== '' 
     )
   }
 

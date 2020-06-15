@@ -8,6 +8,10 @@ export class SellerForm extends React.Component {
   constructor(){
     super();
     this.state = {
+      nameSeller: '',
+      surnameSeller: '',
+      email: '',
+      password: '',
       name: '',
       sector: '',
       address: '',
@@ -31,20 +35,35 @@ export class SellerForm extends React.Component {
 
   updateParent(){
     this.props.update({
-      commerceName: this.state.name,
-      commerceBussinessSector: this.state.sector,
-      commerceAddress: {
-        street: this.state.address,
-        latitud: this.state.lat,
-        longitud: this.state.lng
+      user: {
+        name: this.state.nameSeller,
+        surname: this.state.surnameSeller,
+        email: this.state.email,
+        password: this.state.password,
+        address: {
+          street: this.state.address,
+          latitud: this.state.lat,
+          longitud: this.state.lng
+        }
       },
-      paymentMethods: {
-        money: this.state.money,
-        credit: this.state.credit,
-        debit: this.state.debit
-      },
-      daysAndHoursOpen: this.state.schedule,
-      arrivalRange: this.state.radio
+      commerce: {
+        userId: '',
+        commerceName: this.state.name,
+        commerceBussinessSector: this.state.sector,
+        commerceAddress: {
+          street: this.state.address,
+          latitud: this.state.lat,
+          longitud: this.state.lng
+        },
+        paymentMethods: [
+          {
+            type: "Efectivo",
+            accept: "Efectivo"
+          }
+        ],
+        daysAndHoursOpen: this.state.schedule,
+        arrivalRange: this.state.radio
+      }
     })
   }
 
@@ -55,6 +74,41 @@ export class SellerForm extends React.Component {
 	render() {
     return (
       <div>
+        <p>Datos del vendedor</p>
+        <span className="shop">
+          <InputGroup className="field" 
+                      type="text" 
+                      name="nameSeller"
+                      value={this.state.nameSeller}
+                      onChange={this.handleChange} 
+                      onBlur={this.updateParent}
+                      placeholder="Nombre"
+          />
+          <InputGroup className="field" 
+                      type="text" 
+                      name="surnameSeller"
+                      value={this.state.surnameSeller}
+                      onChange={this.handleChange} 
+                      onBlur={this.updateParent}
+                      placeholder="Apellido"
+          />
+          <InputGroup className="field" 
+                      type="text" 
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.handleChange} 
+                      onBlur={this.updateParent}
+                      placeholder="Correo"
+          />
+          <InputGroup className="field" 
+                      type="password" 
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.handleChange} 
+                      onBlur={this.updateParent}
+                      placeholder="Contraseña"
+          />
+        </span>
         <p className="ddc">Datos del comercio</p>
         <span className="shop">
           <InputGroup className="field" 
@@ -63,7 +117,7 @@ export class SellerForm extends React.Component {
                       value={this.state.name}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Nombre"
+                      placeholder="Nombre comercio"
           />
           <InputGroup className="field" 
                       type="text" 
@@ -73,8 +127,10 @@ export class SellerForm extends React.Component {
                       onBlur={this.updateParent}
                       placeholder="Rubro"
           />
+          <div className="seller-btn">
+            <Button onClick={() => this.setState({timeTable: true})}>Personalizar horarios</Button>
+          </div>
         </span>
-        <p>Dirección del comercio</p>
         <span className="address">
           <InputGroup className="field" 
                       type="text" 
@@ -101,8 +157,8 @@ export class SellerForm extends React.Component {
                       placeholder="Longitud"
           />
         </span>
-        <p>Formas de pago</p>
-        <span className="payments">
+        <span className="payments"> 
+          <p className="fdp">Formas de pago:</p>
           <Checkbox className="check"
                     checked={this.state.money}
                     onBlur={this.updateParent}
@@ -122,9 +178,6 @@ export class SellerForm extends React.Component {
                     Tarjetas de crédito
           </Checkbox>
         </span>
-        <div className="seller-btn">
-          <Button onClick={() => this.setState({timeTable: true})}>Personalizar horarios</Button>
-        </div>
         <p className="d-max">Distancia máxima de entregas (en metros)</p>
         <span className="range">
           <InputGroup className="field" 
