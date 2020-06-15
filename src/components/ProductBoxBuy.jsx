@@ -1,16 +1,16 @@
 import React from 'react'
+import '../styles/ProductBoxBuy.css'
 
 class ProductBoxBuy extends React.Component {
 
   render(){
-    //TODO - Mejorar estilos
     const price = this.props.info.price
     const product = this.props.info.product
     return (        
-      <div style={{width: '150px', height:'150px', backgroundColor: 'white', marginRight: '10px', marginBottom: '10px', display:'inline-block'}}>
-        <img alt={product.name} src={product.image} style={{width: '50px', height: '50px'}}></img>
-        <p>{`${product.name} ${product.brand}`}</p>
-        <p>${price}</p>
+      <div className='main-container'>
+        <img className='product-image' alt={product.name} src={product.image}></img>
+        <p className='name-brand'>{`${product.name} ${product.brand}`}</p>
+        <p className='product-price'><b>${price}</b></p>
       </div>
     )
   }

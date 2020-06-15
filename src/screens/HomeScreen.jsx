@@ -40,6 +40,7 @@ class HomeScreen extends React.Component {
     })
   }
 
+  //TODO - hacer que funcione desde la pantalla de busqueda
   doSearch(text){
     //TODO - llamado al back
     searchProduct(text, (err, res) =>{

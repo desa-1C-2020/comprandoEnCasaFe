@@ -1,5 +1,7 @@
 import React from 'react'
-import ProductBoxBuy from './ProductBoxBuy';
+import ProductBoxBuy from './ProductBoxBuy'
+import {NonIdealState} from '@blueprintjs/core'
+import '../styles/ProductComponent.css'
 
 export class ProductComponent extends React.Component {
 
@@ -28,12 +30,16 @@ export class ProductComponent extends React.Component {
   }
 
 	render() {
-    //TODO- contemplar cuando no hay resultados
-    //Mejorar estilos
     return (
       <div>
-        <h1>Resultados de Búsqueda</h1>
-        <div>{this.state.items}</div>
+        <div className='results-title'>Resultados de Búsqueda</div>
+        {this.state.items.length === 0 ? 
+        <div className='no-results-nis'>
+          <NonIdealState icon='search' title='¡No se han encontrado resultados!'/>
+        </div>
+        :
+        <div className='product-boxes'>{this.state.items}</div>
+        }
       </div>
 		);
 	}

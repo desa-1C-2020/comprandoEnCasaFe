@@ -43,6 +43,14 @@ export function searchProduct(text, callback){
         brand: 'Pureza',
         image: 'https://mayoristaencountry.com/25204-large_default/harina-pureza-4-0-x-1-kg-1-kg.jpg'
       }
+    },
+    {
+      price: '250.00',
+      product: {
+        name: 'Yerba 1K',
+        brand: 'Playadito',
+        image: 'https://lapulperia.com.ar/presta17/366-home_default/yerba-playadito-x-500-gr.jpg'
+      }
     }
   ]
   }
