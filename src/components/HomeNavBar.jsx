@@ -32,8 +32,10 @@ export class HomeNavBar extends React.PureComponent {
 	}
 
 	doSearch(){
+
 		if(this.state.search !== ''){
 			this.props.handleSearch(this.state.search);
+			this.setState({search: ''})
 		}	
 	}
 

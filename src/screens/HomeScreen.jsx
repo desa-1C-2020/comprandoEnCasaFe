@@ -5,6 +5,7 @@ import ProfileInfo from '../components/ProfileInfo'
 import { withRouter } from "react-router-dom"
 import ProductComponent from '../components/ProductComponent'
 import { searchProduct } from '../services/ProductService'
+import { Alert } from '@blueprintjs/core'
 
 class HomeScreen extends React.Component {
 
@@ -14,7 +15,8 @@ class HomeScreen extends React.Component {
       shopSearch: true,
       profile: false,
       searchResult: false,
-      products: []
+      products: [],
+      alert: false
     }
     this.handleEvent = this.handleEvent.bind(this);
     this.logOut = this.logOut.bind(this);
@@ -32,7 +34,6 @@ class HomeScreen extends React.Component {
   }
 
   goHome(){
-    //TODO - reestablece al estado inicial
     this.setState({
       shopSearch: true,
       profile: false,
@@ -40,12 +41,10 @@ class HomeScreen extends React.Component {
     })
   }
 
-  //TODO - hacer que funcione desde la pantalla de busqueda
   doSearch(text){
-    //TODO - llamado al back
     searchProduct(text, (err, res) =>{
       if(err){
-        //TODO - alert algo salio mal
+        this.setState({alert: true})
       } else {
         this.setState({
           shopSearch: false,
@@ -75,6 +74,13 @@ class HomeScreen extends React.Component {
                                             info={info}
                                             handleProfile={() => this.handleEvent('profile', false)}/>}
         {this.state.searchResult && <ProductComponent products={this.state.products}/>}
+        <Alert isOpen={this.state.alert}
+               confirmButtonText='ACEPTAR'
+               icon='error'
+               intent='danger'
+               onClose={() => {this.setState({alert: false})}}>
+              ¡Algo salió mal!
+        </Alert>
       </div>      
     )
   }
