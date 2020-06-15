@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom"
 import ProductComponent from '../components/ProductComponent'
 import { searchProduct } from '../services/ProductService'
 import { Alert } from '@blueprintjs/core'
+import ProductLoader from '../components/ProductLoader'
 
 class HomeScreen extends React.Component {
 
@@ -13,6 +14,7 @@ class HomeScreen extends React.Component {
     super(props);
     this.state = {
       shopSearch: true,
+      productLoader: true,
       profile: false,
       searchResult: false,
       products: [],
@@ -36,6 +38,7 @@ class HomeScreen extends React.Component {
   goHome(){
     this.setState({
       shopSearch: true,
+      productLoader: true,
       profile: false,
       searchResult: false
     })
@@ -74,6 +77,7 @@ class HomeScreen extends React.Component {
                                             info={info}
                                             handleProfile={() => this.handleEvent('profile', false)}/>}
         {this.state.searchResult && <ProductComponent products={this.state.products}/>}
+        {account === 'seller' && this.state.productLoader && <ProductLoader/>}
         <Alert isOpen={this.state.alert}
                confirmButtonText='ACEPTAR'
                icon='error'

@@ -23,7 +23,7 @@ class LogInScreen extends React.Component {
 
   logIn(){
     if(this.isValid()){
-      const info = {user: this.state.user, pass: this.state.pass}
+      const info = {email: this.state.user, password: this.state.pass}
       login(info, (err, res) =>{
         if(err){
           this.setState({
@@ -74,7 +74,7 @@ class LogInScreen extends React.Component {
                           value={this.state.user}
                           type="text" 
                           onChange={this.handleChange}
-                          placeholder="Usuario"/>
+                          placeholder="E-mail"/>
               <InputGroup className="input"
                           name="pass" 
                           value={this.state.pass}

@@ -19,39 +19,30 @@ export function registerSeller(userInfo, callback) {
       const uid = res.data.user.uid
       shopInfo.userId = uid;
       axios.post(`${host}/account/seller`, shopInfo)
-      .then((res) => { 
-        console.log("respuesta vendedor")
-        console.log(res);
-        callback(null, res) 
-      })
-      .catch((err) => {
-        console.log(shopInfo)
-        console.log("error")
-        console.log(err)
-        callback(err, null)})
+      .then((res) =>  callback(null, res))
+      .catch((err) => callback(err, null))
     }
   })
 }
 
 export function login(credentials, callback){
-  // TODO - las credenciales deben ser email y pass
-  // TODO - eliminar este mock cuando sea posible
-  // axios.post(`${host}/account/login`, credentials)
-  // .then((response) => {
-  //   callback(null, response)   
-  // })
-  // .catch((error) => callback(error, null))
-  // let res ={
-  //   type: 'buyer',
-  //   info: {
-  //     name: 'Camila',
-  //     surname: 'Sosa',
-  //     email: 'camila@gmail.com',
-  //     street: 'Belgrano 789',
-  //     lat: '876768744',
-  //     lgn: '8969869696'
-  //   }
-  // }
+  // console.log(credentials)
+  //  axios.post(`${host}/account/login`, credentials)
+  //  .then((response) => {
+  //    console.log(response.data)
+  //    let resInfo = {
+  //     type: '',
+  //     info: {
+
+  //     }
+  //    }
+  //    callback(null, resInfo)   
+  //  })
+  //  .catch((error) => {
+  //    console.log(error)
+  //    callback(error, null)
+  //   })
+  //TODO - borrar mock y hacer el llamado
   let res = {
     type: 'seller',
     info: {
