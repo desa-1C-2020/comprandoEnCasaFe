@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/ProductLoader.css'
 import { InputGroup, Button } from '@blueprintjs/core'
+import { saveProduct } from '../services/SellerService'
 
 export class ProductLoader extends React.Component {
 
@@ -22,7 +23,16 @@ export class ProductLoader extends React.Component {
   }
 
   saveProduct(){
-    //TODO-endpoint
+    const product = {
+      name: this.state.name,
+      brand: this.state.brand,
+      stock: this.state.stock,
+      price: this.state.price,
+      imageUrl: this.state.url
+    }
+    saveProduct(product, this.props.userID, (err, res) => {
+      //TODO - callback
+    })
   }
 
 	render() {

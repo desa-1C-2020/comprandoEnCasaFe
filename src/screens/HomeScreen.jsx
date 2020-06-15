@@ -62,8 +62,10 @@ class HomeScreen extends React.Component {
     const account = this.props.location.state !== undefined &&
                     this.props.location.state.account === 'seller' ?
                     'seller' : 'buyer'
-    const info = this.props.location.state !== undefined ? 
-                 this.props.location.state.accountInfo : {}
+    const user = this.props.location.state !== undefined ? 
+                 this.props.location.state.accountInfo.user : {}
+    const shop = this.props.location.state !== undefined ?
+                 this.props.location.state.accountInfo.commerceOnThrow : {}
     return (        
       <div>
         <HomeNavBar accountType={account} 
@@ -74,10 +76,10 @@ class HomeScreen extends React.Component {
         {account === 'buyer' && this.state.shopSearch && <ShopSearch/>}
         {this.state.profile && <ProfileInfo isOpen={this.state.profile} 
                                             accountType={account} 
-                                            info={info}
+                                            info={user}
                                             handleProfile={() => this.handleEvent('profile', false)}/>}
         {this.state.searchResult && <ProductComponent products={this.state.products}/>}
-        {account === 'seller' && this.state.productLoader && <ProductLoader/>}
+        {account === 'seller' && this.state.productLoader && <ProductLoader userID={shop.id}/>}
         <Alert isOpen={this.state.alert}
                confirmButtonText='ACEPTAR'
                icon='error'

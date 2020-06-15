@@ -22,9 +22,9 @@ class ProfileInfo extends React.Component {
         <div className='info-container'>
           <p className='text-format'><b>Nombre:</b> {`${info.name} ${info.surname}`}</p>
           <p className='text-format'><b>Correo electrónico:</b> {info.email}</p>
-          <p className='text-format'><b>Dirección:</b> {info.street}</p>
+          <p className='text-format'><b>Dirección:</b> {info.address.street}</p>
           <p className='text-format'><b>Coordenadas:</b>
-            <br/>{`Latitud: ${info.lat} - Longitud: ${info.lgn}`}
+            <br/>{`Latitud: ${info.address.latitud} - Longitud: ${info.address.longitud}`}
           </p>
         </div> 
         :
