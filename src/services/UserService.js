@@ -1,11 +1,10 @@
-import axios from 'axios'
-
-const host = 'https://comprando-en-casa.herokuapp.com'
+import axios from 'axios';
+import {apiBasicUrl} from "../utilities/Environment";
 
 export function registerBuyer(userInfo, callback) {
-  axios.post(`${host}/account/buyer`, userInfo)
+  axios.post(`${apiBasicUrl()}/account/buyer`, userInfo)
   .then((response) => {
-    callback(null, response)   
+    callback(null, response)
   })
   .catch((error) => callback(error, null))
 }
@@ -16,9 +15,9 @@ export function registerSeller(userInfo, callback) {
   registerBuyer(buyerInfo, (err, res) => {
     if (err) callback(err, null)
     else {
-      const uid = res.data.user.uid
+      const uid = res.data.user.uid;
       shopInfo.userId = uid;
-      axios.post(`${host}/account/seller`, shopInfo)
+      axios.post(`${apiBasicUrl()}/account/seller`, shopInfo)
       .then((res) =>  callback(null, res))
       .catch((err) => callback(err, null))
     }
@@ -26,14 +25,14 @@ export function registerSeller(userInfo, callback) {
 }
 
 export function login(credentials, callback){
-  axios.post(`${host}/account/login`, credentials)
+  axios.post(`${apiBasicUrl()}/account/login`, credentials)
   .then((response) => {
     let accountType = response.data.commerceOrThrow === undefined ? 'buyer' : 'seller'
     let resInfo = {
       type: accountType,
       info: response.data
-    }
-    callback(null, resInfo)   
+    };
+    callback(null, resInfo)
    })
    .catch((error) => callback(error, null))
 }

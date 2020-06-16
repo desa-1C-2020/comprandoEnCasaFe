@@ -1,6 +1,4 @@
- import axios from 'axios'
-
- const host = 'https://comprando-en-casa.herokuapp.com'
+import {apiBasicUrl} from "../utilities/Environment";
 
 //TODO - implementar esto
  export function saveProduct(product, userId, callback){

@@ -1,17 +1,16 @@
 import axios from 'axios'
-
-const host = 'https://comprando-en-casa.herokuapp.com'
+import {apiBasicUrl} from "../utilities/Environment";
 
 export function searchForShops(lat, lng, max, callback) {
-  axios.get(`${host}/commerces/findInRange?maxDistance=${max}&latitud=${lat}&longitud=${lng}`)
+  axios.get(`${apiBasicUrl()}/commerces/findInRange?maxDistance=${max}&latitud=${lat}&longitud=${lng}`)
   .then((response) => {
-    callback(null, response)   
+    callback(null, response)
   })
   .catch((error) => callback(error, null))
 }
 
 export function searchProduct(text, id, maxRange, callback){
-  axios.get(`${host}/products/find?userId=${id}&productToFind=${text}&maxDistance=${maxRange}`)
+  axios.get(`${apiBasicUrl()}/products/find?userId=${id}&productToFind=${text}&maxDistance=${maxRange}`)
   .then((response) => {
     const shops = response.data;
     const products = [];
@@ -26,11 +25,11 @@ export function searchProduct(text, id, maxRange, callback){
           name: item.name,
           price: item.price,
           productId: item.productId,
-          stock: item.stock      
-        }
+          stock: item.stock
+        };
         products.push(product);
       })
-    })
+    });
     callback(null, products);
   })
   .catch((error) => callback(error, null));
