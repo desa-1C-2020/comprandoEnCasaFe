@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/SearchResult.css'
 import { searchForShops } from '../services/ProductService'
-import { Dialog, Spinner } from '@blueprintjs/core';
+import { Dialog, Spinner, Alert } from '@blueprintjs/core';
 import ResultBox from './ResultBox';
 
 export class SearchResult extends React.Component {
@@ -10,7 +10,8 @@ export class SearchResult extends React.Component {
     super(props);
     this.state = {
       results: [],
-      isLoaded: false
+      isLoaded: false,
+      alert: false
     }
     this.handleClose = this.handleClose.bind(this);
     this.createBoxesFromArray = this.createBoxesFromArray.bind(this)
@@ -22,7 +23,9 @@ export class SearchResult extends React.Component {
 
   componentDidMount(){
     searchForShops(this.props.lat, this.props.lng, this.props.max, (err, result) =>{
-      if(err) console.log("Algo salió mal!")
+      if(err) {
+        this.setState({isLoaded: true, alert: true})
+      }
       else {
         this.setState({isLoaded: true, results: this.createBoxesFromArray(result.data)})
       }
@@ -64,6 +67,13 @@ export class SearchResult extends React.Component {
         <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>   
           <Spinner size='100' intent='primary'/>
         </div>}
+        <Alert isOpen={this.state.alert}
+               confirmButtonText='ACEPTAR'
+               icon='error'
+               intent='danger'
+               onClose={() => {this.setState({alert: false})}}>
+              ¡Algo salió mal!
+        </Alert>
         </div>
 		);
 	}

@@ -34,7 +34,6 @@ class MapComponent extends React.Component {
             showDestinations: false,
             directionsInfo: result.routes[0].legs[0]
           });
-          console.log(this.state.directionsInfo)
         } else {
           console.error(`error fetching directions ${result}`);
         }

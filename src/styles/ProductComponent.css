@@ -1,0 +1,42 @@
+.results-title {
+  font-size: 50px;
+  text-align: center;
+  background-color: white;
+  display: inline-block;
+  width: 600px;
+  height: 70px;
+  margin-top: 10px;
+  margin-left: calc(50% - 300px);
+  border: solid rgb(255, 167, 5);
+  border-width: 0 10px;
+  border-radius: 40px;
+}
+
+.no-results-nis {
+  margin-top: 50px;
+  background-color: white;
+  border-radius: 40px;
+  height: 200px;
+  width: 300px;
+  margin-left: calc(50% - 150px);
+}
+
+.product-boxes {
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 25px;
+  text-align: left;
+}
+
+@media (max-width: 1024px){ 
+  .results-title {
+    font-size: 30px;
+    width: 80%;
+    height: 100%;
+    margin-left: 10%;
+  }
+
+  .product-boxes {
+    text-align: center;
+  }
+}

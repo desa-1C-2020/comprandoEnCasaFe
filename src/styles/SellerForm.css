@@ -13,6 +13,10 @@
   width: 100%;
 }
 
+.fdp {
+  margin-right: 10px;
+}
+
 .payments {
   display: block;
   width: 100%;
@@ -32,7 +36,7 @@
 }
 
 .seller-btn {
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .d-max {
@@ -66,4 +70,9 @@
   .ddc {
     margin-top: 0px;
   }
+
+  .seller-btn {
+    margin-bottom: 0px;
+  }
+
 }
