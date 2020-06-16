@@ -6,7 +6,7 @@ class ProductBoxSell extends React.Component {
   render(){
     //TODO - implementar este componente
     return (        
-      <div>
+      <div className='bs-container'>
         <p>Producto</p>
       </div>
     )

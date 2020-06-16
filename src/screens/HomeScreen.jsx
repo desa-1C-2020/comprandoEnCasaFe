@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom"
 import ProductComponent from '../components/ProductComponent'
 import { searchProduct } from '../services/ProductService'
 import { getAllProducts } from '../services/SellerService'
-import { Alert } from '@blueprintjs/core'
+import { Alert, Spinner } from '@blueprintjs/core'
 import ProductLoader from '../components/ProductLoader'
 import SellerProductsComponent from '../components/SellerProductsComponent'
 
@@ -21,7 +21,8 @@ class HomeScreen extends React.Component {
       searchResult: false,
       productList: false,
       products: [],
-      alert: false
+      alert: false, 
+      isLoading: false,
     }
     this.handleEvent = this.handleEvent.bind(this);
     this.logOut = this.logOut.bind(this);
@@ -35,7 +36,6 @@ class HomeScreen extends React.Component {
   }
 
   logOut(){
-    //TODO - servicio para cerrar sesion
     this.props.history.push('/');
   }
 
@@ -65,14 +65,17 @@ class HomeScreen extends React.Component {
 
   doSearch(text){
     const id = this.props.location.state.accountInfo.user.uid
+    this.setState({isLoading: true, searchResult: false})
     searchProduct(text, id, 4000.3, (err, res) =>{
       if(err){
-        this.setState({alert: true})
+        this.setState({alert: true, isLoading: false})
       } else {
+
         this.setState({
           shopSearch: false,
           searchResult: true,
-          products: res.products
+          products: res,
+          isLoading: false,
         })
       }
     })
@@ -102,7 +105,7 @@ class HomeScreen extends React.Component {
                                             handleProfile={() => this.handleEvent('profile', false)}/>}
         {this.state.searchResult && <ProductComponent products={this.state.products}/>}
         {account === 'seller' && this.state.productLoader && <ProductLoader userID={user.uid}/>}
-        {account === 'seller' && this.state.productList && <SellerProductsComponent products={this.state.products}/>}
+        {account === 'seller' && this.state.productList && <SellerProductsComponent products={this.state.products} />}
         <Alert isOpen={this.state.alert}
                confirmButtonText='ACEPTAR'
                icon='error'
@@ -110,6 +113,11 @@ class HomeScreen extends React.Component {
                onClose={() => {this.setState({alert: false})}}>
               ¡Algo salió mal!
         </Alert>
+        {this.state.isLoading &&
+        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>   
+          <Spinner size='100' intent='primary'/>
+        </div>
+        }
       </div>      
     )
   }
