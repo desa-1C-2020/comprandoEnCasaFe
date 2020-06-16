@@ -10,13 +10,15 @@ export function searchForShops(lat, lng, max, callback) {
   .catch((error) => callback(error, null))
 }
 
-export function searchProduct(text, callback){
-  //TODO - path para obtener productos???
-  axios.get(`${host}/?????`)
+export function searchProduct(text, id, maxRange, callback){
+  //TODO - probar esto!
+  axios.get(`${host}/products/find?userId=${id}&productToFind=${text}&maxDistance=${maxRange}`)
   .then((response) => {
     callback(null, response.data)   
   })
-  .catch((error) => callback(error, null)) 
+  .catch((error) => {
+    console.log(error)
+    callback(error, null)}) 
   //TODO - eliminar estos mocks cuando sea necesario
   // let res = {
   // products: [
