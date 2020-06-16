@@ -1,3 +1,5 @@
 export function apiBasicUrl() {
-    return process.env.REACT_APP_API_URL || 'http://localhost:8080';
+    let reactappapiurl = process.env.REACT_APP_API_URL;
+    console.log('Url de .env: ' + reactappapiurl);
+    return reactappapiurl || 'http://localhost:8080';
 }
