@@ -49,7 +49,7 @@ export class SellerForm extends React.Component {
       commerce: {
         userId: '',
         commerceName: this.state.name,
-        commerceBussinessSector: this.state.sector,
+        commerceBusinessSector: this.state.sector,
         commerceAddress: {
           street: this.state.address,
           latitud: this.state.lat,

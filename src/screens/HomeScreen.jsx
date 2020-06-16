@@ -86,7 +86,6 @@ class HomeScreen extends React.Component {
                  this.props.location.state.accountInfo.user : {}
     let shop = this.props.location.state !== undefined ?
                  this.props.location.state.accountInfo.commerceOnThrow : {}
-    shop = {id: 'Soy un ID'} // TODO - borrar este mock 
     return (        
       <div>
         <HomeNavBar accountType={account} 
@@ -99,9 +98,10 @@ class HomeScreen extends React.Component {
         {this.state.profile && <ProfileInfo isOpen={this.state.profile} 
                                             accountType={account} 
                                             info={user}
+                                            shopInfo={shop}
                                             handleProfile={() => this.handleEvent('profile', false)}/>}
         {this.state.searchResult && <ProductComponent products={this.state.products}/>}
-        {account === 'seller' && this.state.productLoader && <ProductLoader userID={shop.id}/>}
+        {account === 'seller' && this.state.productLoader && <ProductLoader userID={user.uid}/>}
         {account === 'seller' && this.state.productList && <SellerProductsComponent products={this.state.products}/>}
         <Alert isOpen={this.state.alert}
                confirmButtonText='ACEPTAR'

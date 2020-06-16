@@ -28,12 +28,12 @@ export function registerSeller(userInfo, callback) {
 export function login(credentials, callback){
   axios.post(`${host}/account/login`, credentials)
   .then((response) => {
-    let accountType = response.data.commerceOnThrow === undefined ? 'buyer' : 'seller'
+    let accountType = response.data.commerceOrThrow === undefined ? 'buyer' : 'seller'
     let resInfo = {
       type: accountType,
       info: response.data
     }
     callback(null, resInfo)   
    })
-   .catch((error) => {callback(error, null)})
+   .catch((error) => callback(error, null))
 }

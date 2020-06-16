@@ -3,7 +3,7 @@ import BuyerForm from '../components/BuyerForm'
 import SellerForm from '../components/SellerForm'
 import { registerBuyer, registerSeller } from '../services/UserService'
 import { withRouter } from "react-router-dom";
-import { RadioGroup, Radio, Button, Alert } from '@blueprintjs/core'
+import { RadioGroup, Radio, Button, Alert, Spinner } from '@blueprintjs/core'
 import '../styles/RegisterScreen.css'
 
 class RegisterScreen extends React.Component {
@@ -16,7 +16,8 @@ class RegisterScreen extends React.Component {
       sellerInfo: {},
       alertSuccess: false,
       alertField: false,
-      errorMsg: ""
+      errorMsg: "",
+      isLoading: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleRadio = this.handleRadio.bind(this);
@@ -59,14 +60,16 @@ class RegisterScreen extends React.Component {
 
   registerBuyer(){
     if(this.isValidBuyer()){
+      this.setState({isLoading: true});
       registerBuyer(this.state.buyerInfo, (err, _res) =>{
         if(err){
           this.setState({
             errorMsg: "Algo salió mal: " + err,
-            alertField: true
+            alertField: true,
+            isLoading: false
           })
         } else {
-          this.setState({alertSuccess: true})
+          this.setState({alertSuccess: true, isLoading: false})
         }
       })
     } else {
@@ -79,14 +82,16 @@ class RegisterScreen extends React.Component {
 
   registerSeller(){
     if(this.isValidSeller()){
+      this.setState({isLoading: true});
       registerSeller(this.state.sellerInfo, (err, _res) =>{
         if(err){
           this.setState({
             errorMsg: "Algo salió mal: " + err,
-            alertField: true
+            alertField: true,
+            isLoading: false
           })
         } else {
-          this.setState({alertSuccess: true})
+          this.setState({alertSuccess: true, isLoading: false})
         }
       })
     } else {
@@ -147,6 +152,11 @@ class RegisterScreen extends React.Component {
                onClose={() => this.setState({alertField: false})}>    
           {this.state.errorMsg}
         </Alert>
+        {this.state.isLoading &&
+        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>   
+          <Spinner size='100' intent='primary'/>
+        </div>
+        }
       </div>      
     )
   }
