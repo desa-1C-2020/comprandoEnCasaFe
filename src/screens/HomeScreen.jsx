@@ -17,6 +17,7 @@ class HomeScreen extends React.Component {
       productLoader: true,
       profile: false,
       searchResult: false,
+      productList: false,
       products: [],
       alert: false
     }
@@ -24,6 +25,7 @@ class HomeScreen extends React.Component {
     this.logOut = this.logOut.bind(this);
     this.goHome = this.goHome.bind(this);
     this.doSearch = this.doSearch.bind(this);
+    this.goProductList = this.goProductList.bind(this);
   }
 
   handleEvent(name, value){
@@ -44,8 +46,17 @@ class HomeScreen extends React.Component {
     })
   }
 
+  goProductList(){
+    //TODO - endpoint que traiga los prod del vendedor
+    // los trae, los setea en product
+    //levanta el la pantalla
+    //oculta el modulo agregar}
+    console.log("lista de prod!")
+  }
+
   doSearch(text){
-    searchProduct(text, (err, res) =>{
+    const id = this.props.location.state.accountInfo.user.uid
+    searchProduct(text, id, 4000.3, (err, res) =>{
       if(err){
         this.setState({alert: true})
       } else {
@@ -64,12 +75,14 @@ class HomeScreen extends React.Component {
                     'seller' : 'buyer'
     const user = this.props.location.state !== undefined ? 
                  this.props.location.state.accountInfo.user : {}
-    const shop = this.props.location.state !== undefined ?
+    let shop = this.props.location.state !== undefined ?
                  this.props.location.state.accountInfo.commerceOnThrow : {}
+    shop = {id: 'Soy un ID'} // TODO - borrar este mock 
     return (        
       <div>
         <HomeNavBar accountType={account} 
                     goHome={this.goHome}
+                    showSellerProducts={this.goProductList}
                     handleProfile={() => this.handleEvent('profile', true)}
                     handleLogOut={this.logOut}
                     handleSearch={this.doSearch}/>

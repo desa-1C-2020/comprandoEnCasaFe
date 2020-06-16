@@ -16,6 +16,7 @@ export class HomeNavBar extends React.PureComponent {
 		this.logOut = this.logOut.bind(this);
 		this.goHome = this.goHome.bind(this);
 		this.doSearch = this.doSearch.bind(this);
+		this.goProductList = this.goProductList.bind(this);
 	}
 
 	openProfile(){
@@ -32,11 +33,14 @@ export class HomeNavBar extends React.PureComponent {
 	}
 
 	doSearch(){
-
 		if(this.state.search !== ''){
 			this.props.handleSearch(this.state.search);
 			this.setState({search: ''})
 		}	
+	}
+
+	goProductList(){
+		this.props.showSellerProducts();
 	}
 
 	render() {
@@ -59,7 +63,9 @@ export class HomeNavBar extends React.PureComponent {
 			<Menu large={true} className="mobile">
 				<MenuItem icon="home" text="Inicio" onClick={this.goHome}/>
 				<MenuDivider />
-				{isSeller && <MenuItem icon="shop" text="Mis productos" />}
+				{isSeller && <MenuItem icon="shop" 
+															 text="Mis productos" 
+															 onClick={this.goProductList}/>}
 				{!isSeller && <MenuItem icon="shopping-cart" 
 																text="Mis compras" 
 																onClick={()=> this.setState({alert: true})}/>}
@@ -75,7 +81,10 @@ export class HomeNavBar extends React.PureComponent {
 						</NavbarHeading>
 						<NavbarDivider />
 						<Button className={Classes.MINIMAL} icon="home" text="Inicio" onClick={this.goHome}/>
-						{isSeller && <Button className={Classes.MINIMAL} icon="shop" text="Mis productos" />}
+						{isSeller && <Button className={Classes.MINIMAL} 
+																 icon="shop" 
+																 text="Mis productos" 
+																 onClick={this.goProductList}/>}
 						{!isSeller && <Button className={Classes.MINIMAL} 
 																	icon="shopping-cart" 
 																	text="Mis compras" 
