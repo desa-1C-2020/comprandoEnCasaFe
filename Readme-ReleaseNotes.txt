@@ -1,13 +1,21 @@
 ---------------------------------------------------------------------
-TAG Entrega-1.0
+TAG Entrega-2.0
 ---------------------------------------------------------------------
 NEW FEATURES:
-* Diseño de pantalla Home
-* Buscador de comercios cercanos
-* Visualizar la ruta entre dos puntos en un mapa (prototipo)
+* Pantalla de login
+* Pantalla de registro para compradores y vendedores
+* Acciones para la barra de navegación.
+* Home diferenciado para usuarios vendedores y compradores
+* Funcionalidad nueva Home compradores: 
+    - Buscar productos
+    - Ver datos de la cuenta
+* Funcionalidad nueva Home vendedores: 
+    - Agregar productos
 
 NOTES:
-* Acciones de barra de navegación no tienen funcionalidad aún.
+* Funcionalidad existente pero incompleta:
+  - (Vendedores) visualizar todos los productos.
+  - (Vendedores) ver datos del comercio.
 
 KNOWN ISSUES:
-* Error de CORS al buscar comercios (se debe solucionar en el BE)
+* (Vendedor) Agregar producto no está conectado con el BE.
