@@ -5,8 +5,10 @@ import ProfileInfo from '../components/ProfileInfo'
 import { withRouter } from "react-router-dom"
 import ProductComponent from '../components/ProductComponent'
 import { searchProduct } from '../services/ProductService'
+import { getAllProducts } from '../services/SellerService'
 import { Alert } from '@blueprintjs/core'
 import ProductLoader from '../components/ProductLoader'
+import SellerProductsComponent from '../components/SellerProductsComponent'
 
 class HomeScreen extends React.Component {
 
@@ -42,16 +44,23 @@ class HomeScreen extends React.Component {
       shopSearch: true,
       productLoader: true,
       profile: false,
-      searchResult: false
+      searchResult: false,
+      productList: false
     })
   }
 
   goProductList(){
-    //TODO - endpoint que traiga los prod del vendedor
-    // los trae, los setea en product
-    //levanta el la pantalla
-    //oculta el modulo agregar}
-    console.log("lista de prod!")
+    const id = 'sarasa' //TODO - this.props.location.state.accountInfo.commerceOnThrow.id
+    getAllProducts(id, (err, res) => {
+      if(err) this.setState({alert: true})
+      else {
+        this.setState({
+          productLoader: false,
+          products: res,
+          productList: true
+        })
+      }
+    })
   }
 
   doSearch(text){
@@ -93,6 +102,7 @@ class HomeScreen extends React.Component {
                                             handleProfile={() => this.handleEvent('profile', false)}/>}
         {this.state.searchResult && <ProductComponent products={this.state.products}/>}
         {account === 'seller' && this.state.productLoader && <ProductLoader userID={shop.id}/>}
+        {account === 'seller' && this.state.productList && <SellerProductsComponent products={this.state.products}/>}
         <Alert isOpen={this.state.alert}
                confirmButtonText='ACEPTAR'
                icon='error'
