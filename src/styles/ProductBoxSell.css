@@ -1,0 +1,12 @@
+.bs-container {
+  width: 270px; 
+  height: 220px; 
+  background-color: white; 
+  margin-right: 35px; 
+  margin-bottom: 20px; 
+  display: inline-block;
+  border-radius: 40px;
+  border-width: medium;
+  border: solid rgb(255, 167, 5);
+  text-align: center;
+}

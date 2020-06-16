@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from '../CEC.png'
 import { login } from '../services/UserService'
-import { InputGroup, Button, Alert } from '@blueprintjs/core'
+import { InputGroup, Button, Alert, Spinner } from '@blueprintjs/core'
 import { withRouter } from "react-router-dom";
 import '../styles/LogInScreen.css'
 
@@ -13,7 +13,8 @@ class LogInScreen extends React.Component {
       user: '',
       pass: '',
       alert: false,
-      msg: ''
+      msg: '',
+      isLoading: false
     }
     this.logIn = this.logIn.bind(this);
     this.isValid = this.isValid.bind(this);
@@ -23,15 +24,17 @@ class LogInScreen extends React.Component {
 
   logIn(){
     if(this.isValid()){
-      const info = {user: this.state.user, pass: this.state.pass}
-      login(info, (err, _res) =>{
+      const info = {email: this.state.user, password: this.state.pass}
+      this.setState({isLoading: true})
+      login(info, (err, res) =>{
         if(err){
           this.setState({
             alert: true, 
-            msg: "Usuario y/o contraseña incorrecto/s"
+            msg: "Usuario y/o contraseña incorrecto/s",
+            isLoading: false
           })
         } else {
-          this.props.history.push('/home');
+          this.props.history.push('/home', {account: res.type, accountInfo: res.info});
         }
       })
     } else {
@@ -74,7 +77,7 @@ class LogInScreen extends React.Component {
                           value={this.state.user}
                           type="text" 
                           onChange={this.handleChange}
-                          placeholder="Usuario"/>
+                          placeholder="E-mail"/>
               <InputGroup className="input"
                           name="pass" 
                           value={this.state.pass}
@@ -88,6 +91,11 @@ class LogInScreen extends React.Component {
             </p>
           </div>
         </span>
+        {this.state.isLoading &&
+        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>   
+          <Spinner size='100' intent='primary'/>
+        </div>
+        }
       </div>      
     )
   }
