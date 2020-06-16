@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/ProductLoader.css'
-import { InputGroup, Button } from '@blueprintjs/core'
+import { InputGroup, Button, Alert } from '@blueprintjs/core'
 import { saveProduct } from '../services/SellerService'
 
 export class ProductLoader extends React.Component {
@@ -12,10 +12,13 @@ export class ProductLoader extends React.Component {
       brand: '',
       stock: '',
       price: '',
-      url: ''
+      url: '',
+      alert: false,
+      msg: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.saveProduct = this.saveProduct.bind(this);
+    this.isValidProduct = this.isValidProduct.bind(this);
   }
 
   handleChange(event){
@@ -30,9 +33,26 @@ export class ProductLoader extends React.Component {
       price: this.state.price,
       imageUrl: this.state.url
     }
-    saveProduct(product, this.props.userID, (err, res) => {
-      //TODO - callback
-    })
+    if(this.isValidProduct()){
+      saveProduct(product, this.props.userID, (err, res) => {
+        if(err){
+          this.setState({alert: true, msg: '¡Algo salió mal!'});
+        } else {
+          this.setState({name: '', brand: '', stock: '', price: '', url: '',
+                         alert: true, msg: 'Producto guardado satisfactoriamente.'});
+        }
+      })
+    } else {
+      this.setState({alert: true, msg: 'Por favor, complete todos los campos.'});
+    }
+  }
+
+  isValidProduct(){
+    return (
+      this.state.name !== '' && this.state.brand !== '' &&
+      this.state.stock !== '' && this.state.price !== '' &&
+      this.state.url !== ''
+    )
   }
 
 	render() {
@@ -85,6 +105,13 @@ export class ProductLoader extends React.Component {
           <img alt='' src={this.state.url} className='preview'></img>
         </span>
         <Button onClick={this.saveProduct}>Agregar producto</Button>
+        <Alert isOpen={this.state.alert}
+               confirmButtonText='ACEPTAR'
+               icon={this.state.msg.includes('Producto') ? 'endorsed' : 'error'}
+               intent={this.state.msg.includes('Producto') ? 'success' : 'danger'}
+               onClose={() => {this.setState({alert: false})}}>
+              {this.state.msg}
+        </Alert>
       </div>
 		);
 	}
