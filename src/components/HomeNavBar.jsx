@@ -10,6 +10,7 @@ export class HomeNavBar extends React.PureComponent {
 		super(props);
 		this.state = {
 			search: '',
+			distance: '2000',
 			alert: false
 		}
 		this.openProfile = this.openProfile.bind(this);
@@ -34,7 +35,7 @@ export class HomeNavBar extends React.PureComponent {
 
 	doSearch(){
 		if(this.state.search !== ''){
-			this.props.handleSearch(this.state.search);
+			this.props.handleSearch(this.state.search, this.state.distance);
 			this.setState({search: ''})
 		}	
 	}
@@ -96,7 +97,12 @@ export class HomeNavBar extends React.PureComponent {
 																		 placeholder="Buscar un producto"
 																		 value={this.state.search}
 																		 onChange={(e) => this.setState({search: e.target.value})}
-																		 rightElement={searchButton}/>}				
+																		 rightElement={searchButton}/>}		
+						{!isSeller && <InputGroup style={{width: '100px', marginLeft: '5px'}} 
+																			type="number" 
+																			leftIcon="map-marker" 
+																		 	value={this.state.distance}
+																		 	onChange={(e) => this.setState({distance: e.target.value})}/>}
 					</NavbarGroup>
 					<NavbarGroup align={Alignment.RIGHT}>
 						<Popover content={profileMenu} position={Position.RIGHT_BOTTOM}>
@@ -119,6 +125,11 @@ export class HomeNavBar extends React.PureComponent {
 																			onChange={(e) => this.setState({search: e.target.value})}
 																			rightElement={searchButton}/>}	
 						</span>
+						{!isSeller && <InputGroup style={{width: '75px', marginLeft: '5px'}} 
+																			type="text" 
+																			leftIcon="map-marker" 
+																		 	value={this.state.distance}
+																		 	onChange={(e) => this.setState({distance: e.target.value})}/>}
 						<NavbarDivider />
 						<Popover content={dropdownMenu} position={Position.RIGHT_BOTTOM}>
               <Button className={Classes.MINIMAL} icon="menu"/>

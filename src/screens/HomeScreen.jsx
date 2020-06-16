@@ -63,10 +63,10 @@ class HomeScreen extends React.Component {
     })
   }
 
-  doSearch(text){
+  doSearch(text, distance){
     const id = this.props.location.state.accountInfo.user.uid
     this.setState({isLoading: true, searchResult: false})
-    searchProduct(text, id, 4000.3, (err, res) =>{
+    searchProduct(text, id, distance, (err, res) =>{
       if(err){
         this.setState({alert: true, isLoading: false})
       } else {
