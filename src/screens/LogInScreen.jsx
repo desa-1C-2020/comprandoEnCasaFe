@@ -4,6 +4,7 @@ import { login } from '../services/UserService'
 import { InputGroup, Button, Alert, Spinner } from '@blueprintjs/core'
 import { withRouter } from "react-router-dom";
 import '../styles/LogInScreen.css'
+import { translate} from 'react-i18next';
 
 class LogInScreen extends React.Component {
 
@@ -29,7 +30,7 @@ class LogInScreen extends React.Component {
       login(info, (err, res) =>{
         if(err){
           this.setState({
-            alert: true, 
+            alert: true,
             msg: "Usuario y/o contraseña incorrecto/s",
             isLoading: false
           })
@@ -38,8 +39,8 @@ class LogInScreen extends React.Component {
         }
       })
     } else {
-      const msgError = this.state.user === '' ? 
-        'Por favor, ingrese su nombre de usuario' 
+      const msgError = this.state.user === '' ?
+        'Por favor, ingrese su nombre de usuario'
         : 'Por favor, ingrese su contraseña'
       this.setState({alert: true, msg: msgError});
     }
@@ -58,7 +59,7 @@ class LogInScreen extends React.Component {
   }
 
   render(){
-    return (        
+    return (
       <div>
         <Alert isOpen={this.state.alert}
                confirmButtonText='ACEPTAR'
@@ -72,31 +73,31 @@ class LogInScreen extends React.Component {
           <div className="login-container">
             <p className="title">Ingrese para continuar</p>
             <div className="input-container">
-              <InputGroup className="input" 
+              <InputGroup className="input"
                           name="user"
                           value={this.state.user}
-                          type="text" 
+                          type="text"
                           onChange={this.handleChange}
                           placeholder="E-mail"/>
               <InputGroup className="input"
-                          name="pass" 
+                          name="pass"
                           value={this.state.pass}
-                          type="password" 
+                          type="password"
                           onChange={this.handleChange}
                           placeholder="Contraseña"/>
             </div>
-            <Button className="button" onClick={this.logIn}>Ingresar</Button>
+            <Button className="button" onClick={this.logIn}>{translate('loginButton')}</Button>
             <p className="register-text">¿Nuevo en la aplicación? 
               <span className="register" onClick={this.goRegister}> Registrate</span>
             </p>
           </div>
         </span>
         {this.state.isLoading &&
-        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>   
+        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
           <Spinner size='100' intent='primary'/>
         </div>
         }
-      </div>      
+      </div>
     )
   }
 
