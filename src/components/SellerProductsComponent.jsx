@@ -21,7 +21,7 @@ export class SellerProductsComponent extends React.Component {
     const productList = []
     let key = 7000
     products.forEach(element => {
-      let e = <ProductBoxSell key={key} info={element}/>
+      let e = <ProductBoxSell key={key} info={element} shopId={this.props.shopId}/>
       productList.push(e);
       key = key + 1;
     });

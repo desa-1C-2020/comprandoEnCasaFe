@@ -1,4 +1,4 @@
-import {apiBasicUrl} from "../utilities/Environment";
+//import {apiBasicUrl} from "../utilities/Environment";
 
 //TODO - implementar esto
  export function saveProduct(product, userId, callback){
@@ -8,6 +8,12 @@ import {apiBasicUrl} from "../utilities/Environment";
    // })
    // .catch((error) => callback(error, null))
    callback(null, '')
+ }
+
+ //TODO - implementar esto
+ export function deleteProduct(userId, productId, callback){
+  //imp
+  callback(null, '')
  }
 
  export function getAllProducts(shopId, callback){

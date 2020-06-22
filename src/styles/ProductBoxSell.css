@@ -50,6 +50,14 @@
   margin-right: 30px;
 }
 
+.bs-image-del {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  margin-left: 100px;
+  margin-bottom: 20px;
+}
+
 @media (max-width: 1024px){
   .bs-container {
     width: 100%;
