@@ -21,7 +21,7 @@ export class SellerProductsComponent extends React.Component {
     const productList = []
     let key = 7000
     products.forEach(element => {
-      let e = <ProductBoxSell key={key}/>
+      let e = <ProductBoxSell key={key} info={element}/>
       productList.push(e);
       key = key + 1;
     });
@@ -37,7 +37,9 @@ export class SellerProductsComponent extends React.Component {
           <NonIdealState icon='shop' title='¡No hay productos en tu tienda!'/>
         </div>
         :
-        <div className='product-boxes'>{this.state.items}</div>
+        <div className='product-boxes' style={{textAlign: 'center'}}>
+          {this.state.items}
+        </div>
         }
       </div>
 		);
