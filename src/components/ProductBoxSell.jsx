@@ -19,6 +19,7 @@ class ProductBoxSell extends React.Component {
     }
     this.deleteProduct = this.deleteProduct.bind(this);
     this.closeMod = this.closeMod.bind(this);
+    this.modifyProduct = this.modifyProduct.bind(this);
   }
 
   deleteProduct(){
@@ -42,6 +43,11 @@ class ProductBoxSell extends React.Component {
         })
       }
     });
+  }
+
+  modifyProduct(){
+    //TODO - llamado al back
+    console.log('hola')
   }
 
   closeMod(){
@@ -84,7 +90,9 @@ class ProductBoxSell extends React.Component {
                onClose={()=>{this.setState({alertResult: false})}}>
                {this.state.alertResultMsg}
         </Alert>
-        <ModProductInfo isOpen={this.state.openMod} close={this.closeMod}></ModProductInfo>
+        <ModProductInfo isOpen={this.state.openMod} 
+                        modify={this.modifyProduct}
+                        close={this.closeMod} product={p} />
       </div>
       </div>
     )

@@ -1,0 +1,13 @@
+.mod-field {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.accept-btn {
+  text-align: center;
+  width: 100px;
+  margin-left: calc(50% - 50px);
+  margin-top: 20px;
+}
