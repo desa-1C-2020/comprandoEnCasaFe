@@ -16,6 +16,12 @@
   callback(null, '')
  }
 
+ //TODO - implementar esto
+ export function modifyProduct(userId, productId, callback){
+   //imp
+   callback(null, '');
+ }
+
  export function getAllProducts(shopId, callback){
    //TODO - implementar esto
    // axios.get(`${host}/????`)

@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/ProductBoxSell.css'
 import { Button, Alert } from '@blueprintjs/core'
-import {deleteProduct} from '../services/SellerService'
+import {deleteProduct, modifyProduct} from '../services/SellerService'
 import ModProductInfo from '../components/ModProductInfo'
 
 class ProductBoxSell extends React.Component {
@@ -9,6 +9,11 @@ class ProductBoxSell extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      name: '',
+      brand: '',
+      price: '',
+      stock: '',
+      url: '',
       alert: false,
       alertResult: false,
       alertResultIntent: '',
@@ -20,6 +25,16 @@ class ProductBoxSell extends React.Component {
     this.deleteProduct = this.deleteProduct.bind(this);
     this.closeMod = this.closeMod.bind(this);
     this.modifyProduct = this.modifyProduct.bind(this);
+  }
+
+  componentDidMount(){
+    this.setState({
+      name: this.props.info.name,
+      brand: this.props.info.brand,
+      price: this.props.info.price,
+      stock: this.props.info.stock,
+      url: this.props.info.image,
+    })
   }
 
   deleteProduct(){
@@ -45,9 +60,32 @@ class ProductBoxSell extends React.Component {
     });
   }
 
-  modifyProduct(){
-    //TODO - llamado al back
-    console.log('hola')
+  modifyProduct(product){
+    modifyProduct(this.props.shopId, product, (err, _res) => {
+      if(err){
+        this.setState({
+          openMod: false,
+          alertResult: true,
+          alertResultIntent: 'danger',
+          alertResultMsg: `Algo salió mal: ${err}`,
+          alertResultIcon: 'error',
+        })
+      } else {
+        console.log(product);
+        this.setState({
+          name: product.name,
+          brand: product.brand,
+          price: product.price,
+          stock: product.stock,
+          url: product.url,
+          openMod: false,
+          alertResult: true,
+          alertResultIntent: 'success',
+          alertResultMsg: `Producto modificado satisfactoriamente`,
+          alertResultIcon: 'endorsed',
+        })
+      }
+    })
   }
 
   closeMod(){
@@ -55,12 +93,12 @@ class ProductBoxSell extends React.Component {
   }
 
   render(){
-    const p = this.props.info
+    const p = this.state
     return (   
       <div style={{display: this.state.display}}>     
       <div className='bs-container'>
         <table className='bs-image-container'><tbody>
-          <tr><td><img className='bs-image' alt={p.name} src={p.image}></img></td></tr>
+          <tr><td><img className='bs-image' alt={p.name} src={p.url}></img></td></tr>
         </tbody></table>
         <table className='bs-desc-container'><tbody>
           <tr><td className='bs-desc-item'><b>Nombre:</b> {p.name}</td></tr>
@@ -80,7 +118,7 @@ class ProductBoxSell extends React.Component {
                intent='danger'
                onCancel={() => this.setState({alert: false})}
                onConfirm={this.deleteProduct}>
-              <img className='bs-image-del' alt={p.name} src={p.image}></img><br></br>
+              <img className='bs-image-del' alt={p.name} src={p.url}></img><br></br>
               ¿Está seguro que desea eliminar este producto?
         </Alert> 
         <Alert isOpen={this.state.alertResult}
@@ -92,7 +130,7 @@ class ProductBoxSell extends React.Component {
         </Alert>
         <ModProductInfo isOpen={this.state.openMod} 
                         modify={this.modifyProduct}
-                        close={this.closeMod} product={p} />
+                        close={this.closeMod} product={this.state.name === '' ? this.props.info : this.state} />
       </div>
       </div>
     )

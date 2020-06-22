@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dialog, InputGroup, Button } from '@blueprintjs/core'
+import { Dialog, InputGroup, Button, Alert } from '@blueprintjs/core'
 import '../styles/ModProductInfo.css'
 
 class ModProductInfo extends React.Component {
@@ -11,10 +11,12 @@ class ModProductInfo extends React.Component {
       brand: '',
       stock: '',
       price: '',
-      url: ''
+      url: '',
+      alert: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.sendProduct = this.sendProduct.bind(this);
+    this.isValidProduct = this.isValidProduct.bind(this);
   }
 
   componentDidMount(){
@@ -28,19 +30,26 @@ class ModProductInfo extends React.Component {
   }
 
   sendProduct(){
-    //TODO - verificar si los datos son validos
-    if(true){
+    if(this.isValidProduct()){
       const prod = {
-        name: this.props.product.name,
-        brand: this.props.product.brand,
-        stock: this.props.product.stock,
-        price: this.props.product.price,
-        url: this.props.product.image
+        name: this.state.name,
+        brand: this.state.brand,
+        stock: this.state.stock,
+        price: this.state.price,
+        url: this.state.url
       }
-      this.props.modify(prod)
+      this.props.modify(prod);
     } else {
-      //TODO - Alert
+      this.setState({alert: true});
     }
+  }
+
+  isValidProduct(){
+    return (
+      this.state.name !== '' && this.state.brand !== '' &&
+      this.state.stock !== '' && this.state.price !== '' &&
+      this.state.url !== ''
+    )
   }
 
   handleChange(event){
@@ -99,6 +108,12 @@ class ModProductInfo extends React.Component {
           <Button className='accept-btn' onClick={this.sendProduct}>Aceptar</Button>
         </span>
         </Dialog>
+        <Alert isOpen={this.state.alert}
+               confirmButtonText='ACEPTAR'
+							 intent='warning'
+               onClose={() => {this.setState({alert: false})}}>
+              Por favor, complete todos los datos
+        </Alert>
       </div>
     )
   }
