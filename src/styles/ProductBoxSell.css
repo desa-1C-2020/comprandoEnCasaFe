@@ -80,11 +80,9 @@
   .bs-btn-container {
     margin-top: 20px;
   }
-}
 
-@media (max-width: 553px){
-  
   .bs-btn-m {
     margin-bottom: 10px;
   }
 }
+

@@ -71,7 +71,6 @@ class ProductBoxSell extends React.Component {
           alertResultIcon: 'error',
         })
       } else {
-        console.log(product);
         this.setState({
           name: product.name,
           brand: product.brand,
