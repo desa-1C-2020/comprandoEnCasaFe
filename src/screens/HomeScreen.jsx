@@ -70,7 +70,6 @@ class HomeScreen extends React.Component {
       if(err){
         this.setState({alert: true, isLoading: false})
       } else {
-
         this.setState({
           shopSearch: false,
           searchResult: true,
@@ -82,9 +81,11 @@ class HomeScreen extends React.Component {
   }
 
   render(){
-    const account = this.props.location.state !== undefined &&
-                    this.props.location.state.account === 'seller' ?
-                    'seller' : 'buyer'
+    const account = 'seller'
+    // TODO - definir si es vendedor o comprador
+    // const account = this.props.location.state !== undefined &&
+    //                 this.props.location.state.account === 'seller' ?
+    //                 'seller' : 'buyer'
     const user = this.props.location.state !== undefined ? 
                  this.props.location.state.accountInfo.user : {}
     let shop = this.props.location.state !== undefined ?
@@ -105,7 +106,9 @@ class HomeScreen extends React.Component {
                                             handleProfile={() => this.handleEvent('profile', false)}/>}
         {this.state.searchResult && <ProductComponent products={this.state.products}/>}
         {account === 'seller' && this.state.productLoader && <ProductLoader userID={user.uid}/>}
-        {account === 'seller' && this.state.productList && <SellerProductsComponent products={this.state.products} />}
+        {account === 'seller' && this.state.productList && <SellerProductsComponent 
+                                                            products={this.state.products} 
+                                                            shopId={user.uid}/>}
         <Alert isOpen={this.state.alert}
                confirmButtonText='ACEPTAR'
                icon='error'

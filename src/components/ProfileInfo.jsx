@@ -29,7 +29,7 @@ class ProfileInfo extends React.Component {
         </div> 
         :
         <div>
-          
+          {/* TODO - datos de vendedor (falta arreglar endpoints login)*/}
         </div> 
         }
         </Dialog>

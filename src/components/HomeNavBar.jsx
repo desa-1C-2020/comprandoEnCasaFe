@@ -61,7 +61,7 @@ export class HomeNavBar extends React.PureComponent {
 			</Menu>
 		);
 		const dropdownMenu = (
-			<Menu large={true} className="mobile">
+			<Menu>
 				<MenuItem icon="home" text="Inicio" onClick={this.goHome}/>
 				<MenuDivider />
 				{isSeller && <MenuItem icon="shop" 
