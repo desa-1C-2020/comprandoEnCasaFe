@@ -3,7 +3,8 @@ import logo from '../CEC.png'
 import { login } from '../services/UserService'
 import { InputGroup, Button, Alert, Spinner } from '@blueprintjs/core'
 import { withRouter } from "react-router-dom";
-import '../styles/LogInScreen.css'
+import '../styles/LogInScreen.css';
+import {FormattedMessage} from 'react-intl';
 
 class LogInScreen extends React.Component {
 
@@ -70,6 +71,7 @@ class LogInScreen extends React.Component {
         <span>
           <img className="logo-login" alt="Comprando en casa" src={logo} />
           <div className="login-container">
+          <h2><FormattedMessage id="login.title"/></h2>
             <p className="title">Ingrese para continuar</p>
             <div className="input-container">
               <InputGroup className="input" 
