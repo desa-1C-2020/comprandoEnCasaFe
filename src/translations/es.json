@@ -1,3 +1,8 @@
 {
-  "login.title": "Ingrese para continuar"
+  "login.title": "Ingrese para continuar",
+  "login.ph.mail": "Correo electrónico",
+  "login.ph.pass": "Contraseña",
+  "login.btn.login": "Ingresar",
+  "login.new": "¿Nuevo en la aplicación? ",
+  "login.btn.register": "Registrarse"
 }

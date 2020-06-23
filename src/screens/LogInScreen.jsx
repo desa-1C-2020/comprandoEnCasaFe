@@ -5,6 +5,7 @@ import { InputGroup, Button, Alert, Spinner } from '@blueprintjs/core'
 import { withRouter } from "react-router-dom";
 import '../styles/LogInScreen.css';
 import {FormattedMessage} from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 class LogInScreen extends React.Component {
 
@@ -59,6 +60,7 @@ class LogInScreen extends React.Component {
   }
 
   render(){
+    const { intl } = this.props;
     return (        
       <div>
         <Alert isOpen={this.state.alert}
@@ -71,25 +73,29 @@ class LogInScreen extends React.Component {
         <span>
           <img className="logo-login" alt="Comprando en casa" src={logo} />
           <div className="login-container">
-          <h2><FormattedMessage id="login.title"/></h2>
-            <p className="title">Ingrese para continuar</p>
+            <p className="title"><FormattedMessage id="login.title"/></p>
             <div className="input-container">
               <InputGroup className="input" 
                           name="user"
                           value={this.state.user}
                           type="text" 
                           onChange={this.handleChange}
-                          placeholder="E-mail"/>
+                          placeholder={intl.formatMessage({ id: 'login.ph.mail' })}/>
               <InputGroup className="input"
                           name="pass" 
                           value={this.state.pass}
                           type="password" 
                           onChange={this.handleChange}
-                          placeholder="Contraseña"/>
+                          placeholder={intl.formatMessage({ id: 'login.ph.pass' })}/>
             </div>
-            <Button className="button" onClick={this.logIn}>Ingresar</Button>
-            <p className="register-text">¿Nuevo en la aplicación? 
-              <span className="register" onClick={this.goRegister}> Registrate</span>
+            <Button className="button" onClick={this.logIn}>
+            {intl.formatMessage({ id: 'login.btn.login' })}
+            </Button>
+            <p className="register-text">
+              {intl.formatMessage({ id: 'login.new' })}
+              <span className="register" onClick={this.goRegister}> 
+                {intl.formatMessage({ id: 'login.btn.register' })}
+              </span>
             </p>
           </div>
         </span>
@@ -104,4 +110,4 @@ class LogInScreen extends React.Component {
 
 }
 
-export default withRouter(LogInScreen)
+export default injectIntl(withRouter(LogInScreen))

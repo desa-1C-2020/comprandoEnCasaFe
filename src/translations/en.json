@@ -1,3 +1,8 @@
 {
-  "login.title": "Log in to continue"
+  "login.title": "Log in to continue",
+  "login.ph.mail": "E-mail",
+  "login.ph.pass": "Password",
+  "login.btn.login": "Log in",
+  "login.new": "First time here? ",
+  "login.btn.register": "Register"
 }
