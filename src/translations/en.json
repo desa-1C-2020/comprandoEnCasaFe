@@ -5,7 +5,11 @@
   "t.seller": "Seller",
   "t.personaldata": "Personal information",
   "t.addressdata": "Address information",
+  "t.sellerdata": "Seller information",
+  "t.commercedata": "Commerce information",
+  "t.sector": "Sector",
   "t.name": "Name",
+  "t.commercename": "Commerce name",
   "t.surname": "Surname",
   "t.address": "Address",
   "t.lat": "Latitude",
@@ -15,6 +19,9 @@
   "t.goback": "Go back",
   "t.error": "Something went wrong: ",
   "t.fillfields": "Fill every field, please.",
+  "t.money": "Cash",
+  "t.debitcard": "Debit cards",
+  "t.creditcard": "Credit cards",
 
   "login.title": "Log in to continue",
   "login.btn.login": "Log in",
@@ -25,5 +32,8 @@
 
   "register.title": "Welcome to Comprando en Casa",
   "register.subtitle": "How would you like to register?",
-  "register.success": "Account created successfully."
+  "register.success": "Account created successfully.",
+  "register.customtime": "Custom timetable",
+  "register.payment": "Payment methods: ",
+  "register.distance": "Maximum delivery distance (meters)"
 }

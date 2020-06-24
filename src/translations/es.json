@@ -5,7 +5,11 @@
   "t.seller": "Vendedor",
   "t.personaldata": "Datos personales",
   "t.addressdata": "Datos del domicilio",
+  "t.sellerdata": "Datos del vendedor",
+  "t.commercedata": "Datos del comercio",
+  "t.sector": "Rubro",
   "t.name": "Nombre",
+  "t.commercename": "Nombre del comercio",
   "t.surname": "Apellido",
   "t.address": "Dirección",
   "t.lat": "Latitud",
@@ -15,6 +19,9 @@
   "t.goback": "Volver",
   "t.error": "Algo salió mal: ",
   "t.fillfields": "Por favor, complete todos los campos.",
+  "t.money": "Efectivo",
+  "t.debitcard": "Tarjetas de débito",
+  "t.creditcard": "Tarjetas de crédito",
 
   "login.title": "Ingrese para continuar",
   "login.btn.login": "Ingresar",
@@ -26,6 +33,8 @@
 
   "register.title": "Bienvenido a Comprando en Casa",
   "register.subtitle": "¿Cómo quiere registrarse?",
-  "register.success": "Cuenta creada satisfactoriamente."
-
+  "register.success": "Cuenta creada satisfactoriamente.",
+  "register.customtime": "Personalizar horarios",
+  "register.payment":"Formas de pago: ",
+  "register.distance": "Distancia máxima de entregas (en metros)"
 }
