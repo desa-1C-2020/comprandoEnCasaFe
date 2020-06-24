@@ -80,13 +80,13 @@ class LogInScreen extends React.Component {
                           value={this.state.user}
                           type="text" 
                           onChange={this.handleChange}
-                          placeholder={intl.formatMessage({ id: 'login.ph.mail' })}/>
+                          placeholder={intl.formatMessage({id:'t.mail'})}/>
               <InputGroup className="input"
                           name="pass" 
                           value={this.state.pass}
                           type="password" 
                           onChange={this.handleChange}
-                          placeholder={intl.formatMessage({ id: 'login.ph.pass' })}/>
+                          placeholder={intl.formatMessage({id:'t.password'})}/>
             </div>
             <Button className="button" onClick={this.logIn}>
             {intl.formatMessage({ id: 'login.btn.login' })}
@@ -94,7 +94,7 @@ class LogInScreen extends React.Component {
             <p className="register-text">
               {intl.formatMessage({ id: 'login.new' })}
               <span className="register" onClick={this.goRegister}> 
-                {intl.formatMessage({ id: 'login.btn.register' })}
+                {intl.formatMessage({ id: 't.register' })}
               </span>
             </p>
           </div>

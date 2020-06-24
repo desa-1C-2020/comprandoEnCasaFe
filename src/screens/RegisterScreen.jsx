@@ -5,6 +5,7 @@ import { registerBuyer, registerSeller } from '../services/UserService'
 import { withRouter } from "react-router-dom";
 import { RadioGroup, Radio, Button, Alert, Spinner } from '@blueprintjs/core'
 import '../styles/RegisterScreen.css'
+import { injectIntl } from 'react-intl';
 
 class RegisterScreen extends React.Component {
 
@@ -124,25 +125,34 @@ class RegisterScreen extends React.Component {
   }
 
   render(){
+    const { intl } = this.props;
     return (        
       <div>
         <div className="register-container">
-        <p className="register-title">Bienvenido a Comprando en Casa</p>
-        <p className="register-sub">¿Cómo quiere registrarse?</p>
+        <p className="register-title">
+          {intl.formatMessage({id:'register.title'})}
+        </p>
+        <p className="register-sub">
+          {intl.formatMessage({id:'register.subtitle'})}
+        </p>
         <RadioGroup
           className="radio"
           inline={true}
           onChange={this.handleRadio}
           selectedValue={this.state.form}>
-          <Radio label='Comprador' value='buyer' large={true}/>
-          <Radio label='Vendedor' value='seller' large={true}/>
+          <Radio label={intl.formatMessage({id:'t.buyer'})} value='buyer' large={true}/>
+          <Radio label={intl.formatMessage({id:'t.seller'})} value='seller' large={true}/>
         </RadioGroup>
         {this.state.form === 'buyer' ? 
           <div className="buyer-form" ><BuyerForm update={this.setBuyerInfo}/></div>
           : <div className="seller-form"><SellerForm update={this.setSellerInfo}/></div>}
         <div className="buttons">
-          <Button className="register-btn" intent="success" onClick={this.handleRegister}>Registarse</Button>
-          <Button intent="danger" onClick={this.goBack}>Volver</Button>
+          <Button className="register-btn" intent="success" onClick={this.handleRegister}>
+            {intl.formatMessage({id:'t.register'})}
+          </Button>
+          <Button intent="danger" onClick={this.goBack}>
+            {intl.formatMessage({id:'t.goback'})}
+          </Button>
         </div>
         </div>
         <Alert isOpen={this.state.alertSuccess} confirmButtonText='ACEPTAR' intent='success' onClose={this.goBack}>    
@@ -163,4 +173,4 @@ class RegisterScreen extends React.Component {
 
 }
 
-export default withRouter(RegisterScreen)
+export default injectIntl(withRouter(RegisterScreen))

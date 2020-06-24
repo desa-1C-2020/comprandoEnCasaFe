@@ -17,10 +17,12 @@
 .register-sub {
   margin-left: 20px;
   font-size: 20px;
+  text-align: center;
 }
 
 .radio {
   margin-left: 20px;
+  text-align: center;
 }
 
 .buyer-form {

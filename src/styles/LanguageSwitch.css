@@ -19,3 +19,17 @@
 .ls-btn {
   text-align: center;
 }
+
+@media (max-width: 1024px){
+
+  .ls-main-container {
+    position: sticky; 
+    margin-top: 50px;
+    bottom: 10px;
+    right: auto;
+    left: 10px;
+    margin-bottom: 0px;
+    height: 55px;
+  }
+
+}

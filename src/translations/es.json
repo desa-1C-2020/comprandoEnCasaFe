@@ -1,8 +1,24 @@
 {
+  "t.mail": "Correo electrónico",
+  "t.password": "Contraseña",
+  "t.buyer": "Comprador",
+  "t.seller": "Vendedor",
+  "t.personaldata": "Datos personales",
+  "t.addressdata": "Datos del domicilio",
+  "t.name": "Nombre",
+  "t.surname": "Apellido",
+  "t.address": "Dirección",
+  "t.lat": "Latitud",
+  "t.lgn": "Longitud",
+  "t.register": "Registrarse",
+  "t.goback": "Volver",
+
   "login.title": "Ingrese para continuar",
-  "login.ph.mail": "Correo electrónico",
-  "login.ph.pass": "Contraseña",
   "login.btn.login": "Ingresar",
   "login.new": "¿Nuevo en la aplicación? ",
-  "login.btn.register": "Registrarse"
+  "login.btn.register": "Registrarse",
+
+  "register.title": "Bienvenido a Comprando en Casa",
+  "register.subtitle": "¿Cómo quiere registrarse?"
+
 }
