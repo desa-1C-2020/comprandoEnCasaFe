@@ -2,6 +2,7 @@ import React from 'react'
 import '../styles/TimeTablePopUp.css'
 import { Dialog, Button, Alert } from '@blueprintjs/core';
 import TickDate from './TickDate';
+import { injectIntl, FormattedMessage } from 'react-intl'
 
 export class TimeTablePopUp extends React.Component {
 
@@ -83,30 +84,33 @@ export class TimeTablePopUp extends React.Component {
   }
 
 	render() {
+    const { intl } = this.props;
     return (
       <div>
         <Dialog 
           isOpen={this.props.isOpen} 
           onClose={this.handleClose}
-          title="Días y horarios de atención">
-          <TickDate dia="Lunes" value="monday" updateTT={this.handleDay}/>
-          <TickDate dia="Martes" value="tuesday" updateTT={this.handleDay}/>
-          <TickDate dia="Miércoles" value="wednesday" updateTT={this.handleDay}/>
-          <TickDate dia="Jueves" value="thursday" updateTT={this.handleDay}/>
-          <TickDate dia="Viernes" value="friday" updateTT={this.handleDay}/>
-          <TickDate dia="Sabado" value="saturday" updateTT={this.handleDay}/>
-          <TickDate dia="Domingo" value="sunday" updateTT={this.handleDay}/>
-          <Button className="h-btn" intent='success' onClick={this.save}>Guardar Horarios</Button>
+          title={intl.formatMessage({id:'register.tt.title'})}>
+          <TickDate dia={intl.formatMessage({id:'t.monday'})} value="monday" updateTT={this.handleDay}/>
+          <TickDate dia={intl.formatMessage({id:'t.tuesday'})} value="tuesday" updateTT={this.handleDay}/>
+          <TickDate dia={intl.formatMessage({id:'t.wednesday'})} value="wednesday" updateTT={this.handleDay}/>
+          <TickDate dia={intl.formatMessage({id:'t.thursday'})} value="thursday" updateTT={this.handleDay}/>
+          <TickDate dia={intl.formatMessage({id:'t.friday'})} value="friday" updateTT={this.handleDay}/>
+          <TickDate dia={intl.formatMessage({id:'t.saturday'})} value="saturday" updateTT={this.handleDay}/>
+          <TickDate dia={intl.formatMessage({id:'t.sunday'})} value="sunday" updateTT={this.handleDay}/>
+          <Button className="h-btn" intent='success' onClick={this.save}>
+            <FormattedMessage id='register.tt.savett'/>
+          </Button>
         </Dialog>
         <Alert isOpen={this.state.alert}
-               confirmButtonText='ACEPTAR'
+               confirmButtonText={intl.formatMessage({id:'t.accept'})}
                intent='danger'
                onClose={() => {this.setState({alert: false})}}>
-              Algunos de los horarios ingresados son inválidos.
+          <FormattedMessage id='register.tt.invalid'/>
         </Alert>
       </div>
 		);
 	}
 }
 
-export default TimeTablePopUp
+export default injectIntl(TimeTablePopUp)

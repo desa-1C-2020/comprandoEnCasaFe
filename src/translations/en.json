@@ -22,6 +22,15 @@
   "t.money": "Cash",
   "t.debitcard": "Debit cards",
   "t.creditcard": "Credit cards",
+  "t.monday": "Monday",
+  "t.tuesday": "Tuesday",
+  "t.wednesday": "Wednesday",
+  "t.thursday": "Thursday",
+  "t.friday": "Friday",
+  "t.saturday": "Saturday",
+  "t.sunday": "Sunday",
+  "t.from": "From",
+  "t.to": "to",
 
   "login.title": "Log in to continue",
   "login.btn.login": "Log in",
@@ -35,5 +44,8 @@
   "register.success": "Account created successfully.",
   "register.customtime": "Custom timetable",
   "register.payment": "Payment methods: ",
-  "register.distance": "Maximum delivery distance (meters)"
+  "register.distance": "Maximum delivery distance (meters)",
+  "register.tt.title": "Commerce schedule",
+  "register.tt.invalid": "Invalid schedule.",
+  "register.tt.savett": "Save schedule"
 }

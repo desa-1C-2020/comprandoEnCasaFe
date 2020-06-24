@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/TickDate.css'
 import { Checkbox, InputGroup } from '@blueprintjs/core';
+import { FormattedMessage } from 'react-intl'
 
 class TickDate extends React.Component {
 
@@ -57,13 +58,14 @@ class TickDate extends React.Component {
         </Checkbox>
         <div className="hours">
           <span className="h-text">
-            <span className="day-name">{this.props.dia}:</span> De
+            <span className="day-name">{this.props.dia}:</span> 
+            <FormattedMessage id='t.from'/>
           </span>
           <InputGroup className="time"
                       type="text"
                       value={this.state.from}
                       onChange={this.updateFrom}/>
-          <span className="h-text">Hs. a</span>
+          <span className="h-text">Hs. <FormattedMessage id='t.to'/></span>
           <InputGroup className="time"
                       type="text"
                       value={this.state.to}

@@ -22,6 +22,15 @@
   "t.money": "Efectivo",
   "t.debitcard": "Tarjetas de débito",
   "t.creditcard": "Tarjetas de crédito",
+  "t.monday": "Lunes",
+  "t.tuesday": "Martes",
+  "t.wednesday": "Miércoles",
+  "t.thursday": "Jueves",
+  "t.friday": "Viernes",
+  "t.saturday": "Sábado",
+  "t.sunday": "Domingo",
+  "t.from": "De",
+  "t.to": "a",
 
   "login.title": "Ingrese para continuar",
   "login.btn.login": "Ingresar",
@@ -36,5 +45,8 @@
   "register.success": "Cuenta creada satisfactoriamente.",
   "register.customtime": "Personalizar horarios",
   "register.payment":"Formas de pago: ",
-  "register.distance": "Distancia máxima de entregas (en metros)"
+  "register.distance": "Distancia máxima de entregas (en metros)",
+  "register.tt.title": "Días y horarios de atención",
+  "register.tt.invalid": "Algunos de los horarios ingresados son inválidos.",
+  "register.tt.savett": "Guardar horarios"
 }

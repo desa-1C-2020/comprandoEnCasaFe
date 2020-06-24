@@ -81,11 +81,9 @@ class HomeScreen extends React.Component {
   }
 
   render(){
-    const account = 'seller'
-    // TODO - definir si es vendedor o comprador
-    // const account = this.props.location.state !== undefined &&
-    //                 this.props.location.state.account === 'seller' ?
-    //                 'seller' : 'buyer'
+    const account = this.props.location.state !== undefined &&
+                     this.props.location.state.account === 'seller' ?
+                     'seller' : 'buyer'
     const user = this.props.location.state !== undefined ? 
                  this.props.location.state.accountInfo.user : {}
     let shop = this.props.location.state !== undefined ?

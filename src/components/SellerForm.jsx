@@ -190,7 +190,7 @@ export class SellerForm extends React.Component {
                       value={this.state.radio}
                       onBlur={this.updateParent}
                       onChange={this.handleChange} 
-                      placeholder="Ej: 2000"
+                      placeholder="2000"
           />
         </span>
         <TimeTablePopUp isOpen={this.state.timeTable} 

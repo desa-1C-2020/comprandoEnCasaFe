@@ -26,11 +26,12 @@
 }
 
 .h-text {
-  margin-top: 3px;
+  margin-top: 13px;
+  font-size: 18px;
 }
 
 .day-name {
-  width: 140px;
+  width: 150px;
   display: inline-block;
 }
 
