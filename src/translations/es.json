@@ -11,14 +11,21 @@
   "t.lat": "Latitud",
   "t.lgn": "Longitud",
   "t.register": "Registrarse",
+  "t.accept": "Aceptar",
   "t.goback": "Volver",
+  "t.error": "Algo salió mal: ",
+  "t.fillfields": "Por favor, complete todos los campos.",
 
   "login.title": "Ingrese para continuar",
   "login.btn.login": "Ingresar",
   "login.new": "¿Nuevo en la aplicación? ",
   "login.btn.register": "Registrarse",
+  "login.error.msg": "Usuario y/o contraseña incorrecto/s",
+  "login.error.username": "Por favor, ingrese su nombre de usuario",
+  "login.error.password": "Por favor, ingrese su contraseña",
 
   "register.title": "Bienvenido a Comprando en Casa",
-  "register.subtitle": "¿Cómo quiere registrarse?"
+  "register.subtitle": "¿Cómo quiere registrarse?",
+  "register.success": "Cuenta creada satisfactoriamente."
 
 }

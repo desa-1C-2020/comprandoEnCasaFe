@@ -5,7 +5,7 @@ import { registerBuyer, registerSeller } from '../services/UserService'
 import { withRouter } from "react-router-dom";
 import { RadioGroup, Radio, Button, Alert, Spinner } from '@blueprintjs/core'
 import '../styles/RegisterScreen.css'
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 
 class RegisterScreen extends React.Component {
 
@@ -65,7 +65,7 @@ class RegisterScreen extends React.Component {
       registerBuyer(this.state.buyerInfo, (err, _res) =>{
         if(err){
           this.setState({
-            errorMsg: "Algo salió mal: " + err,
+            errorMsg: <p><FormattedMessage id='t.error'/>+{err}</p>,
             alertField: true,
             isLoading: false
           })
@@ -75,7 +75,7 @@ class RegisterScreen extends React.Component {
       })
     } else {
       this.setState({
-        errorMsg: "Por favor, complete todos los campos",
+        errorMsg: <FormattedMessage id='t.fillfields'/>,
         alertField: true
       })
     }
@@ -87,7 +87,7 @@ class RegisterScreen extends React.Component {
       registerSeller(this.state.sellerInfo, (err, _res) =>{
         if(err){
           this.setState({
-            errorMsg: "Algo salió mal: " + err,
+            errorMsg: <p><FormattedMessage id='t.error'/>+{err}</p>,
             alertField: true,
             isLoading: false
           })
@@ -97,7 +97,7 @@ class RegisterScreen extends React.Component {
       })
     } else {
       this.setState({
-        errorMsg: "Por favor, complete todos los campos",
+        errorMsg: <FormattedMessage id='t.fillfields'/>,
         alertField: true
       })
     }
@@ -130,10 +130,10 @@ class RegisterScreen extends React.Component {
       <div>
         <div className="register-container">
         <p className="register-title">
-          {intl.formatMessage({id:'register.title'})}
+          <FormattedMessage id='register.title'/>
         </p>
         <p className="register-sub">
-          {intl.formatMessage({id:'register.subtitle'})}
+          <FormattedMessage id='register.subtitle'/>
         </p>
         <RadioGroup
           className="radio"
@@ -148,19 +148,19 @@ class RegisterScreen extends React.Component {
           : <div className="seller-form"><SellerForm update={this.setSellerInfo}/></div>}
         <div className="buttons">
           <Button className="register-btn" intent="success" onClick={this.handleRegister}>
-            {intl.formatMessage({id:'t.register'})}
+            <FormattedMessage id='t.register'/>
           </Button>
           <Button intent="danger" onClick={this.goBack}>
-            {intl.formatMessage({id:'t.goback'})}
+            <FormattedMessage id='t.goback'/>
           </Button>
         </div>
         </div>
         <Alert isOpen={this.state.alertSuccess} confirmButtonText='ACEPTAR' intent='success' onClose={this.goBack}>    
-          Cuenta creada satisfactoriamente
+          <FormattedMessage id='register.success'/>
         </Alert>
         <Alert isOpen={this.state.alertField} confirmButtonText='ACEPTAR' intent='danger' 
                onClose={() => this.setState({alertField: false})}>    
-          {this.state.errorMsg}
+         {this.state.errorMsg}
         </Alert>
         {this.state.isLoading &&
         <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>   

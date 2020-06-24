@@ -11,12 +11,19 @@
   "t.lat": "Latitude",
   "t.lgn": "Longitude",
   "t.register": "Register",
+  "t.accept": "Accept",
   "t.goback": "Go back",
+  "t.error": "Something went wrong: ",
+  "t.fillfields": "Fill every field, please.",
 
   "login.title": "Log in to continue",
   "login.btn.login": "Log in",
   "login.new": "First time here? ",
+  "login.error.msg":"Incorrect username or password.",
+  "login.error.username": "Please, enter your username",
+  "login.error.password": "Please, enter your password",
 
   "register.title": "Welcome to Comprando en Casa",
-  "register.subtitle": "How would you like to register?"
+  "register.subtitle": "How would you like to register?",
+  "register.success": "Account created successfully."
 }
