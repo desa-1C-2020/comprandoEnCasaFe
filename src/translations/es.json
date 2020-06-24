@@ -31,6 +31,8 @@
   "t.sunday": "Domingo",
   "t.from": "De",
   "t.to": "a",
+  "t.commingsoon": "¡Próximamente!",
+  "t.search": "Buscar",
 
   "login.title": "Ingrese para continuar",
   "login.btn.login": "Ingresar",
@@ -48,5 +50,16 @@
   "register.distance": "Distancia máxima de entregas (en metros)",
   "register.tt.title": "Días y horarios de atención",
   "register.tt.invalid": "Algunos de los horarios ingresados son inválidos.",
-  "register.tt.savett": "Guardar horarios"
+  "register.tt.savett": "Guardar horarios",
+
+  "navbar.search": "Buscar un producto",
+  "navbar.mycommerce": "Mi comercio",
+  "navbar.myprofile": "Mi perfil",
+  "navbar.myproducts": "Mis productos",
+  "navbar.myshopping": "Mis compras",
+  "navbar.home": "Inicio",
+  "navbar.info": "Información",
+  "navbar.data": "Mis datos",
+  "navbar.alert": "Alertas",
+  "navbar.logout": "Cerrar sesión"
 }

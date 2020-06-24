@@ -31,6 +31,8 @@
   "t.sunday": "Sunday",
   "t.from": "From",
   "t.to": "to",
+  "t.commingsoon": "Comming soon!",
+  "t.search": "Search",
 
   "login.title": "Log in to continue",
   "login.btn.login": "Log in",
@@ -47,5 +49,16 @@
   "register.distance": "Maximum delivery distance (meters)",
   "register.tt.title": "Commerce schedule",
   "register.tt.invalid": "Invalid schedule.",
-  "register.tt.savett": "Save schedule"
+  "register.tt.savett": "Save schedule",
+
+  "navbar.search": "Search product",
+  "navbar.mycommerce": "My commerce",
+  "navbar.myprofile": "My profile",
+  "navbar.myproducts": "My products",
+  "navbar.myshopping": "My shopping",
+  "navbar.home": "Home",
+  "navbar.info": "Information",
+  "navbar.data": "My info",
+  "navbar.alert": "Alerts",
+  "navbar.logout": "Log out"
 }
