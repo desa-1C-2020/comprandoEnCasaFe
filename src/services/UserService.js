@@ -15,8 +15,8 @@ export function registerSeller(userInfo, callback) {
   registerBuyer(buyerInfo, (err, res) => {
     if (err) callback(err, null)
     else {
-      const uid = res.data.user.uid;
-      shopInfo.userId = uid;
+      const id = res.data.user.id;
+      shopInfo.userId = id;
       axios.post(`${apiBasicUrl()}/account/seller`, shopInfo)
       .then((res) =>  callback(null, res))
       .catch((err) => callback(err, null))

@@ -52,4 +52,8 @@
     width: 90px;
     display: inline-block;
   }
+
+  .h-text {
+    margin-top: 5px;
+  }
 }

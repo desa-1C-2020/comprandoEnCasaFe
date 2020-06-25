@@ -17,7 +17,7 @@
   "t.register": "Registrarse",
   "t.accept": "Aceptar",
   "t.goback": "Volver",
-  "t.error": "Algo salió mal: ",
+  "t.error": "¡Algo salió mal!",
   "t.fillfields": "Por favor, complete todos los campos.",
   "t.money": "Efectivo",
   "t.debitcard": "Tarjetas de débito",
@@ -69,5 +69,14 @@
   "shopsearch.max": "Distancia máxima (en metros)",
   "shopsearch.meters": "Metros",
   "shopsearch.notfound": "No se encontraron resultados",
-  "shopsearch.restitle": "Resultados de búsqueda"
+  "shopsearch.restitle": "Resultados de búsqueda",
+
+  "ploader.title": "Agregar un producto",
+  "ploader.prodname": "Nombre producto",
+  "ploader.brand": "Marca",
+  "ploader.stock": "Stock",
+  "ploader.price": "Precio",
+  "ploader.url": "Imágen (URL)",
+  "ploader.addprod": "Agregar producto",
+  "ploader.success": "Producto guardado satisfactoriamente."
 }

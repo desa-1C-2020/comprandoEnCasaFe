@@ -65,7 +65,7 @@ class RegisterScreen extends React.Component {
       registerBuyer(this.state.buyerInfo, (err, _res) =>{
         if(err){
           this.setState({
-            errorMsg: <p><FormattedMessage id='t.error'/>+{err}</p>,
+            errorMsg: <FormattedMessage id='t.error'/>,
             alertField: true,
             isLoading: false
           })
@@ -87,7 +87,7 @@ class RegisterScreen extends React.Component {
       registerSeller(this.state.sellerInfo, (err, _res) =>{
         if(err){
           this.setState({
-            errorMsg: <p><FormattedMessage id='t.error'/>+{err}</p>,
+            errorMsg: <FormattedMessage id='t.error'/>,
             alertField: true,
             isLoading: false
           })

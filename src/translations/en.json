@@ -17,7 +17,7 @@
   "t.register": "Register",
   "t.accept": "Accept",
   "t.goback": "Go back",
-  "t.error": "Something went wrong: ",
+  "t.error": "Something went wrong!",
   "t.fillfields": "Fill every field, please.",
   "t.money": "Cash",
   "t.debitcard": "Debit cards",
@@ -68,5 +68,14 @@
   "shopsearch.max": "Max distance (meters)",
   "shopsearch.meters": "Meters",
   "shopsearch.notfound": "No results found",
-  "shopsearch.restitle": "Search results"
+  "shopsearch.restitle": "Search results",
+
+  "ploader.title": "Add a product",
+  "ploader.prodname": "Product name",
+  "ploader.brand": "Brand",
+  "ploader.stock": "Stock",
+  "ploader.price": "Price",
+  "ploader.url": "Image (URL)",
+  "ploader.addprod": "Add product",
+  "ploader.success": "Product saved successfully."
 }
