@@ -1,6 +1,7 @@
 import React from 'react'
 import { Dialog, InputGroup, Button, Alert } from '@blueprintjs/core'
 import '../styles/ModProductInfo.css'
+import { injectIntl } from 'react-intl'
 
 class ModProductInfo extends React.Component {
 
@@ -57,9 +58,10 @@ class ModProductInfo extends React.Component {
   }
 
   render(){
+    const { intl } = this.props;
     return(
       <div>
-        <Dialog title="Modificar producto" 
+        <Dialog title={intl.formatMessage({id:'seller.modifymsg'})}
                 isOpen={this.props.isOpen}
                 onClose={() => this.props.close()}>
           <span>
@@ -69,7 +71,7 @@ class ModProductInfo extends React.Component {
                       value={this.state.name}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Nombre producto"
+                      placeholder={intl.formatMessage({id:'ploader.prodname'})}
           />
           <InputGroup className="mod-field" 
                       type="text" 
@@ -77,7 +79,7 @@ class ModProductInfo extends React.Component {
                       value={this.state.brand}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Marca"
+                      placeholder={intl.formatMessage({id:'ploader.brand'})}
           />
           <InputGroup className="mod-field" 
                       type="number" 
@@ -85,7 +87,7 @@ class ModProductInfo extends React.Component {
                       value={this.state.stock}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Stock"
+                      placeholder={intl.formatMessage({id:'ploader.stock'})}
           />
           <InputGroup className="mod-field" 
                       type="number" 
@@ -93,7 +95,7 @@ class ModProductInfo extends React.Component {
                       value={this.state.price}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Precio"
+                      placeholder={intl.formatMessage({id:'ploader.price'})}
           />
           <InputGroup className="mod-field" 
                         type="text" 
@@ -101,18 +103,20 @@ class ModProductInfo extends React.Component {
                         value={this.state.url}
                         onChange={this.handleChange} 
                         onBlur={this.updateParent}
-                        placeholder="Imágen (URL)"
+                        placeholder={intl.formatMessage({id:'ploader.url'})}
           />
         </span>
         <span>
-          <Button className='accept-btn' onClick={this.sendProduct}>Aceptar</Button>
+          <Button className='accept-btn' onClick={this.sendProduct}>
+            {intl.formatMessage({id:'t.accept'})}
+          </Button>
         </span>
         </Dialog>
         <Alert isOpen={this.state.alert}
-               confirmButtonText='ACEPTAR'
+               confirmButtonText={intl.formatMessage({id:'t.accept'})}
 							 intent='warning'
                onClose={() => {this.setState({alert: false})}}>
-              Por favor, complete todos los datos
+          {intl.formatMessage({id:'t.fillfields'})}
         </Alert>
       </div>
     )
@@ -120,4 +124,4 @@ class ModProductInfo extends React.Component {
 
 }
 
-export default ModProductInfo
+export default injectIntl(ModProductInfo)

@@ -33,6 +33,8 @@
   "t.to": "to",
   "t.commingsoon": "Comming soon!",
   "t.search": "Search",
+  "t.modify": "Modify",
+  "t.delete": "Delete",
 
   "login.title": "Log in to continue",
   "login.btn.login": "Log in",
@@ -77,5 +79,10 @@
   "ploader.price": "Price",
   "ploader.url": "Image (URL)",
   "ploader.addprod": "Add product",
-  "ploader.success": "Product saved successfully."
+  "ploader.success": "Product saved successfully.",
+  "seller.noprod": "There are no products in your shop!",
+  "seller.deleteprod": "Product deleted successfully.",
+  "seller.modifyprod": "Product modified successfully.",
+  "seller.deletemsg": "Do you really want to delete this product?",
+  "seller.modifymsg": "Modify product"
 }

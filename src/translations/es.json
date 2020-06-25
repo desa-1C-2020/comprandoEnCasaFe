@@ -33,6 +33,8 @@
   "t.to": "a",
   "t.commingsoon": "¡Próximamente!",
   "t.search": "Buscar",
+  "t.modify": "Modificar",
+  "t.delete": "Eliminar",
 
   "login.title": "Ingrese para continuar",
   "login.btn.login": "Ingresar",
@@ -78,5 +80,10 @@
   "ploader.price": "Precio",
   "ploader.url": "Imágen (URL)",
   "ploader.addprod": "Agregar producto",
-  "ploader.success": "Producto guardado satisfactoriamente."
+  "ploader.success": "Producto guardado satisfactoriamente.",
+  "seller.noprod": "¡No hay productos en tu tienda!",
+  "seller.deleteprod": "Producto borrado satisfactoriamente.",
+  "seller.modifyprod": "Producto modificado satisfactoriamente.",
+  "seller.deletemsg": "¿Está seguro que desea eliminar este producto?",
+  "seller.modifymsg": "Modificar producto"
 }

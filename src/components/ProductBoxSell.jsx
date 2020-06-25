@@ -3,6 +3,7 @@ import '../styles/ProductBoxSell.css'
 import { Button, Alert } from '@blueprintjs/core'
 import {deleteProduct, modifyProduct} from '../services/SellerService'
 import ModProductInfo from '../components/ModProductInfo'
+import { injectIntl, FormattedMessage } from 'react-intl'
 
 class ProductBoxSell extends React.Component {
 
@@ -44,7 +45,7 @@ class ProductBoxSell extends React.Component {
           alert: false,
           alertResult: true,
           alertResultIntent: 'danger',
-          alertResultMsg: `Algo salió mal: ${err}`,
+          alertResultMsg: <FormattedMessage id='t.error'/>,
           alertResultIcon: 'error',
         })
       } else {
@@ -52,7 +53,7 @@ class ProductBoxSell extends React.Component {
           alert: false,
           alertResult: true,
           alertResultIntent: 'success',
-          alertResultMsg: `Producto borrado satisfactoriamente`,
+          alertResultMsg: <FormattedMessage id='seller.deleteprod'/>,
           alertResultIcon: 'endorsed',
           display: 'none'
         })
@@ -67,7 +68,7 @@ class ProductBoxSell extends React.Component {
           openMod: false,
           alertResult: true,
           alertResultIntent: 'danger',
-          alertResultMsg: `Algo salió mal: ${err}`,
+          alertResultMsg: <FormattedMessage id='t.error'/>,
           alertResultIcon: 'error',
         })
       } else {
@@ -80,7 +81,7 @@ class ProductBoxSell extends React.Component {
           openMod: false,
           alertResult: true,
           alertResultIntent: 'success',
-          alertResultMsg: `Producto modificado satisfactoriamente`,
+          alertResultMsg: <FormattedMessage id='seller.modifyprod'/>,
           alertResultIcon: 'endorsed',
         })
       }
@@ -93,6 +94,7 @@ class ProductBoxSell extends React.Component {
 
   render(){
     const p = this.state
+    const { intl } = this.props;
     return (   
       <div style={{display: this.state.display}}>     
       <div className='bs-container'>
@@ -100,30 +102,42 @@ class ProductBoxSell extends React.Component {
           <tr><td><img className='bs-image' alt={p.name} src={p.url}></img></td></tr>
         </tbody></table>
         <table className='bs-desc-container'><tbody>
-          <tr><td className='bs-desc-item'><b>Nombre:</b> {p.name}</td></tr>
-          <tr><td className='bs-desc-item'><b>Marca:</b> {p.brand}</td></tr>
-          <tr><td className='bs-desc-item'><b>Precio:</b> ${p.price}</td></tr>
-          <tr><td className='bs-desc-item'><b>Stock:</b> {p.stock}</td></tr>
+          <tr><td className='bs-desc-item'>
+            <b><FormattedMessage id='t.name'/>:</b> {p.name}
+          </td></tr>
+          <tr><td className='bs-desc-item'>
+            <b><FormattedMessage id='ploader.brand'/>:</b> {p.brand}
+          </td></tr>
+          <tr><td className='bs-desc-item'>
+            <b><FormattedMessage id='ploader.price'/>:</b> ${p.price}
+          </td></tr>
+          <tr><td className='bs-desc-item'>
+            <b><FormattedMessage id='ploader.stock'/>:</b> {p.stock}
+          </td></tr>
           <tr><td className='bs-btn-container'>
             <Button className='bs-btn-m' intent='primary'
-                    onClick={()=>{this.setState({openMod: true})}}>Modificar</Button>
+                    onClick={()=>{this.setState({openMod: true})}}>
+              <FormattedMessage id='t.modify'/>
+            </Button>
             <Button className='bs-btn' intent='danger'
-                    onClick={()=>this.setState({alert: true})}>Eliminar</Button>
+                    onClick={()=>this.setState({alert: true})}>
+              <FormattedMessage id='t.delete'/>
+            </Button>
           </td></tr>
         </tbody></table>
         <Alert isOpen={this.state.alert}
-               confirmButtonText='Eliminar'
-               cancelButtonText='Volver'
+               confirmButtonText={intl.formatMessage({id:'t.delete'})}
+               cancelButtonText={intl.formatMessage({id:'t.goback'})}
                intent='danger'
                onCancel={() => this.setState({alert: false})}
                onConfirm={this.deleteProduct}>
               <img className='bs-image-del' alt={p.name} src={p.url}></img><br></br>
-              ¿Está seguro que desea eliminar este producto?
+              <FormattedMessage id='seller.deletemsg'/>
         </Alert> 
         <Alert isOpen={this.state.alertResult}
                intent={this.state.alertResultIntent}
                icon={this.state.alertResultIcon}
-               confirmButtonText='ACEPTAR'
+               confirmButtonText={intl.formatMessage({id:'t.accept'})}
                onClose={()=>{this.setState({alertResult: false})}}>
                {this.state.alertResultMsg}
         </Alert>
@@ -137,4 +151,4 @@ class ProductBoxSell extends React.Component {
 
 }
 
-export default ProductBoxSell
+export default injectIntl(ProductBoxSell)
