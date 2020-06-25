@@ -9,6 +9,7 @@ import { getAllProducts } from '../services/SellerService'
 import { Alert, Spinner } from '@blueprintjs/core'
 import ProductLoader from '../components/ProductLoader'
 import SellerProductsComponent from '../components/SellerProductsComponent'
+import { FormattedMessage } from 'react-intl'
 
 class HomeScreen extends React.Component {
 
@@ -64,7 +65,7 @@ class HomeScreen extends React.Component {
   }
 
   doSearch(text, distance){
-    const id = this.props.location.state.accountInfo.user.uid
+    const id = parseInt(this.props.location.state.accountInfo.user.id)
     this.setState({isLoading: true, searchResult: false})
     searchProduct(text, id, distance, (err, res) =>{
       if(err){
@@ -81,11 +82,9 @@ class HomeScreen extends React.Component {
   }
 
   render(){
-    const account = 'seller'
-    // TODO - definir si es vendedor o comprador
-    // const account = this.props.location.state !== undefined &&
-    //                 this.props.location.state.account === 'seller' ?
-    //                 'seller' : 'buyer'
+    const account = this.props.location.state !== undefined &&
+                     this.props.location.state.account === 'seller' ?
+                     'seller' : 'buyer'
     const user = this.props.location.state !== undefined ? 
                  this.props.location.state.accountInfo.user : {}
     let shop = this.props.location.state !== undefined ?
@@ -98,14 +97,14 @@ class HomeScreen extends React.Component {
                     handleProfile={() => this.handleEvent('profile', true)}
                     handleLogOut={this.logOut}
                     handleSearch={this.doSearch}/>
-        {account === 'buyer' && this.state.shopSearch && <ShopSearch/>}
+        {account === 'buyer' && this.state.shopSearch && <ShopSearch address={user.address}/>}
         {this.state.profile && <ProfileInfo isOpen={this.state.profile} 
                                             accountType={account} 
                                             info={user}
                                             shopInfo={shop}
                                             handleProfile={() => this.handleEvent('profile', false)}/>}
         {this.state.searchResult && <ProductComponent products={this.state.products}/>}
-        {account === 'seller' && this.state.productLoader && <ProductLoader userID={user.uid}/>}
+        {account === 'seller' && this.state.productLoader && <ProductLoader userID={user.id}/>}
         {account === 'seller' && this.state.productList && <SellerProductsComponent 
                                                             products={this.state.products} 
                                                             shopId={user.uid}/>}
@@ -114,7 +113,7 @@ class HomeScreen extends React.Component {
                icon='error'
                intent='danger'
                onClose={() => {this.setState({alert: false})}}>
-              ¡Algo salió mal!
+              <FormattedMessage id='t.error'/>
         </Alert>
         {this.state.isLoading &&
         <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>   

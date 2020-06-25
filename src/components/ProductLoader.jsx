@@ -2,6 +2,7 @@ import React from 'react'
 import '../styles/ProductLoader.css'
 import { InputGroup, Button, Alert } from '@blueprintjs/core'
 import { saveProduct } from '../services/SellerService'
+import { injectIntl, FormattedMessage } from 'react-intl'
 
 export class ProductLoader extends React.Component {
 
@@ -14,7 +15,8 @@ export class ProductLoader extends React.Component {
       price: '',
       url: '',
       alert: false,
-      msg: ''
+      msg: '', 
+      res: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.saveProduct = this.saveProduct.bind(this);
@@ -27,23 +29,25 @@ export class ProductLoader extends React.Component {
 
   saveProduct(){
     const product = {
+      productId: '',
       name: this.state.name,
       brand: this.state.brand,
-      stock: this.state.stock,
-      price: this.state.price,
+      stock: parseInt(this.state.stock),
+      price: parseInt(this.state.price),
       imageUrl: this.state.url
     }
     if(this.isValidProduct()){
-      saveProduct(product, this.props.userID, (err, res) => {
+      const id = parseInt(this.props.userID)
+      saveProduct(product, id, (err, res) => {
         if(err){
-          this.setState({alert: true, msg: '¡Algo salió mal!'});
+          this.setState({alert: true, res: 'err', msg: <FormattedMessage id='t.error'/>});
         } else {
-          this.setState({name: '', brand: '', stock: '', price: '', url: '',
-                         alert: true, msg: 'Producto guardado satisfactoriamente.'});
+          this.setState({name: '', brand: '', stock: '', price: '', url: '', res: 'ok',
+                         alert: true, msg: <FormattedMessage id='ploader.success'/>});
         }
       })
     } else {
-      this.setState({alert: true, msg: 'Por favor, complete todos los campos.'});
+      this.setState({alert: true, res: 'err', msg: <FormattedMessage id='t.fillfields'/>});
     }
   }
 
@@ -56,9 +60,12 @@ export class ProductLoader extends React.Component {
   }
 
 	render() {
+    const { intl } = this.props;
     return (
       <div className='loader-container'>
-        <p className='loader-container-title'><b>Agregar un producto</b></p>
+        <p className='loader-container-title'>
+          <b><FormattedMessage id='ploader.title'/></b>
+        </p>
         <span className='fields-container'>
           <InputGroup className="field" 
                       type="text" 
@@ -66,7 +73,7 @@ export class ProductLoader extends React.Component {
                       value={this.state.name}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Nombre producto"
+                      placeholder={intl.formatMessage({id:'ploader.prodname'})}
           />
           <InputGroup className="field" 
                       type="text" 
@@ -74,7 +81,7 @@ export class ProductLoader extends React.Component {
                       value={this.state.brand}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Marca"
+                      placeholder={intl.formatMessage({id:'ploader.brand'})}
           />
           <InputGroup className="field" 
                       type="number" 
@@ -82,7 +89,7 @@ export class ProductLoader extends React.Component {
                       value={this.state.stock}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Stock"
+                      placeholder={intl.formatMessage({id:'ploader.stock'})}
           />
           <InputGroup className="field" 
                       type="number" 
@@ -90,7 +97,7 @@ export class ProductLoader extends React.Component {
                       value={this.state.price}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Precio"
+                      placeholder={intl.formatMessage({id:'ploader.price'})}
           />
           <InputGroup className="field" 
                         type="text" 
@@ -98,17 +105,19 @@ export class ProductLoader extends React.Component {
                         value={this.state.url}
                         onChange={this.handleChange} 
                         onBlur={this.updateParent}
-                        placeholder="Imágen (URL)"
+                        placeholder={intl.formatMessage({id:'ploader.url'})}
           />
         </span>
         <span className='preview-container'>
           <img alt='' src={this.state.url} className='preview'></img>
         </span>
-        <Button onClick={this.saveProduct}>Agregar producto</Button>
+        <Button onClick={this.saveProduct}>
+          <FormattedMessage id='ploader.addprod'/>
+        </Button>
         <Alert isOpen={this.state.alert}
-               confirmButtonText='ACEPTAR'
-               icon={this.state.msg.includes('Producto') ? 'endorsed' : 'error'}
-               intent={this.state.msg.includes('Producto') ? 'success' : 'danger'}
+               confirmButtonText={intl.formatMessage({id:'t.accept'})}
+               icon={this.state.res === 'ok' ? 'endorsed' : 'error'}
+               intent={this.state.res === 'ok' ? 'success' : 'danger'}
                onClose={() => {this.setState({alert: false})}}>
               {this.state.msg}
         </Alert>
@@ -117,4 +126,4 @@ export class ProductLoader extends React.Component {
 	}
 }
 
-export default ProductLoader
+export default injectIntl(ProductLoader)

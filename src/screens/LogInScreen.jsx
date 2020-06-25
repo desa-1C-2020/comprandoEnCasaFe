@@ -3,7 +3,8 @@ import logo from '../CEC.png'
 import { login } from '../services/UserService'
 import { InputGroup, Button, Alert, Spinner } from '@blueprintjs/core'
 import { withRouter } from "react-router-dom";
-import '../styles/LogInScreen.css'
+import '../styles/LogInScreen.css';
+import { injectIntl, FormattedMessage } from 'react-intl';
 
 class LogInScreen extends React.Component {
 
@@ -30,7 +31,7 @@ class LogInScreen extends React.Component {
         if(err){
           this.setState({
             alert: true, 
-            msg: "Usuario y/o contraseña incorrecto/s",
+            msg: <FormattedMessage id='login.error.msg'/>,
             isLoading: false
           })
         } else {
@@ -39,8 +40,8 @@ class LogInScreen extends React.Component {
       })
     } else {
       const msgError = this.state.user === '' ? 
-        'Por favor, ingrese su nombre de usuario' 
-        : 'Por favor, ingrese su contraseña'
+          <FormattedMessage id='login.error.username'/> 
+        : <FormattedMessage id='login.error.password'/>
       this.setState({alert: true, msg: msgError});
     }
   }
@@ -58,10 +59,11 @@ class LogInScreen extends React.Component {
   }
 
   render(){
+    const { intl } = this.props;
     return (        
       <div>
         <Alert isOpen={this.state.alert}
-               confirmButtonText='ACEPTAR'
+               confirmButtonText={intl.formatMessage({id:'t.accept'})}
                icon={this.state.icon}
                intent='danger'
                onClose={() => {this.setState({alert: false})}}>
@@ -70,24 +72,29 @@ class LogInScreen extends React.Component {
         <span>
           <img className="logo-login" alt="Comprando en casa" src={logo} />
           <div className="login-container">
-            <p className="title">Ingrese para continuar</p>
+            <p className="title">{intl.formatMessage({id:'login.title'})}</p>
             <div className="input-container">
               <InputGroup className="input" 
                           name="user"
                           value={this.state.user}
                           type="text" 
                           onChange={this.handleChange}
-                          placeholder="E-mail"/>
+                          placeholder={intl.formatMessage({id:'t.mail'})}/>
               <InputGroup className="input"
                           name="pass" 
                           value={this.state.pass}
                           type="password" 
                           onChange={this.handleChange}
-                          placeholder="Contraseña"/>
+                          placeholder={intl.formatMessage({id:'t.password'})}/>
             </div>
-            <Button className="button" onClick={this.logIn}>Ingresar</Button>
-            <p className="register-text">¿Nuevo en la aplicación? 
-              <span className="register" onClick={this.goRegister}> Registrate</span>
+            <Button className="button" onClick={this.logIn}>
+              <FormattedMessage id='login.btn.login'/>
+            </Button>
+            <p className="register-text">
+              <FormattedMessage id='login.new'/>
+              <span className="register" onClick={this.goRegister}> 
+                <FormattedMessage id='t.register'/>
+              </span>
             </p>
           </div>
         </span>
@@ -102,4 +109,4 @@ class LogInScreen extends React.Component {
 
 }
 
-export default withRouter(LogInScreen)
+export default injectIntl(withRouter(LogInScreen))

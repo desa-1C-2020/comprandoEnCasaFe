@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
-import 'normalize.css'
+import Container from './Container'
 import '@blueprintjs/core/lib/css/blueprint.css'
 import '@blueprintjs/icons/lib/css/blueprint-icons.css'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<Container/>, document.getElementById('root'))

@@ -1,35 +1,27 @@
-//import {apiBasicUrl} from "../utilities/Environment";
+//import axios from 'axios';
+//import { apiBasicUrl } from "../utilities/Environment";
 
-//TODO - implementar esto
  export function saveProduct(product, userId, callback){
-   // axios.post(`${host}/seller/product?userId=${userId}`)
-   // .then((response) => {
-   //   callback(null, response)   
-   // })
-   // .catch((error) => callback(error, null))
-   callback(null, '')
+  // TODO - El back devuelve 500
+  // axios.post(`${apiBasicUrl()}/seller/product?userId=${userId}`, product)
+  // .then((response) => {callback(null, response)})
+  // .catch((error) =>  {callback(error, null)})
+  callback(null, '');
  }
 
- //TODO - implementar esto
+ //TODO - Necesito que funcione el agregar primero.
  export function deleteProduct(userId, productId, callback){
-  //imp
   callback(null, '')
  }
 
- //TODO - implementar esto
+ //TODO - Necesito que funcione el agregar primero.
  export function modifyProduct(userId, productId, callback){
-   //imp
    callback(null, '');
  }
 
+ //TODO - Necesito este endpoint!
  export function getAllProducts(shopId, callback){
-   //TODO - implementar esto
-   // axios.get(`${host}/????`)
-   // .then((response) => {
-   //   callback(null, response)   
-   // })
-   // .catch((error) => callback(error, null))
-   //TODO - borrar mocks
+   //MOCKS
    const res = [
      {
       productId: '1',

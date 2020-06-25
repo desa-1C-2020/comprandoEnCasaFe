@@ -5,6 +5,7 @@ import { registerBuyer, registerSeller } from '../services/UserService'
 import { withRouter } from "react-router-dom";
 import { RadioGroup, Radio, Button, Alert, Spinner } from '@blueprintjs/core'
 import '../styles/RegisterScreen.css'
+import { injectIntl, FormattedMessage } from 'react-intl';
 
 class RegisterScreen extends React.Component {
 
@@ -64,7 +65,7 @@ class RegisterScreen extends React.Component {
       registerBuyer(this.state.buyerInfo, (err, _res) =>{
         if(err){
           this.setState({
-            errorMsg: "Algo salió mal: " + err,
+            errorMsg: <FormattedMessage id='t.error'/>,
             alertField: true,
             isLoading: false
           })
@@ -74,7 +75,7 @@ class RegisterScreen extends React.Component {
       })
     } else {
       this.setState({
-        errorMsg: "Por favor, complete todos los campos",
+        errorMsg: <FormattedMessage id='t.fillfields'/>,
         alertField: true
       })
     }
@@ -86,7 +87,7 @@ class RegisterScreen extends React.Component {
       registerSeller(this.state.sellerInfo, (err, _res) =>{
         if(err){
           this.setState({
-            errorMsg: "Algo salió mal: " + err,
+            errorMsg: <FormattedMessage id='t.error'/>,
             alertField: true,
             isLoading: false
           })
@@ -96,7 +97,7 @@ class RegisterScreen extends React.Component {
       })
     } else {
       this.setState({
-        errorMsg: "Por favor, complete todos los campos",
+        errorMsg: <FormattedMessage id='t.fillfields'/>,
         alertField: true
       })
     }
@@ -124,33 +125,42 @@ class RegisterScreen extends React.Component {
   }
 
   render(){
+    const { intl } = this.props;
     return (        
       <div>
         <div className="register-container">
-        <p className="register-title">Bienvenido a Comprando en Casa</p>
-        <p className="register-sub">¿Cómo quiere registrarse?</p>
+        <p className="register-title">
+          <FormattedMessage id='register.title'/>
+        </p>
+        <p className="register-sub">
+          <FormattedMessage id='register.subtitle'/>
+        </p>
         <RadioGroup
           className="radio"
           inline={true}
           onChange={this.handleRadio}
           selectedValue={this.state.form}>
-          <Radio label='Comprador' value='buyer' large={true}/>
-          <Radio label='Vendedor' value='seller' large={true}/>
+          <Radio label={intl.formatMessage({id:'t.buyer'})} value='buyer' large={true}/>
+          <Radio label={intl.formatMessage({id:'t.seller'})} value='seller' large={true}/>
         </RadioGroup>
         {this.state.form === 'buyer' ? 
           <div className="buyer-form" ><BuyerForm update={this.setBuyerInfo}/></div>
           : <div className="seller-form"><SellerForm update={this.setSellerInfo}/></div>}
         <div className="buttons">
-          <Button className="register-btn" intent="success" onClick={this.handleRegister}>Registarse</Button>
-          <Button intent="danger" onClick={this.goBack}>Volver</Button>
+          <Button className="register-btn" intent="success" onClick={this.handleRegister}>
+            <FormattedMessage id='t.register'/>
+          </Button>
+          <Button intent="danger" onClick={this.goBack}>
+            <FormattedMessage id='t.goback'/>
+          </Button>
         </div>
         </div>
         <Alert isOpen={this.state.alertSuccess} confirmButtonText='ACEPTAR' intent='success' onClose={this.goBack}>    
-          Cuenta creada satisfactoriamente
+          <FormattedMessage id='register.success'/>
         </Alert>
         <Alert isOpen={this.state.alertField} confirmButtonText='ACEPTAR' intent='danger' 
                onClose={() => this.setState({alertField: false})}>    
-          {this.state.errorMsg}
+         {this.state.errorMsg}
         </Alert>
         {this.state.isLoading &&
         <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>   
@@ -163,4 +173,4 @@ class RegisterScreen extends React.Component {
 
 }
 
-export default withRouter(RegisterScreen)
+export default injectIntl(withRouter(RegisterScreen))

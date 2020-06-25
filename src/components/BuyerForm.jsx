@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/BuyerForm.css'
 import { InputGroup } from '@blueprintjs/core'
+import { injectIntl, FormattedMessage } from 'react-intl'
 
 export class BuyerForm extends React.Component {
 
@@ -38,9 +39,10 @@ export class BuyerForm extends React.Component {
   }
 
 	render() {
+    const { intl } = this.props;
     return (
       <div>
-        <p className="dp">Datos personales</p>
+        <p className="dp"><FormattedMessage id='t.personaldata'/></p>
         <span className="personal-buyer">
           <InputGroup className="field" 
                       type="text" 
@@ -48,7 +50,7 @@ export class BuyerForm extends React.Component {
                       value={this.state.name}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Nombre"
+                      placeholder={intl.formatMessage({id:'t.name'})}
           />
           <InputGroup className="field" 
                       type="text" 
@@ -56,7 +58,7 @@ export class BuyerForm extends React.Component {
                       value={this.state.surname}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Apellido"
+                      placeholder={intl.formatMessage({id:'t.surname'})}
             />
         </span>
         <span className="personal-buyer">
@@ -66,7 +68,7 @@ export class BuyerForm extends React.Component {
                       value={this.state.email}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Correo electrónico"
+                      placeholder={intl.formatMessage({id:'t.mail'})}
           />
           <InputGroup className="field"
                       type="password" 
@@ -74,10 +76,10 @@ export class BuyerForm extends React.Component {
                       value={this.state.password}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Contraseña"
+                      placeholder={intl.formatMessage({id:'t.password'})}
           />
         </span>
-        <p className="dd">Datos del domicilio</p>
+        <p className="dd"><FormattedMessage id='t.addressdata'/></p>
         <span className="address-buyer">
           <InputGroup className="field" 
                       type="text" 
@@ -85,7 +87,7 @@ export class BuyerForm extends React.Component {
                       value={this.state.street}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Dirección"
+                      placeholder={intl.formatMessage({id:'t.address'})}
           /> 
           <InputGroup className="field" 
                       type="text" 
@@ -93,7 +95,7 @@ export class BuyerForm extends React.Component {
                       value={this.state.lat}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Latitud"
+                      placeholder={intl.formatMessage({id:'t.lat'})}
           /> 
           <InputGroup className="field" 
                       type="text" 
@@ -101,7 +103,7 @@ export class BuyerForm extends React.Component {
                       value={this.state.lng}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Longitud"
+                      placeholder={intl.formatMessage({id:'t.lgn'})}
           /> 
         </span>
       </div>
@@ -109,4 +111,4 @@ export class BuyerForm extends React.Component {
 	}
 }
 
-export default BuyerForm
+export default injectIntl(BuyerForm)

@@ -2,6 +2,7 @@ import React from 'react'
 import '../styles/SellerForm.css'
 import { InputGroup, Button, Checkbox } from '@blueprintjs/core'
 import TimeTablePopUp from './TimeTablePopUp'
+import { injectIntl, FormattedMessage } from 'react-intl'
 
 export class SellerForm extends React.Component {
 
@@ -72,9 +73,10 @@ export class SellerForm extends React.Component {
   }
 
 	render() {
+    const { intl } = this.props;
     return (
       <div>
-        <p>Datos del vendedor</p>
+        <p><FormattedMessage id='t.sellerdata'/></p>
         <span className="shop">
           <InputGroup className="field" 
                       type="text" 
@@ -82,7 +84,7 @@ export class SellerForm extends React.Component {
                       value={this.state.nameSeller}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Nombre"
+                      placeholder={intl.formatMessage({id:'t.name'})}
           />
           <InputGroup className="field" 
                       type="text" 
@@ -90,7 +92,7 @@ export class SellerForm extends React.Component {
                       value={this.state.surnameSeller}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Apellido"
+                      placeholder={intl.formatMessage({id:'t.surname'})}
           />
           <InputGroup className="field" 
                       type="text" 
@@ -98,7 +100,7 @@ export class SellerForm extends React.Component {
                       value={this.state.email}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Correo"
+                      placeholder={intl.formatMessage({id:'t.mail'})}
           />
           <InputGroup className="field" 
                       type="password" 
@@ -106,10 +108,10 @@ export class SellerForm extends React.Component {
                       value={this.state.password}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Contraseña"
+                      placeholder={intl.formatMessage({id:'t.password'})}
           />
         </span>
-        <p className="ddc">Datos del comercio</p>
+        <p className="ddc"><FormattedMessage id='t.commercedata'/></p>
         <span className="shop">
           <InputGroup className="field" 
                       type="text" 
@@ -117,7 +119,7 @@ export class SellerForm extends React.Component {
                       value={this.state.name}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Nombre comercio"
+                      placeholder={intl.formatMessage({id:'t.commercename'})}
           />
           <InputGroup className="field" 
                       type="text" 
@@ -125,10 +127,12 @@ export class SellerForm extends React.Component {
                       value={this.state.sector}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Rubro"
+                      placeholder={intl.formatMessage({id:'t.sector'})}
           />
           <div className="seller-btn">
-            <Button onClick={() => this.setState({timeTable: true})}>Personalizar horarios</Button>
+            <Button onClick={() => this.setState({timeTable: true})}>
+              <FormattedMessage id='register.customtime'/>
+            </Button>
           </div>
         </span>
         <span className="address">
@@ -138,7 +142,7 @@ export class SellerForm extends React.Component {
                       value={this.state.address}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Dirección"
+                      placeholder={intl.formatMessage({id:'t.address'})}
           />
           <InputGroup className="field" 
                       type="text" 
@@ -146,7 +150,7 @@ export class SellerForm extends React.Component {
                       value={this.state.lat}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Latitud"
+                      placeholder={intl.formatMessage({id:'t.lat'})}
           />
           <InputGroup className="field" 
                       type="text" 
@@ -154,31 +158,31 @@ export class SellerForm extends React.Component {
                       value={this.state.lng}
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
-                      placeholder="Longitud"
+                      placeholder={intl.formatMessage({id:'t.lgn'})}
           />
         </span>
         <span className="payments"> 
-          <p className="fdp">Formas de pago:</p>
+          <p className="fdp"><FormattedMessage id='register.payment'/></p>
           <Checkbox className="check"
                     checked={this.state.money}
                     onBlur={this.updateParent}
-                    onChange={() => this.setState({money: !this.state.money})}>
-                    Efectivo
+                    onChange={() => this.setState({money: !this.state.money})}>                 
+            <FormattedMessage id='t.money'/>
           </Checkbox>
           <Checkbox className="check"
                     checked={this.state.debit}
                     onBlur={this.updateParent}
                     onChange={() => this.setState({debit: !this.state.debit})}>
-                    Tarjetas de débito
+            <FormattedMessage id='t.debitcard'/>
           </Checkbox>
           <Checkbox className="check"
                     checked={this.state.credit}
                     onBlur={this.updateParent}
                     onChange={() => this.setState({credit: !this.state.credit})}>
-                    Tarjetas de crédito
+            <FormattedMessage id='t.creditcard'/>
           </Checkbox>
         </span>
-        <p className="d-max">Distancia máxima de entregas (en metros)</p>
+        <p className="d-max"><FormattedMessage id='register.distance'/></p>
         <span className="range">
           <InputGroup className="field" 
                       type="number" 
@@ -186,7 +190,7 @@ export class SellerForm extends React.Component {
                       value={this.state.radio}
                       onBlur={this.updateParent}
                       onChange={this.handleChange} 
-                      placeholder="Ej: 2000"
+                      placeholder="2000"
           />
         </span>
         <TimeTablePopUp isOpen={this.state.timeTable} 
@@ -197,4 +201,4 @@ export class SellerForm extends React.Component {
 	}
 }
 
-export default SellerForm
+export default injectIntl(SellerForm)
