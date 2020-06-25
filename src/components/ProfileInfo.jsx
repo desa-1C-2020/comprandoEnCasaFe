@@ -1,6 +1,7 @@
 import React from 'react'
 import { Dialog } from '@blueprintjs/core'
 import '../styles/ProfileInfo.css'
+import { injectIntl, FormattedMessage } from 'react-intl'
 
 class ProfileInfo extends React.Component {
 
@@ -14,17 +15,26 @@ class ProfileInfo extends React.Component {
   }
 
   render(){
+    const { intl } = this.props;
     const info = this.props.info
     return (  
       <div>
-        <Dialog isOpen={this.props.isOpen} onClose={this.close} title='Mis datos' icon='info-sign'>
+        <Dialog isOpen={this.props.isOpen} onClose={this.close} 
+                title={intl.formatMessage({id:'navbar.data'})} icon='info-sign'>
         {this.props.accountType === 'buyer' ? 
         <div className='info-container'>
-          <p className='text-format'><b>Nombre:</b> {`${info.name} ${info.surname}`}</p>
-          <p className='text-format'><b>Correo electrónico:</b> {info.email}</p>
-          <p className='text-format'><b>Dirección:</b> {info.address.street}</p>
-          <p className='text-format'><b>Coordenadas:</b>
-            <br/>{`Latitud: ${info.address.latitud} - Longitud: ${info.address.longitud}`}
+          <p className='text-format'>
+            <b><FormattedMessage id='t.name'/>:</b> {`${info.name} ${info.surname}`}
+          </p>
+          <p className='text-format'>
+            <b><FormattedMessage id='t.mail'/>:</b> {info.email}
+          </p>
+          <p className='text-format'>
+            <b><FormattedMessage id='t.address'/>:</b> {info.address.street}
+          </p>
+          <p className='text-format'><b><FormattedMessage id='navbar.coor'/>:</b>
+            <br/>{`${intl.formatMessage({id:'t.lat'})}: ${info.address.latitud} - 
+                   ${intl.formatMessage({id:'t.lgn'})}: ${info.address.longitud}`}
           </p>
         </div> 
         :
@@ -39,4 +49,4 @@ class ProfileInfo extends React.Component {
 
 }
 
-export default ProfileInfo
+export default injectIntl(ProfileInfo)

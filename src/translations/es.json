@@ -61,5 +61,13 @@
   "navbar.info": "Información",
   "navbar.data": "Mis datos",
   "navbar.alert": "Alertas",
-  "navbar.logout": "Cerrar sesión"
+  "navbar.logout": "Cerrar sesión",
+  "navbar.coor": "Coordenadas",
+
+  "shopsearch.title": "Buscar comercios",
+  "shopsearch.address": "Mi domicilio",
+  "shopsearch.max": "Distancia máxima (en metros)",
+  "shopsearch.meters": "Metros",
+  "shopsearch.notfound": "No se encontraron resultados",
+  "shopsearch.restitle": "Resultados de búsqueda"
 }

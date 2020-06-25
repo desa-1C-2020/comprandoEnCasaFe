@@ -3,6 +3,7 @@ import '../styles/SearchResult.css'
 import { searchForShops } from '../services/ProductService'
 import { Dialog, Spinner, Alert } from '@blueprintjs/core';
 import ResultBox from './ResultBox';
+import { injectIntl, FormattedMessage } from 'react-intl'
 
 export class SearchResult extends React.Component {
 
@@ -48,17 +49,18 @@ export class SearchResult extends React.Component {
   }
 
 	render() {
+    const { intl } = this.props;
     return (
       <div>
       {this.state.isLoaded ?
         <Dialog 
           isOpen={this.props.isOpen} 
           onClose={this.handleClose}
-          title="Resultados de la búsqueda">
+          title={intl.formatMessage({id:'shopsearch.restitle'})}>
           <div>
             {this.state.results.length === 0 ? 
               <div className="no-results">
-                <h3>No se encontraron resultados</h3>
+                <h3><FormattedMessage id='shopsearch.notfound'/></h3>
               </div> 
               : this.state.results}
           </div>
@@ -68,15 +70,15 @@ export class SearchResult extends React.Component {
           <Spinner size='100' intent='primary'/>
         </div>}
         <Alert isOpen={this.state.alert}
-               confirmButtonText='ACEPTAR'
+               confirmButtonText={intl.formatMessage({id:'t.accept'})}
                icon='error'
                intent='danger'
                onClose={() => {this.setState({alert: false})}}>
-              ¡Algo salió mal!
+          <FormattedMessage id='t.error'/>
         </Alert>
         </div>
 		);
 	}
 }
 
-export default SearchResult
+export default injectIntl(SearchResult)

@@ -60,5 +60,13 @@
   "navbar.info": "Information",
   "navbar.data": "My info",
   "navbar.alert": "Alerts",
-  "navbar.logout": "Log out"
+  "navbar.logout": "Log out",
+  "navbar.coor": "Coordenates",
+
+  "shopsearch.title": "Search commerces",
+  "shopsearch.address": "My address",
+  "shopsearch.max": "Max distance (meters)",
+  "shopsearch.meters": "Meters",
+  "shopsearch.notfound": "No results found",
+  "shopsearch.restitle": "Search results"
 }

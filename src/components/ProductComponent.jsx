@@ -2,6 +2,7 @@ import React from 'react'
 import ProductBoxBuy from './ProductBoxBuy'
 import {NonIdealState} from '@blueprintjs/core'
 import '../styles/ProductComponent.css'
+import { injectIntl, FormattedMessage } from 'react-intl'
 
 export class ProductComponent extends React.Component {
 
@@ -30,12 +31,13 @@ export class ProductComponent extends React.Component {
   }
 
 	render() {
+    const { intl } = this.props;
     return (
       <div>
-        <div className='results-title'>Resultados de Búsqueda</div>
+        <div className='results-title'><FormattedMessage id='shopsearch.restitle'/></div>
         {this.state.items.length === 0 ? 
         <div className='no-results-nis'>
-          <NonIdealState icon='search' title='¡No se han encontrado resultados!'/>
+          <NonIdealState icon='search' title={intl.formatMessage({id:'shopsearch.notfound'})}/>
         </div>
         :
         <div className='product-boxes'>{this.state.items}</div>
@@ -45,4 +47,4 @@ export class ProductComponent extends React.Component {
 	}
 }
 
-export default ProductComponent
+export default injectIntl(ProductComponent)
