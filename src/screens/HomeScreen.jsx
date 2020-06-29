@@ -31,6 +31,12 @@ class HomeScreen extends React.Component {
     this.doSearch = this.doSearch.bind(this);
     this.goProductList = this.goProductList.bind(this);
   }
+  
+  componentWillMount(){
+    if(this.props.location.state === undefined){
+      this.props.history.push('/')
+    }
+  }
 
   handleEvent(name, value){
     this.setState({[name]: value})
@@ -51,14 +57,16 @@ class HomeScreen extends React.Component {
   }
 
   goProductList(){
-    const id = 'sarasa' //TODO - this.props.location.state.accountInfo.commerceOnThrow.id
+    const id = this.props.location.state.accountInfo.user.id;
+    this.setState({isLoading: true})
     getAllProducts(id, (err, res) => {
-      if(err) this.setState({alert: true})
+      if(err) this.setState({alert: true, isLoading: false})
       else {
-        this.setState({
+         this.setState({
           productLoader: false,
           products: res,
-          productList: true
+          productList: true,
+          isLoading: false
         })
       }
     })
@@ -88,7 +96,7 @@ class HomeScreen extends React.Component {
     const user = this.props.location.state !== undefined ? 
                  this.props.location.state.accountInfo.user : {}
     let shop = this.props.location.state !== undefined ?
-                 this.props.location.state.accountInfo.commerceOnThrow : {}
+                 this.props.location.state.accountInfo.commerce : {}
     return (        
       <div>
         <HomeNavBar accountType={account} 
@@ -107,7 +115,7 @@ class HomeScreen extends React.Component {
         {account === 'seller' && this.state.productLoader && <ProductLoader userID={user.id}/>}
         {account === 'seller' && this.state.productList && <SellerProductsComponent 
                                                             products={this.state.products} 
-                                                            shopId={user.uid}/>}
+                                                            shopId={user.id}/>}
         <Alert isOpen={this.state.alert}
                confirmButtonText='ACEPTAR'
                icon='error'

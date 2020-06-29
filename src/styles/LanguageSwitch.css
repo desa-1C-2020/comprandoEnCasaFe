@@ -20,16 +20,22 @@
   text-align: center;
 }
 
+.mobile {
+  display: none;
+}
+
 @media (max-width: 1024px){
 
   .ls-main-container {
-    position: sticky; 
-    margin-top: 50px;
-    bottom: 10px;
-    right: auto;
-    left: 10px;
-    margin-bottom: 0px;
-    height: 55px;
+    display: none
+  }
+
+  .mobile {
+    display: block;
+    text-align: center;
+    margin-top: 60px;
+    font-weight: bolder;
+    color: blue
   }
 
 }

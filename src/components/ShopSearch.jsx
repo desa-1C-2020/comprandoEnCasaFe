@@ -20,9 +20,10 @@ export class ShopSearch extends React.Component {
   }
 
   componentDidMount(){
+    const address = this.props.address === undefined ? {latitud: '', longitud: ''} : this.props.address
     this.setState({
-      lat: this.props.address.latitud, 
-      lng: this.props.address.longitud
+      lat: address.latitud, 
+      lng: address.longitud
     })
   }
 

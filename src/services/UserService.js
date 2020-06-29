@@ -3,31 +3,20 @@ import {apiBasicUrl} from "../utilities/Environment";
 
 export function registerBuyer(userInfo, callback) {
   axios.post(`${apiBasicUrl()}/account/buyer`, userInfo)
-  .then((response) => {
-    callback(null, response)
-  })
+  .then((response) => callback(null, response))
   .catch((error) => callback(error, null))
 }
 
-export function registerSeller(userInfo, callback) {
-  const buyerInfo = userInfo.user;
-  const shopInfo = userInfo.commerce;
-  registerBuyer(buyerInfo, (err, res) => {
-    if (err) callback(err, null)
-    else {
-      const id = res.data.user.id;
-      shopInfo.userId = id;
-      axios.post(`${apiBasicUrl()}/account/seller`, shopInfo)
-      .then((res) =>  callback(null, res))
-      .catch((err) => callback(err, null))
-    }
-  })
+export function registerSeller(sellerInfo, callback) {
+  axios.post(`${apiBasicUrl()}/account/seller`, sellerInfo)
+  .then((res) =>  callback(null, res))
+  .catch((err) => callback(err, null))  
 }
 
 export function login(credentials, callback){
   axios.post(`${apiBasicUrl()}/account/login`, credentials)
   .then((response) => {
-    let accountType = response.data.commerceOrThrow === undefined ? 'buyer' : 'seller'
+    let accountType = response.data.commerce === undefined ? 'buyer' : 'seller'
     let resInfo = {
       type: accountType,
       info: response.data

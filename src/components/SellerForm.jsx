@@ -47,24 +47,21 @@ export class SellerForm extends React.Component {
           longitud: this.state.lng
         }
       },
-      commerce: {
-        userId: '',
-        commerceName: this.state.name,
-        commerceBusinessSector: this.state.sector,
-        commerceAddress: {
-          street: this.state.address,
-          latitud: this.state.lat,
-          longitud: this.state.lng
-        },
-        paymentMethods: [
-          {
-            type: "Efectivo",
-            accept: "Efectivo"
-          }
-        ],
-        daysAndHoursOpen: this.state.schedule,
-        arrivalRange: this.state.radio
-      }
+      commerceName: this.state.name,
+      commerceBusinessSector: this.state.sector,
+      commerceAddress: {
+        street: this.state.address,
+        latitud: this.state.lat,
+        longitud: this.state.lng
+      },
+      paymentMethods: [
+        {
+          type: "Efectivo",
+          accept: "Efectivo"
+        }
+      ],
+      daysAndHoursOpen: this.state.schedule,
+      arrivalRange: this.state.radio  
     })
   }
 
