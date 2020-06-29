@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/ProductLoader.css'
-import { InputGroup, Button, Alert } from '@blueprintjs/core'
+import { InputGroup, Button, Alert, Spinner} from '@blueprintjs/core'
 import { saveProduct } from '../services/SellerService'
 import { injectIntl, FormattedMessage } from 'react-intl'
 
@@ -16,7 +16,8 @@ export class ProductLoader extends React.Component {
       url: '',
       alert: false,
       msg: '', 
-      res: ''
+      res: '',
+      isLoading: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.saveProduct = this.saveProduct.bind(this);
@@ -38,11 +39,12 @@ export class ProductLoader extends React.Component {
     }
     if(this.isValidProduct()){
       const id = parseInt(this.props.userID)
+      this.setState({isLoading: true})
       saveProduct(product, id, (err, res) => {
         if(err){
-          this.setState({alert: true, res: 'err', msg: <FormattedMessage id='t.error'/>});
+          this.setState({isLoading: false, alert: true, res: 'err', msg: <FormattedMessage id='t.error'/>});
         } else {
-          this.setState({name: '', brand: '', stock: '', price: '', url: '', res: 'ok',
+          this.setState({isLoading: false, name: '', brand: '', stock: '', price: '', url: '', res: 'ok',
                          alert: true, msg: <FormattedMessage id='ploader.success'/>});
         }
       })
@@ -121,6 +123,11 @@ export class ProductLoader extends React.Component {
                onClose={() => {this.setState({alert: false})}}>
               {this.state.msg}
         </Alert>
+        {this.state.isLoading &&
+        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>   
+          <Spinner size='100' intent='primary'/>
+        </div>
+        }
       </div>
 		);
 	}

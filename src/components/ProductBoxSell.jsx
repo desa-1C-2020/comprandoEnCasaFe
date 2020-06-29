@@ -30,11 +30,11 @@ class ProductBoxSell extends React.Component {
 
   componentDidMount(){
     this.setState({
-      name: this.props.info.name,
-      brand: this.props.info.brand,
+      name: this.props.info.product.name,
+      brand: this.props.info.product.brand,
       price: this.props.info.price,
       stock: this.props.info.stock,
-      url: this.props.info.image,
+      url: this.props.info.product.imageUrl,
     })
   }
 

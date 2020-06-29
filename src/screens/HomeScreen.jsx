@@ -57,14 +57,16 @@ class HomeScreen extends React.Component {
   }
 
   goProductList(){
-    const id = 'sarasa' //TODO - this.props.location.state.accountInfo.commerceOnThrow.id
+    const id = this.props.location.state.accountInfo.user.id;
+    this.setState({isLoading: true})
     getAllProducts(id, (err, res) => {
-      if(err) this.setState({alert: true})
+      if(err) this.setState({alert: true, isLoading: false})
       else {
-        this.setState({
+         this.setState({
           productLoader: false,
           products: res,
-          productList: true
+          productList: true,
+          isLoading: false
         })
       }
     })
