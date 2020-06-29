@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/ProductBoxSell.css'
-import { Button, Alert } from '@blueprintjs/core'
+import { Button, Alert, Spinner } from '@blueprintjs/core'
 import {deleteProduct, modifyProduct} from '../services/SellerService'
 import ModProductInfo from '../components/ModProductInfo'
 import { injectIntl, FormattedMessage } from 'react-intl'
@@ -10,6 +10,7 @@ class ProductBoxSell extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      id: '',
       name: '',
       brand: '',
       price: '',
@@ -21,7 +22,8 @@ class ProductBoxSell extends React.Component {
       alertResultMsg: '',
       alertResultIcon: '',
       display: 'inline-block',
-      openMod: false
+      openMod: false,
+      isLoading: false
     }
     this.deleteProduct = this.deleteProduct.bind(this);
     this.closeMod = this.closeMod.bind(this);
@@ -35,11 +37,13 @@ class ProductBoxSell extends React.Component {
       price: this.props.info.price,
       stock: this.props.info.stock,
       url: this.props.info.product.imageUrl,
+      id: this.props.info.id
     })
   }
 
   deleteProduct(){
-    deleteProduct(this.props.shopId, this.props.info.productId, (err, res) => {
+    this.setState({isLoading: true})
+    deleteProduct(this.props.shopId, this.props.info.product.id, (err, res) => {
       if(err){
         this.setState({
           alert: false,
@@ -47,6 +51,7 @@ class ProductBoxSell extends React.Component {
           alertResultIntent: 'danger',
           alertResultMsg: <FormattedMessage id='t.error'/>,
           alertResultIcon: 'error',
+          isLoading: false
         })
       } else {
         this.setState({
@@ -55,7 +60,8 @@ class ProductBoxSell extends React.Component {
           alertResultIntent: 'success',
           alertResultMsg: <FormattedMessage id='seller.deleteprod'/>,
           alertResultIcon: 'endorsed',
-          display: 'none'
+          display: 'none',
+          isLoading: false
         })
       }
     });
@@ -144,6 +150,11 @@ class ProductBoxSell extends React.Component {
         <ModProductInfo isOpen={this.state.openMod} 
                         modify={this.modifyProduct}
                         close={this.closeMod} product={this.state.name === '' ? this.props.info : this.state} />
+        {this.state.isLoading &&
+        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>   
+          <Spinner size='100' intent='primary'/>
+        </div>
+        }
       </div>
       </div>
     )

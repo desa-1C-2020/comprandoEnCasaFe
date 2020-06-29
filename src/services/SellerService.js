@@ -7,14 +7,22 @@ import { apiBasicUrl } from "../utilities/Environment";
   .catch((error) =>  {callback(error, null)})
  }
 
- //TODO - Necesito que funcione el agregar primero.
  export function deleteProduct(userId, productId, callback){
-  callback(null, '')
+  const options = {
+    data: {},
+    headers: {'Content-Type': 'application/json'}
+  };
+  axios.delete(`${apiBasicUrl()}/seller/product?userId=${userId}&productId=${productId}`, options)
+  .then((response) => callback(null, response))
+  .catch((error) =>  callback(error, null))
  }
 
- //TODO - Necesito que funcione el agregar primero.
- export function modifyProduct(userId, productId, callback){
-   callback(null, '');
+ // TODO - completar
+ export function modifyProduct(userId, product, callback){
+  //  axios.patch(`${apiBasicUrl()}/seller/product?userId=${userId}`, product)
+  //  .then((response) => callback(null, response))
+  //  .catch((error) =>  callback(error, null))
+  callback(null, '')
  }
 
  export function getAllProducts(userId, callback){
@@ -23,9 +31,6 @@ import { apiBasicUrl } from "../utilities/Environment";
     headers: {'Content-Type': 'application/json'}
   };
   axios.get(`${apiBasicUrl()}/seller/products?userId=${userId}`, options)
-  .then((response) => {
-    callback(null, response.data)
-  })
-  .catch((error) =>  {
-    callback(error, null)})
+  .then((response) => callback(null, response.data))
+  .catch((error) => callback(error, null))
  }

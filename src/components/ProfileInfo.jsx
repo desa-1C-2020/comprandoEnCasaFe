@@ -18,7 +18,6 @@ class ProfileInfo extends React.Component {
     const { intl } = this.props;
     const info = this.props.info;
     const shop = this.props.shopInfo;
-    console.log(shop)
     return (  
       <div>
         <Dialog isOpen={this.props.isOpen} onClose={this.close} 

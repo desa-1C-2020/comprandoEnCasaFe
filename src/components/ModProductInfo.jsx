@@ -22,22 +22,24 @@ class ModProductInfo extends React.Component {
 
   componentDidMount(){
     this.setState({
-      name: this.props.product.name,
-      brand: this.props.product.brand,
+      name: this.props.product.product.name,
+      brand: this.props.product.product.brand,
       stock: this.props.product.stock,
       price: this.props.product.price,
-      url: this.props.product.image
+      url: this.props.product.product.imageUrl,
+      id: this.props.product.id
     })
   }
 
   sendProduct(){
     if(this.isValidProduct()){
       const prod = {
+        productId: this.state.id,
         name: this.state.name,
         brand: this.state.brand,
         stock: this.state.stock,
         price: this.state.price,
-        url: this.state.url
+        imageUrl: this.state.url
       }
       this.props.modify(prod);
     } else {

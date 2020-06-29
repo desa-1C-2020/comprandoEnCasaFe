@@ -115,7 +115,7 @@ class HomeScreen extends React.Component {
         {account === 'seller' && this.state.productLoader && <ProductLoader userID={user.id}/>}
         {account === 'seller' && this.state.productList && <SellerProductsComponent 
                                                             products={this.state.products} 
-                                                            shopId={user.uid}/>}
+                                                            shopId={user.id}/>}
         <Alert isOpen={this.state.alert}
                confirmButtonText='ACEPTAR'
                icon='error'
