@@ -31,6 +31,12 @@ class HomeScreen extends React.Component {
     this.doSearch = this.doSearch.bind(this);
     this.goProductList = this.goProductList.bind(this);
   }
+  
+  componentWillMount(){
+    if(this.props.location.state === undefined){
+      this.props.history.push('/')
+    }
+  }
 
   handleEvent(name, value){
     this.setState({[name]: value})
@@ -88,7 +94,7 @@ class HomeScreen extends React.Component {
     const user = this.props.location.state !== undefined ? 
                  this.props.location.state.accountInfo.user : {}
     let shop = this.props.location.state !== undefined ?
-                 this.props.location.state.accountInfo.commerceOnThrow : {}
+                 this.props.location.state.accountInfo.commerce : {}
     return (        
       <div>
         <HomeNavBar accountType={account} 
