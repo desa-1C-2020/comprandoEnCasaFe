@@ -10,6 +10,7 @@ import { Alert, Spinner } from '@blueprintjs/core'
 import ProductLoader from '../forms/ProductLoader'
 import SellerProductsComponent from './SellerProductsComponent'
 import { FormattedMessage } from 'react-intl'
+import { CartScreen } from './CartScreen'
 
 class HomeScreen extends React.Component {
 
@@ -22,6 +23,7 @@ class HomeScreen extends React.Component {
       searchResult: false,
       productList: false,
       products: [],
+      shoppingCart: false,
       alert: false, 
       isLoading: false,
     }
@@ -30,6 +32,7 @@ class HomeScreen extends React.Component {
     this.goHome = this.goHome.bind(this);
     this.doSearch = this.doSearch.bind(this);
     this.goProductList = this.goProductList.bind(this);
+    this.goShoppingCart = this.goShoppingCart.bind(this);
   }
   
   componentWillMount(){
@@ -52,7 +55,19 @@ class HomeScreen extends React.Component {
       productLoader: true,
       profile: false,
       searchResult: false,
-      productList: false
+      productList: false,
+      shoppingCart: false,
+    })
+  }
+
+  goShoppingCart(){
+    this.setState({
+      shopSearch: false,
+      productLoader: false,
+      profile: false,
+      searchResult: false,
+      productList: false,
+      shoppingCart: true,
     })
   }
 
@@ -63,9 +78,13 @@ class HomeScreen extends React.Component {
       if(err) this.setState({alert: true, isLoading: false})
       else {
          this.setState({
+          shopSearch: false,
           productLoader: false,
-          products: res,
+          profile: false,
+          searchResult: false,
           productList: true,
+          shoppingCart: false,
+          products: res,
           isLoading: false
         })
       }
@@ -81,7 +100,11 @@ class HomeScreen extends React.Component {
       } else {
         this.setState({
           shopSearch: false,
+          productLoader: false,
+          profile: false,
           searchResult: true,
+          productList: false,
+          shoppingCart: false,
           products: res,
           isLoading: false,
         })
@@ -104,7 +127,8 @@ class HomeScreen extends React.Component {
                     showSellerProducts={this.goProductList}
                     handleProfile={() => this.handleEvent('profile', true)}
                     handleLogOut={this.logOut}
-                    handleSearch={this.doSearch}/>
+                    handleSearch={this.doSearch}
+                    goShoppingCart={this.goShoppingCart}/>
         {account === 'buyer' && this.state.shopSearch && <ShopSearch address={user.address}/>}
         {this.state.profile && <ProfileInfo isOpen={this.state.profile} 
                                             accountType={account} 
@@ -116,6 +140,7 @@ class HomeScreen extends React.Component {
         {account === 'seller' && this.state.productList && <SellerProductsComponent 
                                                             products={this.state.products} 
                                                             shopId={user.id}/>}
+        {account === 'buyer' && this.state.shoppingCart && <CartScreen/>}                                                    
         <Alert isOpen={this.state.alert}
                confirmButtonText='ACEPTAR'
                icon='error'

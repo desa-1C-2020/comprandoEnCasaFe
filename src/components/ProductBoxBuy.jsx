@@ -15,9 +15,28 @@ class ProductBoxBuy extends React.Component {
     this.addProductToCart = this.addProductToCart.bind(this);
   }
 
+  componentDidMount(){
+    if(localStorage.getItem('usercart') === null){
+      localStorage.setItem('usercart', JSON.stringify({ cart: []}))
+    }
+  }
+
   addProductToCart(){
-    const key = this.props.info.productId.toString();
-    localStorage.setItem(key, JSON.stringify({ product: this.props.info, ammount: this.state.ammount}));
+    const cartProduct = {
+      product: this.props.info, 
+      ammount: this.state.ammount
+    }
+    const myProductId = this.props.info.productId;
+    const shoppingList = Array.from(JSON.parse(localStorage.getItem('usercart')).cart);
+    let exists = false;
+    shoppingList.forEach(element => {
+      if(element.product.productId === myProductId){
+        exists = true;
+        element.ammount = this.state.ammount;
+      }
+    });
+    if(!exists) shoppingList.push(cartProduct);
+    localStorage.setItem('usercart', JSON.stringify({cart: shoppingList}));
     this.setState({alert: true});
   }
 
@@ -25,7 +44,7 @@ class ProductBoxBuy extends React.Component {
     const product = this.props.info;
     const { intl } = this.props;
     return (   
-      <div>
+      <span>
         <div className='main-container' onClick={() => this.setState({isOpen: true})}>
           <img className='product-image' alt={product.name} src={product.imageUrl}></img>
           <p className='name-brand'>{product.name}</p>
@@ -70,7 +89,7 @@ class ProductBoxBuy extends React.Component {
                onClose={() => {this.setState({alert: false, isOpen: false})}}>
           <FormattedMessage id='buybox.added'/>
         </Alert>
-      </div>
+      </span>
     )
   }
 
