@@ -85,5 +85,11 @@
   "seller.deleteprod": "Producto borrado satisfactoriamente.",
   "seller.modifyprod": "Producto modificado satisfactoriamente.",
   "seller.deletemsg": "¿Está seguro que desea eliminar este producto?",
-  "seller.modifymsg": "Modificar producto"
+  "seller.modifymsg": "Modificar producto",
+
+  "buybox.title": "Detalles del producto",
+  "buybox.distance": "Distancia",
+  "buybox.addtocart": "Agregar al carrito",
+  "buybox.added": "Producto agregado al carrito.",
+  "buybox.ammount": "Cantidad: "
 }

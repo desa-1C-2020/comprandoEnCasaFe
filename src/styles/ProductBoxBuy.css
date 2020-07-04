@@ -9,9 +9,11 @@
   border-width: medium;
   border: solid rgb(255, 167, 5);
   text-align: center;
+  cursor: pointer;
 }
 
 .product-image {
+  margin-top: 10px;
   height: 130px;
   max-width: 190px;
   text-align: center;
@@ -23,12 +25,79 @@
 }
 
 .product-price {
+  margin-top: -10px;
   font-size: 20px;
+}
+
+.dialog-container {
+  width: 500px;
+}
+
+.dialog-shop {
+  background-color:rgb(214, 214, 214);
+  border-radius: 50px;
+  border: solid rgb(255, 167, 5);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.dialog-button {
+  height: 50px;
+}
+
+.product-image-dialog {
+  max-width: 200px;
+  max-height: 180px;
+  margin-left: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.dialog-desc {
+  font-size: 15px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.bb-shop-desc {
+  margin-left: 30%;
+}
+
+.bb-add-btn {
+  width: 200px;
+  text-align: center;
+  margin-top: 10px;
+  margin-left: calc(50% - 100px);
 }
 
 @media (max-width: 1024px){ 
   .main-container {
     margin-left: 10px;
     margin-right: 10px;
+  }
+}
+
+@media (max-width: 510px){
+  .dialog-container {
+    width: 100%;
+  }
+
+  .product-image-dialog {
+    max-width: 200px;
+    max-height: 180px;
+    margin-left: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    margin-left: 50px;
+  }
+
+  .dialog-desc {
+    margin-left: 50px;
+  }
+
+  .bb-shop-desc {
+    margin-left: 50px;
   }
 }

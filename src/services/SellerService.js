@@ -19,10 +19,10 @@ import { apiBasicUrl } from "../utilities/Environment";
 
  // TODO - completar
  export function modifyProduct(userId, product, callback){
-  //  axios.patch(`${apiBasicUrl()}/seller/product?userId=${userId}`, product)
-  //  .then((response) => callback(null, response))
-  //  .catch((error) =>  callback(error, null))
-  callback(null, '')
+    axios.patch(`${apiBasicUrl()}/seller/product?userId=${userId}`, product)
+    .then((response) => callback(null, response))
+    .catch((error) =>  callback(error, null))
+  //callback(null, '')
  }
 
  export function getAllProducts(userId, callback){
