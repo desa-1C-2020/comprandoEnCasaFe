@@ -1,6 +1,6 @@
 import React from 'react'
-import BuyerForm from '../components/BuyerForm'
-import SellerForm from '../components/SellerForm'
+import BuyerForm from '../forms/BuyerForm'
+import SellerForm from '../forms/SellerForm'
 import { registerBuyer, registerSeller } from '../services/UserService'
 import { withRouter } from "react-router-dom";
 import { RadioGroup, Radio, Button, Alert, Spinner } from '@blueprintjs/core'

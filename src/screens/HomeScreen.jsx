@@ -1,14 +1,14 @@
 import React from 'react'
 import HomeNavBar from '../components/HomeNavBar'
-import ShopSearch from '../components/ShopSearch'
+import ShopSearch from '../forms/ShopSearch'
 import ProfileInfo from '../components/ProfileInfo'
 import { withRouter } from "react-router-dom"
-import ProductComponent from '../components/ProductComponent'
+import ProductComponent from './ProductComponent'
 import { searchProduct } from '../services/ProductService'
 import { getAllProducts } from '../services/SellerService'
 import { Alert, Spinner } from '@blueprintjs/core'
-import ProductLoader from '../components/ProductLoader'
-import SellerProductsComponent from '../components/SellerProductsComponent'
+import ProductLoader from '../forms/ProductLoader'
+import SellerProductsComponent from './SellerProductsComponent'
 import { FormattedMessage } from 'react-intl'
 
 class HomeScreen extends React.Component {

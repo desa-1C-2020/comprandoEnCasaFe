@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductBoxBuy from './ProductBoxBuy'
+import ProductBoxBuy from '../components/ProductBoxBuy'
 import {NonIdealState} from '@blueprintjs/core'
 import '../styles/ProductComponent.css'
 import { injectIntl, FormattedMessage } from 'react-intl'

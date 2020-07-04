@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/TimeTablePopUp.css'
 import { Dialog, Button, Alert } from '@blueprintjs/core';
-import TickDate from './TickDate';
+import TickDate from '../components/TickDate';
 import { injectIntl, FormattedMessage } from 'react-intl'
 
 export class TimeTablePopUp extends React.Component {

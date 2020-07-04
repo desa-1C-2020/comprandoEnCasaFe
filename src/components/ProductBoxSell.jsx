@@ -2,7 +2,7 @@ import React from 'react'
 import '../styles/ProductBoxSell.css'
 import { Button, Alert, Spinner } from '@blueprintjs/core'
 import {deleteProduct, modifyProduct} from '../services/SellerService'
-import ModProductInfo from '../components/ModProductInfo'
+import ModProductInfo from '../forms/ModProductInfo'
 import { injectIntl, FormattedMessage } from 'react-intl'
 
 class ProductBoxSell extends React.Component {

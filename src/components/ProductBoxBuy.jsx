@@ -16,7 +16,8 @@ class ProductBoxBuy extends React.Component {
   }
 
   addProductToCart(){
-    //TODO - agregar al cart
+    const key = this.props.info.productId.toString();
+    localStorage.setItem(key, JSON.stringify({ product: this.props.info, ammount: this.state.ammount}));
     this.setState({alert: true});
   }
 
