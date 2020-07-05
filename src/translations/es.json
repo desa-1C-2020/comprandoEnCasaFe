@@ -91,5 +91,9 @@
   "buybox.distance": "Distancia",
   "buybox.addtocart": "Agregar al carrito",
   "buybox.added": "Producto agregado al carrito.",
-  "buybox.ammount": "Cantidad: "
+  "buybox.ammount": "Cantidad: ",
+
+  "cart.emptyTitle": "¡No hay productos en el carrito!",
+  "cart.unity": "Unidad: ",
+  "cart.total": "Total: "
 }

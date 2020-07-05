@@ -58,6 +58,8 @@
   font-size: 15px;
   margin-left: 20px;
   margin-bottom: 10px;
+  max-width: 200px;
+  margin-top: 10px;
 }
 
 .bb-shop-desc {

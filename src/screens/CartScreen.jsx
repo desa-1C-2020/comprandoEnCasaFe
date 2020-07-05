@@ -1,60 +1,86 @@
 import React from 'react'
-///import {NonIdealState} from '@blueprintjs/core'
-import { injectIntl, FormattedMessage } from 'react-intl'
+import {NonIdealState} from '@blueprintjs/core'
+import { FormattedMessage } from 'react-intl'
+import { ShopCartBox } from '../forms/ShopCartBox'
 
 export class CartScreen extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
-      items: []
+      shoppings: [],
+      isEmpty: false,
+      shopComponents: []
     }
     this.createArray = this.createArray.bind(this);
+    this.getShopIds = this.getShopIds.bind(this);
+    this.createShops = this.createShops.bind(this);
   }
 
   componentDidMount(){
     const products = this.createArray();
-    this.setState({items: products});
+    const shopIds = this.getShopIds(products);
+    const empty = products.length < 1;
+    const myShoppings = [];
+    shopIds.forEach((id) => {
+      myShoppings.push({
+        shopId: id,
+        buyList: []
+      })
+    })
+    products.forEach((p) => {
+      myShoppings.forEach((shop) => {
+        if(shop.shopId === p.product.commerceId) shop.buyList.push(p);
+      })
+    })
+    const components = this.createShops(myShoppings);
+    this.setState({shoppings: myShoppings, isEmpty: empty, shopComponents: components});
   }
 
   createArray(){
     const shoppingList = localStorage.getItem('usercart');
     if(shoppingList === null) return [];
     const shoppings = Array.from(JSON.parse(localStorage.getItem('usercart')).cart);
-    const productList = [];
-    let key = 8000;
-    shoppings.forEach(element => {
-      //TODO - componente
-    let e = <p key={key} >{element.product.commerceName} y {element.ammount}</p>
-      productList.push(e);
+    return shoppings;
+  }
+
+  createShops(myShoppings){
+    const shops = []
+    let key = 5000;
+    myShoppings.forEach((shop) => {
+      let e = <ShopCartBox key={key} info={shop}/>
+      shops.push(e);
       key = key + 1;
     })
-    return productList;
+    return shops;
+  }
+
+  getShopIds(products){
+    const ids = [];
+    products.forEach(element => {
+      let id = element.product.commerceId;
+      if(!ids.includes(id)) ids.push(id);
+    })
+    return ids;
   }
 
 	render() {
-  //  const { intl } = this.props;
+    const nisTitle = <FormattedMessage id='cart.emptyTitle'/>
     return (
-      // <div>
-      //   <div className='results-title'><FormattedMessage id='navbar.myproducts'/></div>
-      //   {this.state.items.length === 0 ? 
-      //   <div className='no-results-nis'>
-      //     caaart
-      //     {/* <NonIdealState icon='shop' title={intl.formatMessage({id:'seller.noprod'})}/> */}
-      //   </div>
-      //   :
-      //   <div className='product-boxes' style={{textAlign: 'center'}}>
-      //     caaaart
-      //   </div>
-      //   }
-      // </div>
       <div>
-        <FormattedMessage id='navbar.myshopping'/>
-        <p>hola</p>
-        {this.state.items}
+        <div className='results-title'><FormattedMessage id='navbar.myshopping'/></div>
+        {this.state.isEmpty ? 
+        <div className='no-results-nis'>
+          <NonIdealState icon='disable' title={nisTitle}/>
+        </div>
+        :
+        <div>
+          {this.state.shopComponents}
+        </div>
+        }
       </div>
 		);
 	}
 }
 
-export default injectIntl(CartScreen)
+export default CartScreen
