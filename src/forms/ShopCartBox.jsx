@@ -40,7 +40,7 @@ export class ShopCartBox extends React.Component {
 
   deleteProduct(id){
     if(this.state.products.length === 1){
-      //TODO - update parent - local storage
+      this.props.delete(id, this.props.info.shopId);
       this.setState({products: [], display: 'none', totalPrice: 0});
     } else {
       const updatedProducts = [];
@@ -54,7 +54,7 @@ export class ShopCartBox extends React.Component {
           newTotal = this.state.totalPrice - price;
         }
       })
-      // TODO - update parent - local storage
+      this.props.delete(id, this.props.info.shopId);
       this.setState({products: updatedProducts, totalPrice: newTotal});
     }
   }
