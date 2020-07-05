@@ -92,8 +92,11 @@
   "buybox.addtocart": "Agregar al carrito",
   "buybox.added": "Producto agregado al carrito.",
   "buybox.ammount": "Cantidad: ",
+  "buybox.stock": "¡No hay suficiente stock!",
 
   "cart.emptyTitle": "¡No hay productos en el carrito!",
   "cart.unity": "Unidad: ",
-  "cart.total": "Total: "
+  "cart.total": "Total: ",
+  "cart.totalshop": "Total a pagar en la tienda: ",
+  "cart.buy": "COMPRAR"
 }

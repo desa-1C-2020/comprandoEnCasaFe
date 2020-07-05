@@ -7,6 +7,10 @@
   border-radius: 20px;
 }
 
+.sdp-image-container {
+  width: 20%;
+}
+
 .min-image {
   width: 60px;
   margin-left: 20px;
@@ -30,4 +34,41 @@
 .del-btn {
   display: block;
   margin-top: 22px;
+}
+
+@media (max-width: 700px){
+  .spd-main-container {
+    width: 96%;
+    margin-left: 2%;
+    height: 100%;
+  }
+
+  .sdp-t1 {
+    width: 20%;
+  }
+
+  .sdp-t2 {
+    width: 75%;
+  }
+
+  .spd-title {
+    width: 100%;
+    font-size: 12px;
+    margin-left: 5px;
+  }
+
+  .stats-unit {
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  .min-image {
+    margin-left: 5px;
+  }
+
+  .del-btn {
+    display: block;
+    margin-top: 22px;
+    margin-left: 5px;
+  }
 }

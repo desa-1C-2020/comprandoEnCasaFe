@@ -10,6 +10,7 @@ class ProductBoxBuy extends React.Component {
     this.state = {
       isOpen: false,
       alert: false,
+      alertFail: false,
       ammount: 1,
     }
     this.addProductToCart = this.addProductToCart.bind(this);
@@ -22,22 +23,26 @@ class ProductBoxBuy extends React.Component {
   }
 
   addProductToCart(){
-    const cartProduct = {
-      product: this.props.info, 
-      ammount: this.state.ammount
-    }
-    const myProductId = this.props.info.productId;
-    const shoppingList = Array.from(JSON.parse(localStorage.getItem('usercart')).cart);
-    let exists = false;
-    shoppingList.forEach(element => {
-      if(element.product.productId === myProductId){
-        exists = true;
-        element.ammount = this.state.ammount;
+    if(this.state.ammount > this.props.info.stock){
+      this.setState({alertFail: true});
+    } else {
+      const cartProduct = {
+        product: this.props.info, 
+        ammount: this.state.ammount
       }
-    });
-    if(!exists) shoppingList.push(cartProduct);
-    localStorage.setItem('usercart', JSON.stringify({cart: shoppingList}));
-    this.setState({alert: true});
+      const myProductId = this.props.info.productId;
+      const shoppingList = Array.from(JSON.parse(localStorage.getItem('usercart')).cart);
+      let exists = false;
+      shoppingList.forEach(element => {
+        if(element.product.productId === myProductId){
+          exists = true;
+          element.ammount = this.state.ammount;
+        }
+      });
+      if(!exists) shoppingList.push(cartProduct);
+      localStorage.setItem('usercart', JSON.stringify({cart: shoppingList}));
+      this.setState({alert: true});
+    }
   }
 
   render(){
@@ -88,6 +93,13 @@ class ProductBoxBuy extends React.Component {
 							 icon='endorsed'
                onClose={() => {this.setState({alert: false, isOpen: false})}}>
           <FormattedMessage id='buybox.added'/>
+        </Alert>
+        <Alert isOpen={this.state.alertFail}
+               confirmButtonText={intl.formatMessage({id:'t.accept'})}
+							 intent='warning'
+							 icon='error'
+               onClose={() => {this.setState({alertFail: false})}}>
+          <FormattedMessage id='buybox.stock'/>
         </Alert>
       </span>
     )

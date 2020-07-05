@@ -1,7 +1,8 @@
 import React from 'react'
-import {NonIdealState} from '@blueprintjs/core'
+import {NonIdealState, Button} from '@blueprintjs/core'
 import { FormattedMessage } from 'react-intl'
 import { ShopCartBox } from '../forms/ShopCartBox'
+import '../styles/CartScreen.css'
 
 export class CartScreen extends React.Component {
 
@@ -10,7 +11,8 @@ export class CartScreen extends React.Component {
     this.state = {
       shoppings: [],
       isEmpty: false,
-      shopComponents: []
+      shopComponents: [],
+      total: 0
     }
     this.createArray = this.createArray.bind(this);
     this.getShopIds = this.getShopIds.bind(this);
@@ -76,6 +78,12 @@ export class CartScreen extends React.Component {
         :
         <div>
           {this.state.shopComponents}
+          <div className='buy-resume'>
+            <p className='cart-total'><FormattedMessage id='cart.total'/> ${this.state.total}</p>
+            <Button icon='dollar' large={true} intent='success'>
+              <FormattedMessage id='cart.buy'/>
+            </Button>
+          </div>
         </div>
         }
       </div>

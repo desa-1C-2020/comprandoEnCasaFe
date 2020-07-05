@@ -5,21 +5,31 @@ import '../styles/ShopProductDisplay.css'
 
 export class ShopProductDisplay extends React.Component {
 
-  componentDidMount(){
-    console.log(this.props.product)
+  constructor(props){
+    super(props);
+    this.state = {
+      display: 'block'
+    }
+    this.delete = this.delete.bind(this);
+  }
+
+  delete(){
+    this.props.delete(this.props.product.product.productId);
+    this.setState({display: 'none'});
   }
 
   render(){
     const product = this.props.product.product
     return(
+      <span style={{display: this.state.display}}>
       <div className='spd-main-container'>
         <table>
           <tbody>
             <tr>
-              <td>
+              <td className='sdp-t1'>
                 <img className='min-image' alt='product' src={product.imageUrl}></img>
               </td>
-              <td>
+              <td className='sdp-t2'>
                 <table>
                   <tbody>
                     <tr>
@@ -49,12 +59,13 @@ export class ShopProductDisplay extends React.Component {
                 </table>
               </td>
               <td className='del-btn' >
-                <Button icon='trash' />
+                <Button icon='trash' onClick={this.delete}/>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+      </span>
     )
   }
 
