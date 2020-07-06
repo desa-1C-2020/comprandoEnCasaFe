@@ -106,7 +106,6 @@ export class BuyConfirmationScreen extends React.Component {
       else {
         //guardo la compra, llamado al back no definido
         //si sale bien, levanto alert OK [falta definir como es esto]
-        //localStorage.clear()
         this.setState({alert: true, alertId: 'cart.success', alertIntent: 'success'})
       }
     });
@@ -131,7 +130,13 @@ export class BuyConfirmationScreen extends React.Component {
                confirmButtonText={<FormattedMessage id='t.accept'/>}
                intent={this.state.alertIntent}
 							 icon={this.state.alertIntent === 'danger' ? 'error' : 'endorsed'}
-               onClose={() => {this.setState({alert: false})}}>
+               onClose={() => {
+                 if(this.state.alertIntent === 'success'){
+                  this.props.success();
+                 } else {
+                  this.setState({alert: false})
+                 }
+               }}>
           <FormattedMessage id={this.state.alertId}/>
         </Alert>
       </div>

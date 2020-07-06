@@ -38,5 +38,5 @@ export function searchProduct(text, id, maxRange, callback){
 // TODO - implementar
 export function sendPurchase(purchases, callback){
   //purchases es una lista con obj que incluye el id de comercio, y los productos a comprar.
-  callback('njkjnkj', null)
+  callback('', null)
 }

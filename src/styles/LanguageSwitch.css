@@ -26,6 +26,10 @@
 
 @media (max-width: 1024px){
 
+  .ls-main {
+    margin-top: 150px;
+  }
+
   .ls-main-container {
     display: none
   }
@@ -35,7 +39,8 @@
     text-align: center;
     margin-top: 60px;
     font-weight: bolder;
-    color: blue
+    color: blue;
+    margin-top: 150px;
   }
 
 }

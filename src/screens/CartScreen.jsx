@@ -24,6 +24,7 @@ export class CartScreen extends React.Component {
     this.createShops = this.createShops.bind(this);
     this.delete = this.delete.bind(this);
     this.deleteFromLS = this.deleteFromLS.bind(this);  
+    this.doSuccess = this.doSuccess.bind(this);
   }
 
   componentDidMount(){
@@ -111,6 +112,11 @@ export class CartScreen extends React.Component {
     return minusPrice;
   }
 
+  doSuccess(){
+    localStorage.clear();
+    this.setState({isEmpty: true, list: true, confirm: false});
+  }
+
 	render() {
     const nisTitle = <FormattedMessage id='cart.emptyTitle'/>
     return (
@@ -137,7 +143,8 @@ export class CartScreen extends React.Component {
       }
         {this.state.confirm && <BuyConfirmationScreen isOpen={this.state.confirm} 
                                close={()=> this.setState({confirm: false, list: true})}
-                               total={this.state.total}/>
+                               total={this.state.total}
+                               success={this.doSuccess}/>
         }
       </div>
 		);
