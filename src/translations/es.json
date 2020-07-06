@@ -98,5 +98,11 @@
   "cart.unity": "Unidad: ",
   "cart.total": "Total: ",
   "cart.totalshop": "Total a pagar en la tienda: ",
-  "cart.buy": "COMPRAR"
+  "cart.buy": "COMPRAR",
+  "cart.del": "Entrega",
+  "cart.money": "Efectivo",
+  "cart.debit": "Débito",
+  "cart.credit": "Crédito",
+  "cart.confirmTitle": "Elija opciones de envío y pago para cada comercio",
+  "cart.confirmBuy": "Realizar compra"
 }

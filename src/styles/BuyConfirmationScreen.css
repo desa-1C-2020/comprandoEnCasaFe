@@ -1,0 +1,19 @@
+.bcs-title {
+  font-size: 25px;
+  text-align: center;
+  background-color: white;
+  width: 600px;
+  margin-left: calc(50% - 300px);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  border-radius: 20px;
+  border: solid green;
+}
+
+@media (max-width: 700px) {
+  .bcs-title {
+    width: 90%;
+    margin-left: 5%;
+  }
+}

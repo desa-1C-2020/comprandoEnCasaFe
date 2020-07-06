@@ -97,5 +97,11 @@
   "cart.unity": "Unity: ",
   "cart.total": "Total: ",
   "cart.totalshop": "Total to pay in shop: ",
-  "cart.buy": "BUY"
+  "cart.buy": "BUY",
+  "cart.del": "Delivery",
+  "cart.money": "Cash",
+  "cart.debit": "Debit",
+  "cart.credit": "Credit",
+  "cart.confirmTitle": "Choose delivery and payment options for each commerce",
+  "cart.confirmBuy": "Confirm purchase"
 } 

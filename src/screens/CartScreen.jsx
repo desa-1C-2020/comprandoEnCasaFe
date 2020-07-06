@@ -2,6 +2,7 @@ import React from 'react'
 import {NonIdealState, Button} from '@blueprintjs/core'
 import { FormattedMessage } from 'react-intl'
 import { ShopCartBox } from '../forms/ShopCartBox'
+import { BuyConfirmationScreen } from './BuyConfirmationScreen' 
 import '../styles/CartScreen.css'
 
 export class CartScreen extends React.Component {
@@ -12,7 +13,9 @@ export class CartScreen extends React.Component {
       shoppings: [],
       isEmpty: false,
       shopComponents: [],
-      total: 0
+      total: 0,
+      confirm: false,
+      list: true
     }
     this.createArray = this.createArray.bind(this);
     this.getShopIds = this.getShopIds.bind(this);
@@ -113,6 +116,8 @@ export class CartScreen extends React.Component {
     return (
       <div>
         <div className='results-title'><FormattedMessage id='navbar.myshopping'/></div>
+        {this.state.list && 
+        <span>
         {this.state.isEmpty ? 
         <div className='no-results-nis'>
           <NonIdealState icon='disable' title={nisTitle}/>
@@ -122,11 +127,17 @@ export class CartScreen extends React.Component {
           {this.state.shopComponents}
           <div className='buy-resume'>
             <p className='cart-total'><FormattedMessage id='cart.total'/> ${this.state.total}</p>
-            <Button icon='dollar' large={true} intent='success'>
+            <Button icon='dollar' large={true} intent='success'
+                    onClick={() => this.setState({confirm: true, list: false})}>
               <FormattedMessage id='cart.buy'/>
             </Button>
           </div>
         </div>
+        }</span>
+      }
+        {this.state.confirm && <BuyConfirmationScreen isOpen={this.state.confirm} 
+                               close={()=> this.setState({confirm: false, list: true})}
+                               total={this.state.total}/>
         }
       </div>
 		);
