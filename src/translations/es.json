@@ -104,5 +104,7 @@
   "cart.debit": "Débito",
   "cart.credit": "Crédito",
   "cart.confirmTitle": "Elija opciones de envío y pago para cada comercio",
-  "cart.confirmBuy": "Realizar compra"
+  "cart.confirmBuy": "Realizar compra",
+  "cart.success": "Compra realizada correctamente",
+  "cart.error": "Algo salió mal, intente más tarde."
 }

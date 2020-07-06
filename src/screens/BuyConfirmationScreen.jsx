@@ -1,16 +1,20 @@
 import React from 'react'
 import DeliveryPayOptions from '../components/DeliveryPayOptions'
-import { Button } from '@blueprintjs/core'
+import { Button, Alert } from '@blueprintjs/core'
 import { FormattedMessage } from 'react-intl'
 import '../styles/BuyConfirmationScreen.css'
+import { sendPurchase } from '../services/ProductService'
 
 export class BuyConfirmationScreen extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
-      options: [],
-      components: []
+      options: {},
+      components: [],
+      alert: false,
+      alertIntent: '',
+      alertId: ''
     }
     this.handleClose = this.handleClose.bind(this);
     this.createArray = this.createArray.bind(this);
@@ -30,7 +34,8 @@ export class BuyConfirmationScreen extends React.Component {
     const shopIds = this.getShopIds(products);
     const myShoppings = this.generateShoppings(shopIds, products);
     const components = this.createOptionsBoxes(myShoppings);
-    this.setState({components: components})
+    const options = new Map();
+    this.setState({components: components, options: options});
   }
 
   createArray(){
@@ -75,12 +80,36 @@ export class BuyConfirmationScreen extends React.Component {
   }
 
   updateInfo(info){
-    // TODO - impl
-    console.log(info)
+    const ops = this.state.options;
+    ops.set(info.shopId, info);
+    this.setState({options: ops});
   }
 
+  // TODO - faltan definiciones para hacer esto
   doPurchase(){
-    // TODO - impl
+    const shopsIds = Array.from(this.state.options.keys());
+    const purchases = [];
+    shopsIds.forEach((id) => {
+      //obtener productos del localStorage que tengan este shop ID
+      let products = [];
+      //Armo el purchase para la tienda [FALTA DEFINIR EL FORMATO DE ESTO!]
+      let purchase = {
+        shopId: id,
+        items: products 
+      }
+      purchases.push(purchase);
+    })
+    sendPurchase(purchases, (err, res) =>{
+      if(err) {
+        this.setState({alert: true, alertId: 'cart.error', alertIntent: 'danger'})
+      } 
+      else {
+        //guardo la compra, llamado al back no definido
+        //si sale bien, levanto alert OK [falta definir como es esto]
+        //localStorage.clear()
+        this.setState({alert: true, alertId: 'cart.success', alertIntent: 'success'})
+      }
+    });
   }
 
   render(){
@@ -98,6 +127,13 @@ export class BuyConfirmationScreen extends React.Component {
             <FormattedMessage id='t.goback'/>
           </Button>
         </div>
+        <Alert isOpen={this.state.alert}
+               confirmButtonText={<FormattedMessage id='t.accept'/>}
+               intent={this.state.alertIntent}
+							 icon={this.state.alertIntent === 'danger' ? 'error' : 'endorsed'}
+               onClose={() => {this.setState({alert: false})}}>
+          <FormattedMessage id={this.state.alertId}/>
+        </Alert>
       </div>
     )
   }
