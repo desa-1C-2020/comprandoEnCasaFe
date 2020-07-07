@@ -10,7 +10,8 @@ import { Alert, Spinner } from '@blueprintjs/core'
 import ProductLoader from '../forms/ProductLoader'
 import SellerProductsComponent from './SellerProductsComponent'
 import { FormattedMessage } from 'react-intl'
-import { CartScreen } from './CartScreen'
+import CartScreen from './CartScreen'
+import ShoppingHistory from './ShoppingHistory'
 
 class HomeScreen extends React.Component {
 
@@ -26,6 +27,7 @@ class HomeScreen extends React.Component {
       shoppingCart: false,
       alert: false, 
       isLoading: false,
+      history: false
     }
     this.handleEvent = this.handleEvent.bind(this);
     this.logOut = this.logOut.bind(this);
@@ -33,6 +35,7 @@ class HomeScreen extends React.Component {
     this.doSearch = this.doSearch.bind(this);
     this.goProductList = this.goProductList.bind(this);
     this.goShoppingCart = this.goShoppingCart.bind(this);
+    this.goShoppingHistory = this.goShoppingHistory.bind(this);
   }
   
   componentWillMount(){
@@ -57,6 +60,7 @@ class HomeScreen extends React.Component {
       searchResult: false,
       productList: false,
       shoppingCart: false,
+      history: false
     })
   }
 
@@ -68,6 +72,19 @@ class HomeScreen extends React.Component {
       searchResult: false,
       productList: false,
       shoppingCart: true,
+      history: false
+    })
+  }
+
+  goShoppingHistory(){
+    this.setState({
+      shopSearch: false,
+      productLoader: false,
+      profile: false,
+      searchResult: false,
+      productList: false,
+      shoppingCart: false,
+      history: true
     })
   }
 
@@ -107,6 +124,7 @@ class HomeScreen extends React.Component {
           shoppingCart: false,
           products: res,
           isLoading: false,
+          history: false
         })
       }
     })
@@ -128,7 +146,8 @@ class HomeScreen extends React.Component {
                     handleProfile={() => this.handleEvent('profile', true)}
                     handleLogOut={this.logOut}
                     handleSearch={this.doSearch}
-                    goShoppingCart={this.goShoppingCart}/>
+                    goShoppingCart={this.goShoppingCart}
+                    goShoppingHistory={this.goShoppingHistory}/>
         {account === 'buyer' && this.state.shopSearch && <ShopSearch address={user.address}/>}
         {this.state.profile && <ProfileInfo isOpen={this.state.profile} 
                                             accountType={account} 
@@ -140,9 +159,10 @@ class HomeScreen extends React.Component {
         {account === 'seller' && this.state.productList && <SellerProductsComponent 
                                                             products={this.state.products} 
                                                             shopId={user.id}/>}
-        {account === 'buyer' && this.state.shoppingCart && <CartScreen/>}                                                    
+        {account === 'buyer' && this.state.shoppingCart && <CartScreen/>}      
+        {account === 'buyer' && this.state.history && <ShoppingHistory userID={user.id}/>}                                                  
         <Alert isOpen={this.state.alert}
-               confirmButtonText='ACEPTAR'
+               confirmButtonText={<FormattedMessage id='t.accept'/>}
                icon='error'
                intent='danger'
                onClose={() => {this.setState({alert: false})}}>

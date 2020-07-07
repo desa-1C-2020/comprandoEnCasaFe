@@ -154,11 +154,12 @@ class RegisterScreen extends React.Component {
           </Button>
         </div>
         </div>
-        <Alert isOpen={this.state.alertSuccess} confirmButtonText='ACEPTAR' intent='success' onClose={this.goBack}>    
+        <Alert isOpen={this.state.alertSuccess} confirmButtonText={<FormattedMessage id='t.accept'/>} 
+              intent='success' onClose={this.goBack}>    
           <FormattedMessage id='register.success'/>
         </Alert>
-        <Alert isOpen={this.state.alertField} confirmButtonText='ACEPTAR' intent='danger' 
-               onClose={() => this.setState({alertField: false})}>    
+        <Alert isOpen={this.state.alertField} confirmButtonText={<FormattedMessage id='t.accept'/>} 
+                intent='danger' onClose={() => this.setState({alertField: false})}>    
          {this.state.errorMsg}
         </Alert>
         {this.state.isLoading &&
