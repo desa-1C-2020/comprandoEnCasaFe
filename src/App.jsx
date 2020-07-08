@@ -5,14 +5,14 @@ import Login from './screens/user/login/Login';
 import RegisterScreen from './screens/RegisterScreen';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { getCurrentUser } from './util/APIUtils';
-import { ACCESS_TOKEN } from './constants/index';
 import LoadingIndicator from './common/LoadingIndicator';
-import AppHeader from './common/AppHeader';
 import PrivateRoute from './common/PrivateRoute';
 import NotFound from './common/NotFound';
 import Alert from 'react-s-alert';
 import './App.css';
 import OAuth2RedirectHandler from '../src/screens/user/oauth2/OAuth2RedirectHandler';
+import ProfileInfo from './components/ProfileInfo';
+import { BUYER, SELLER } from './constants';
 
 class App extends Component {
     constructor(props) {
@@ -20,11 +20,11 @@ class App extends Component {
         this.state = {
             authenticated: false,
             currentUser: null,
+            accountType: null,
             loading: false
         };
 
         this.loadCurrentlyLoggedInUser = this.loadCurrentlyLoggedInUser.bind(this);
-        this.handleLogout = this.handleLogout.bind(this);
     }
 
     loadCurrentlyLoggedInUser() {
@@ -34,8 +34,12 @@ class App extends Component {
 
         getCurrentUser()
             .then(response => {
+                console.log('dentro app: ' + JSON.stringify(response.user));
                 this.setState({
-                    currentUser: response,
+                    currentUser: response.user,
+                    accountType: response.accountType,
+                    isBuyer: response.accountType === BUYER,
+                    isSeller: response.accountType === SELLER,
                     authenticated: true,
                     loading: false
                 });
@@ -46,37 +50,49 @@ class App extends Component {
         });
     }
 
-    handleLogout() {
-        localStorage.removeItem(ACCESS_TOKEN);
-        this.setState({
-            authenticated: false,
-            currentUser: null
-        });
-        Alert.success('You\'re safely logged out!');
-    }
-
     componentDidMount() {
         this.loadCurrentlyLoggedInUser();
     }
 
     render() {
+        console.log('dentro app state 1:: ' + JSON.stringify(this.state.authenticated));
+        console.log('dentro app state 2:: ' + JSON.stringify(this.state.currentUser));
+        console.log('dentro app state 3  :: ' + JSON.stringify(this.state.accountType));
         if (this.state.loading) {
             return <LoadingIndicator/>;
         }
 
         return (
             <div className="app">
-                <div className="app-top-box">
-                    <AppHeader authenticated={this.state.authenticated} onLogout={this.handleLogout}/>
-                </div>
                 <div className="app-body">
                     <Switch>
-                        <Route path="/"
+                        <Route path="/login"
                                render={(props) => <Login
                                    authenticated={this.state.authenticated} {...props} />}></Route>
-                        <Route exact path='/home' component={HomeScreen}/>
+
+                        {/*<PrivateRoute path="/home" authenticated={this.state.authenticated} currentUser={this.state.currentUser}*/}
+                        {/*accountType={this.state.accountType} component={HomeScreen}></PrivateRoute>*/}
+
+                        <Route path="/home"
+                               render={(props) => <HomeScreen authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+                                                              accountType={this.state.accountType} isBuyer={this.state.isBuyer}
+                                                              isSeller={this.state.isSeller}{...props} />}></Route>
+
+                        <Route path="/profile"
+                               render={(props) => <ProfileInfo isOpen={this.state.profile} isBuyer={this.state.isBuyer}
+                                                               user={this.state.currentUser} {...props} />}></Route>
+
+
                         <Route path="/oauth2/redirect" component={OAuth2RedirectHandler}></Route>
                         <Route component={NotFound}></Route>
+                        {/*Para manejar componentes en paths privados. Este wrappea que cada componente privado chequee si está logeado o no.*/}
+                        {/*<PrivateRoute path="/finder" authenticated={this.state.authenticated} currentUser={this.state.currentUser}*/}
+                        {/*component={ProductFinderWithAddress}></PrivateRoute>*/}
+
+                        {/*Esto debería ser un home que te permita buscar productos y que te los muestre ordenados por comercio. */}
+                        {/*Adentro de home debería haber un componente que reciba una lista de comercios con productos, */}
+                        {/*y adentro de ese componente, otro que sepa dibujar un commercio con sus productos.  */}
+                        {/*<Route path="/" component={Home}></Route>*/}
                     </Switch>
                 </div>
                 <Alert stack={{ limit: 3 }}

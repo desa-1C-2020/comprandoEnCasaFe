@@ -6,16 +6,22 @@ import { withRouter } from "react-router-dom"
 import ProductComponent from './ProductComponent'
 import { searchProduct } from '../services/ProductService'
 import { getAllProducts } from '../services/SellerService'
-import { Alert, Spinner } from '@blueprintjs/core'
+import { Alert as ALERTITA, Spinner } from '@blueprintjs/core'
 import ProductLoader from '../forms/ProductLoader'
 import SellerProductsComponent from './SellerProductsComponent'
 import { FormattedMessage } from 'react-intl'
 import { CartScreen } from './CartScreen'
+import AppHeader from '../common/AppHeader';
+import { ACCESS_TOKEN, SELLER, BUYER } from '../constants';
+import Alert from 'react-s-alert';
 
 class HomeScreen extends React.Component {
 
   constructor(props){
     super(props);
+      console.log("dentro home proo authen:: " + JSON.stringify(this.props.authenticated));
+      console.log("dentro home prop user:: " + JSON.stringify(this.props.currentUser));
+      console.log("dentro home prop type  :: " + JSON.stringify(this.props.accountType));
     this.state = {
       shopSearch: true,
       productLoader: true,
@@ -24,17 +30,19 @@ class HomeScreen extends React.Component {
       productList: false,
       products: [],
       shoppingCart: false,
-      alert: false, 
+      alert: false,
       isLoading: false,
-    }
+    };
     this.handleEvent = this.handleEvent.bind(this);
     this.logOut = this.logOut.bind(this);
     this.goHome = this.goHome.bind(this);
     this.doSearch = this.doSearch.bind(this);
     this.goProductList = this.goProductList.bind(this);
     this.goShoppingCart = this.goShoppingCart.bind(this);
+    console.log("dentro del home.. user" + JSON.stringify(this.props.currentUser));
+    console.log("dentro del home.. type" + JSON.stringify(this.props.accountType));
   }
-  
+
   componentWillMount(){
     if(this.props.location.state === undefined){
       this.props.history.push('/')
@@ -45,8 +53,14 @@ class HomeScreen extends React.Component {
     this.setState({[name]: value})
   }
 
-  logOut(){
-    this.props.history.push('/');
+  logOut() {
+    localStorage.removeItem(ACCESS_TOKEN);
+        this.setState({
+            authenticated: false,
+            currentUser: null
+        });
+    Alert.success("Deslogueado correctamente!");
+    this.props.history.push('/login')
   }
 
   goHome(){
@@ -73,22 +87,19 @@ class HomeScreen extends React.Component {
 
   goProductList(){
     const id = this.props.location.state.accountInfo.user.id;
-    this.setState({isLoading: true})
-    getAllProducts(id, (err, res) => {
-      if(err) this.setState({alert: true, isLoading: false})
-      else {
-         this.setState({
-          shopSearch: false,
-          productLoader: false,
-          profile: false,
-          searchResult: false,
-          productList: true,
-          shoppingCart: false,
-          products: res,
-          isLoading: false
-        })
-      }
-    })
+    this.setState({isLoading: true});
+    getAllProducts()
+        .then(products => this.setState({
+            shopSearch: false,
+            productLoader: false,
+            profile: false,
+            searchResult: false,
+            productList: true,
+            shoppingCart: false,
+            products,
+            isLoading: false
+        }))
+        .catch(()=> this.setState({alert: true, isLoading: false}));
   }
 
   doSearch(text, distance){
@@ -113,47 +124,45 @@ class HomeScreen extends React.Component {
   }
 
   render(){
-    const account = this.props.location.state !== undefined &&
-                     this.props.location.state.account === 'seller' ?
-                     'seller' : 'buyer'
-    const user = this.props.location.state !== undefined ? 
-                 this.props.location.state.accountInfo.user : {}
-    let shop = this.props.location.state !== undefined ?
-                 this.props.location.state.accountInfo.commerce : {}
-    return (        
+    const isSeller = this.props.accountType === SELLER;
+    const isBuyer = this.props.accountType === BUYER;
+    const accountType = this.props.accountType;
+    const user = this.props.currentUser;
+
+    return (
       <div>
-        <HomeNavBar accountType={account} 
+
+          <div className="app-top-box">
+              <AppHeader authenticated={this.state.authenticated} onLogout={this.handleLogout}/>
+          </div>
+
+        <HomeNavBar authenticated={this.state.authenticated}
+                    accountType={accountType}
                     goHome={this.goHome}
                     showSellerProducts={this.goProductList}
-                    handleProfile={() => this.handleEvent('profile', true)}
                     handleLogOut={this.logOut}
                     handleSearch={this.doSearch}
                     goShoppingCart={this.goShoppingCart}/>
-        {account === 'buyer' && this.state.shopSearch && <ShopSearch address={user.address}/>}
-        {this.state.profile && <ProfileInfo isOpen={this.state.profile} 
-                                            accountType={account} 
-                                            info={user}
-                                            shopInfo={shop}
-                                            handleProfile={() => this.handleEvent('profile', false)}/>}
+        {/*{isBuyer && this.state.shopSearch && <ShopSearch address={user.address}/>}*/}
         {this.state.searchResult && <ProductComponent products={this.state.products}/>}
-        {account === 'seller' && this.state.productLoader && <ProductLoader userID={user.id}/>}
-        {account === 'seller' && this.state.productList && <SellerProductsComponent 
-                                                            products={this.state.products} 
+        {isSeller && this.state.productLoader && <ProductLoader userID={user.id}/>}
+        {isSeller && this.state.productList && <SellerProductsComponent
+                                                            products={this.state.products}
                                                             shopId={user.id}/>}
-        {account === 'buyer' && this.state.shoppingCart && <CartScreen/>}                                                    
-        <Alert isOpen={this.state.alert}
+        {isBuyer && this.state.shoppingCart && <CartScreen/>}
+        <ALERTITA isOpen={this.state.alert}
                confirmButtonText='ACEPTAR'
                icon='error'
                intent='danger'
                onClose={() => {this.setState({alert: false})}}>
               <FormattedMessage id='t.error'/>
-        </Alert>
+        </ALERTITA>
         {this.state.isLoading &&
-        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>   
+        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
           <Spinner size='100' intent='primary'/>
         </div>
         }
-      </div>      
+      </div>
     )
   }
 
