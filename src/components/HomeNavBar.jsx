@@ -4,6 +4,7 @@ import logo from '../CEC.png'
 import { Alignment, Button, Classes, Navbar, NavbarDivider, NavbarGroup, NavbarHeading, InputGroup,
 Menu, MenuItem, MenuDivider, Popover, Position, Alert} from '@blueprintjs/core'
 import { injectIntl, FormattedMessage } from 'react-intl'
+import { Link } from 'react-router-dom';
 
 export class HomeNavBar extends React.PureComponent {
 
@@ -23,7 +24,7 @@ export class HomeNavBar extends React.PureComponent {
 	}
 
 	openProfile(){
-		this.props.handleProfile();
+        this.props.history.push('/profile');
 	}
 
 	goHome(){
@@ -55,15 +56,16 @@ export class HomeNavBar extends React.PureComponent {
 		const isSeller = this.props.accountType === 'seller'
 		const profileMenu = (
 			<Menu>
-				<MenuItem icon="id-number" 
+				<MenuItem icon="id-number"
 									text={isSeller ? <FormattedMessage id='navbar.info'/>
-									: <FormattedMessage id='navbar.data'/>} 
+									: <FormattedMessage id='navbar.data'/>}
 									onClick={this.openProfile}/>
-				{!isSeller && <MenuItem icon="notifications" 
-																text={intl.formatMessage({id:'navbar.alert'})} 
+
+				{!isSeller && <MenuItem icon="notifications"
+																text={intl.formatMessage({id:'navbar.alert'})}
 																onClick={() => {this.setState({alert: true})}}/>}
 				<MenuDivider />
-				<MenuItem icon="log-out" 
+				<MenuItem icon="log-out"
 									text={intl.formatMessage({id:'navbar.logout'})}
 									onClick={this.logOut}/>
 			</Menu>

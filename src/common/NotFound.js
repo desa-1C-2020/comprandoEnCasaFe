@@ -7,12 +7,12 @@ class NotFound extends Component {
         return (
             <div className="page-not-found">
                 <h1 className="title">
-                    404
+                    Ops!
                 </h1>
                 <div className="desc">
-                    The Page you're looking for was not found.
+                    No hay nada que ver por acá....
                 </div>
-                <Link to="/"><button className="go-back-btn btn btn-primary" type="button">Go Back</button></Link>
+                <Link to="/login"><button className="go-back-btn btn btn-primary" type="button">Vamos al login que funciona..</button></Link>
             </div>
         );
     }
