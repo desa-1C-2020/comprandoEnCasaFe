@@ -91,10 +91,34 @@ export class CartScreen extends React.Component {
     return shops;
   }
 
-  delete(productId){
+  delete(productId, shopId){
     const minusPrice = this.deleteFromLS(productId);
     const newTotal = this.state.total - minusPrice;
-    this.setState({total: newTotal, isEmpty: newTotal === 0 })
+    const newComponents = [];
+    const shopComponents = this.state.shopComponents;
+    shopComponents.forEach((sc) => {
+      if(sc.props.info.shopId === shopId){
+        if(sc.props.info.buyList.length !== 1){
+          const newBuyList = [];
+          sc.props.info.buyList.forEach((p) => {
+            if(p.product.productId !== productId){
+              newBuyList.push(p);
+            }
+          })
+          sc.props.info.buyList = newBuyList;
+          newComponents.push(sc);
+        }
+      } else {
+        newComponents.push(sc);
+      }
+    })
+    this.setState({total: newTotal, 
+                  shopComponents: newComponents, 
+                  isEmpty: newTotal === 0 })
+  }
+
+  componentDidUpdate(){
+    console.log(this.state.shopComponents)
   }
 
   deleteFromLS(productId){
