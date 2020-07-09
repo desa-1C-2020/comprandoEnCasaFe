@@ -66,19 +66,6 @@ export function login(loginRequest) {
     });
 }
 
-export function getAllProducts() {
-    return secureRequest({
-        url: API_BASE_URL + '/user/me',
-        method: 'GET'
-    }).then((user) => {
-        const accountType = user.commerce === undefined ? BUYER : SELLER;
-        return {
-            accountType,
-            user
-        };
-    });
-}
-
 export function signup(signupRequest) {
     return request({
         url: API_BASE_URL + '/auth/signup',

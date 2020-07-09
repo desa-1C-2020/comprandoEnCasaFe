@@ -105,6 +105,7 @@ class App extends Component {
                         <PrivateRoute path="/home"
                                       authenticated={this.state.authenticated}
                                       currentUser={this.state.currentUser}
+                                      rol={this.state.userRol}
                                       accountType={this.state.accountType}
                                       isBuyer={this.state.isBuyer}
                                       isSeller={this.state.isSeller}
