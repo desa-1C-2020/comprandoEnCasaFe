@@ -117,10 +117,6 @@ export class CartScreen extends React.Component {
                   isEmpty: newTotal === 0 })
   }
 
-  componentDidUpdate(){
-    console.log(this.state.shopComponents)
-  }
-
   deleteFromLS(productId){
     const shoppings = Array.from(JSON.parse(localStorage.getItem('usercart')).cart);
     const newShoppings = [];

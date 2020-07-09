@@ -20,6 +20,18 @@
   margin-left: 10px;
 }
 
+.ph-btn{
+  text-align: center;
+  width: 100px;
+}
+
+.ph-btn2{
+  width: 150px;
+  margin-left: calc(50% - 75px);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .ph-detail{
   text-align: center;
   font-size: 15px;

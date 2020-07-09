@@ -111,5 +111,9 @@
   "ph.more": "More info",
   "ph.less": "Less info",
 
-  "seller.sales": "My sales"
+  "seller.sales": "My sales",
+  "seller.pay": "Payment method",
+  "seller.del": "Delivery method",
+  "seller.show": "Show products",
+  "seller.hide": "Hide products"
 } 

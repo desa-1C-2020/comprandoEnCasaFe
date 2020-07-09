@@ -41,7 +41,7 @@ class HomeScreen extends React.Component {
     this.goSalesList = this.goSalesList.bind(this);
   }
   
-  componentWillMount(){
+  componentDidMount(){
     if(this.props.location.state === undefined){
       this.props.history.push('/')
     }
@@ -183,7 +183,7 @@ class HomeScreen extends React.Component {
                                                             shopId={user.id}/>}
         {account === 'buyer' && this.state.shoppingCart && <CartScreen/>}      
         {account === 'buyer' && this.state.history && <ShoppingHistory userID={user.id}/>}       
-        {account === 'seller' && this.state.salesList && <SalesScreen/>}                                              
+        {account === 'seller' && this.state.salesList && <SalesScreen userID={user.id}/>}                                              
         <Alert isOpen={this.state.alert}
                confirmButtonText={<FormattedMessage id='t.accept'/>}
                icon='error'

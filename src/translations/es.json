@@ -112,5 +112,9 @@
   "ph.more": "Más info",
   "ph.less": "Menos info",
 
-  "seller.sales": "Mis ventas"
+  "seller.sales": "Mis ventas",
+  "seller.pay": "Método de pago",
+  "seller.del": "Método de entrega",
+  "seller.show": "Ver productos",
+  "seller.hide": "Ocultar productos"
 }
