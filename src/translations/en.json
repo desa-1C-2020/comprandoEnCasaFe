@@ -106,5 +106,8 @@
   "cart.confirmTitle": "Choose delivery and payment options for each commerce",
   "cart.confirmBuy": "Confirm purchase",
   "cart.success": "Purchase completed successfully.",
-  "cart.error": "Something went wrong, try again later."
+  "cart.error": "Something went wrong, try again later.",
+
+  "ph.more": "More info",
+  "ph.less": "Less info"
 } 
