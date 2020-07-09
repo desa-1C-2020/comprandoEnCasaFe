@@ -1,14 +1,8 @@
 import { ACCESS_TOKEN, API_BASE_URL, BUYER, SELLER } from '../constants';
+import axios from 'axios';
+import { apiBasicUrl } from '../utilities/Environment';
 
-const request = (options) => {
-    const headers = new Headers({
-        'Content-Type': 'application/json'
-    });
-
-    if (localStorage.getItem(ACCESS_TOKEN)) {
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN));
-    }
-
+const request = (options, headers) => {
     const defaults = { headers: headers };
     options = Object.assign({}, defaults, options);
 
@@ -23,37 +17,43 @@ const request = (options) => {
         );
 };
 
-export function getCurrentUser() {
+export function secureRequest(options) {
     if (!localStorage.getItem(ACCESS_TOKEN)) {
         return Promise.reject('No access token set.');
     }
 
-    return request({
+    const headers = new Headers({
+        'Content-Type': 'application/json'
+    });
+
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN));
+    }
+
+    return request(options, headers);
+};
+
+export function getCurrentUser() {
+    return secureRequest({
         url: API_BASE_URL + '/user/me',
         method: 'GET'
-    }).then((user) => {
-        const accountType = user.commerce === undefined ? BUYER : SELLER;
-        return {
-            accountType,
-            user
-        };
+    }).then((userLogged) => {
+        const accountType = userLogged.rol.commerce === undefined ? BUYER : SELLER;
+        return Object.assign(userLogged, { accountType });
     });
 }
 
-export function getAllProducts() {
-    if (!localStorage.getItem(ACCESS_TOKEN)) {
-        return Promise.reject('No access token set.');
-    }
-
-    return request({
-        url: API_BASE_URL + '/user/me',
+export function productSearch(product, distance) {
+    return secureRequest({
+        url: `${API_BASE_URL}/products/find?productToFind=${product}&maxDistance=${distance}`,
         method: 'GET'
-    }).then((user) => {
-        const accountType = user.commerce === undefined ? BUYER : SELLER;
-        return {
-            accountType,
-            user
-        };
+    });
+}
+
+export function findCommercesInRange(range) {
+    return secureRequest({
+        url: `${API_BASE_URL}/commerces/findInRange?maxDistance=${range}`,
+        method: 'GET'
     });
 }
 
@@ -62,6 +62,19 @@ export function login(loginRequest) {
         url: API_BASE_URL + '/auth/login',
         method: 'POST',
         body: JSON.stringify(loginRequest)
+    });
+}
+
+export function getAllProducts() {
+    return secureRequest({
+        url: API_BASE_URL + '/user/me',
+        method: 'GET'
+    }).then((user) => {
+        const accountType = user.commerce === undefined ? BUYER : SELLER;
+        return {
+            accountType,
+            user
+        };
     });
 }
 

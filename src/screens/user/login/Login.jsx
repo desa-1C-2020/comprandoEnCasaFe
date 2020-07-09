@@ -32,7 +32,7 @@ class Login extends React.Component {
 
             return <Redirect
                 to={{
-                    pathname: '/home',
+                    pathname: '/check-address',
                     state: { from: this.props.location }
                 }}/>;
         }
