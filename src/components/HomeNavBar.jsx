@@ -4,6 +4,7 @@ import logo from '../CEC.png'
 import { Alignment, Button, Classes, Navbar, NavbarDivider, NavbarGroup, NavbarHeading, InputGroup,
 Menu, MenuItem, MenuDivider, Popover, Position, Alert} from '@blueprintjs/core'
 import { injectIntl, FormattedMessage } from 'react-intl'
+import { Link } from 'react-router-dom';
 
 export class HomeNavBar extends React.PureComponent {
 
@@ -15,7 +16,6 @@ export class HomeNavBar extends React.PureComponent {
 			alert: false
 		}
 		this.openProfile = this.openProfile.bind(this);
-		this.logOut = this.logOut.bind(this);
 		this.goHome = this.goHome.bind(this);
 		this.doSearch = this.doSearch.bind(this);
 		this.goProductList = this.goProductList.bind(this);
@@ -24,7 +24,7 @@ export class HomeNavBar extends React.PureComponent {
 	}
 
 	openProfile(){
-		this.props.handleProfile();
+        this.props.history.push('/profile');
 	}
 
 	goHome(){
@@ -32,15 +32,11 @@ export class HomeNavBar extends React.PureComponent {
 		this.props.goHome();
 	}
 
-	logOut(){
-		this.props.handleLogOut();
-	}
-
 	doSearch(){
 		if(this.state.search !== ''){
 			this.props.handleSearch(this.state.search, this.state.distance);
 			this.setState({search: ''})
-		}	
+		}
 	}
 
 	goProductList(){
@@ -57,28 +53,29 @@ export class HomeNavBar extends React.PureComponent {
 
 	render() {
 		const { intl } = this.props;
-		const isSeller = this.props.accountType === 'seller'
+		const isSeller = this.props.isSeller;
 		const profileMenu = (
 			<Menu>
-				<MenuItem icon="id-number" 
+				<MenuItem icon="id-number"
 									text={isSeller ? <FormattedMessage id='navbar.info'/>
-									: <FormattedMessage id='navbar.data'/>} 
+									: <FormattedMessage id='navbar.data'/>}
 									onClick={this.openProfile}/>
-				{!isSeller && <MenuItem icon="notifications" 
-																text={intl.formatMessage({id:'navbar.alert'})} 
+
+				{!isSeller && <MenuItem icon="notifications"
+																text={intl.formatMessage({id:'navbar.alert'})}
 																onClick={() => {this.setState({alert: true})}}/>}
 				<MenuDivider />
-				<MenuItem icon="log-out" 
+				<MenuItem icon="log-out"
 									text={intl.formatMessage({id:'navbar.logout'})}
-									onClick={this.logOut}/>
+									onClick={this.props.onLogout}/>
 			</Menu>
 		);
 		const dropdownMenu = (
 			<Menu>
 				<MenuItem icon="home" text={intl.formatMessage({id:'navbar.home'})} onClick={this.goHome}/>
 				<MenuDivider />
-				{isSeller && <MenuItem icon="shop" 
-															 text={intl.formatMessage({id:'navbar.myproducts'})} 
+				{isSeller && <MenuItem icon="shop"
+															 text={intl.formatMessage({id:'navbar.myproducts'})}
 															 onClick={this.goProductList}/>}
 				{isSeller && <MenuDivider />}
 				{isSeller && <MenuItem icon="dollar" 
@@ -105,12 +102,12 @@ export class HomeNavBar extends React.PureComponent {
 							<img className="logo" alt="Comprando en casa" src={logo} />
 						</NavbarHeading>
 						<NavbarDivider />
-						<Button className={Classes.MINIMAL} 
-										icon="home" 
+						<Button className={Classes.MINIMAL}
+										icon="home"
 										text={intl.formatMessage({id:'navbar.home'})}
 										onClick={this.goHome}/>
-						{isSeller && <Button className={Classes.MINIMAL} 
-																 icon="shop" 
+						{isSeller && <Button className={Classes.MINIMAL}
+																 icon="shop"
 																 text={intl.formatMessage({id:'navbar.myproducts'})}
 																 onClick={this.goProductList}/>}
 						{isSeller && <Button className={Classes.MINIMAL} 
@@ -126,24 +123,24 @@ export class HomeNavBar extends React.PureComponent {
 																	text={intl.formatMessage({id:'navbar.history'})}
 																	onClick={()=> this.props.goShoppingHistory()}/>}
 						<NavbarDivider />
-						{!isSeller &&<InputGroup style={{width: '300px'}} 
-																		 type="search" 
-																		 leftIcon="search" 
+						{!isSeller &&<InputGroup style={{width: '300px'}}
+																		 type="search"
+																		 leftIcon="search"
 																		 placeholder={intl.formatMessage({id:'navbar.search'})}
 																		 value={this.state.search}
 																		 onChange={(e) => this.setState({search: e.target.value})}
-																		 rightElement={searchButton}/>}		
-						{!isSeller && <InputGroup style={{width: '100px', marginLeft: '5px'}} 
-																			type="number" 
-																			leftIcon="map-marker" 
+																		 rightElement={searchButton}/>}
+						{!isSeller && <InputGroup style={{width: '100px', marginLeft: '5px'}}
+																			type="number"
+																			leftIcon="map-marker"
 																		 	value={this.state.distance}
 																		 	onChange={(e) => this.setState({distance: e.target.value})}/>}
 					</NavbarGroup>
 					<NavbarGroup align={Alignment.RIGHT}>
 						<Popover content={profileMenu} position={Position.RIGHT_BOTTOM}>
-							<Button className={Classes.MINIMAL} 
-											icon={isSeller ? 'shop' : 'user'} 
-											text={isSeller ? <FormattedMessage id='navbar.mycommerce'/> 
+							<Button className={Classes.MINIMAL}
+											icon={isSeller ? 'shop' : 'user'}
+											text={isSeller ? <FormattedMessage id='navbar.mycommerce'/>
 											: <FormattedMessage id='navbar.myprofile'/>} />
 						</Popover>
 					</NavbarGroup>
@@ -154,17 +151,17 @@ export class HomeNavBar extends React.PureComponent {
 							<img className="logo" alt="Comprando en casa" src={logo} />
 						</NavbarHeading>
 						<span style={{width: '100%'}}>
-						{!isSeller && <InputGroup style={{width: '100%'}} 
-																			type="search" 
-																			leftIcon="search" 
-																			placeholder={intl.formatMessage({id:'navbar.search'})} 
+						{!isSeller && <InputGroup style={{width: '100%'}}
+																			type="search"
+																			leftIcon="search"
+																			placeholder={intl.formatMessage({id:'navbar.search'})}
 																			value={this.state.search}
 																			onChange={(e) => this.setState({search: e.target.value})}
-																			rightElement={searchButton}/>}	
+																			rightElement={searchButton}/>}
 						</span>
-						{!isSeller && <InputGroup style={{width: '75px', marginLeft: '5px'}} 
-																			type="text" 
-																			leftIcon="map-marker" 
+						{!isSeller && <InputGroup style={{width: '75px', marginLeft: '5px'}}
+																			type="text"
+																			leftIcon="map-marker"
 																		 	value={this.state.distance}
 																		 	onChange={(e) => this.setState({distance: e.target.value})}/>}
 						<NavbarDivider />

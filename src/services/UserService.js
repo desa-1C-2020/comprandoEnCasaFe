@@ -1,27 +1,27 @@
-import axios from 'axios';
-import {apiBasicUrl} from "../utilities/Environment";
+import { secureRequest } from '../util/APIUtils';
+import { API_BASE_URL } from '../constants';
 
-export function registerBuyer(userInfo, callback) {
-  axios.post(`${apiBasicUrl()}/account/buyer`, userInfo)
-  .then((response) => callback(null, response))
-  .catch((error) => callback(error, null))
+export function registerBuyer(buyerInfo) {
+    const { address } = buyerInfo;
+    return secureRequest({
+        url: `${API_BASE_URL}/user/buyer/update`,
+        method: 'POST',
+        body: JSON.stringify(address)
+    });
 }
 
-export function registerSeller(sellerInfo, callback) {
-  axios.post(`${apiBasicUrl()}/account/seller`, sellerInfo)
-  .then((res) =>  callback(null, res))
-  .catch((err) => callback(err, null))  
-}
-
-export function login(credentials, callback){
-  axios.post(`${apiBasicUrl()}/account/login`, credentials)
-  .then((response) => {
-    let accountType = response.data.commerce === undefined ? 'buyer' : 'seller'
-    let resInfo = {
-      type: accountType,
-      info: response.data
+export function registerSeller(sellerInfo) {
+    const commerce = {
+        name: sellerInfo.commerceName,
+        businessSector: sellerInfo.commerceBusinessSector,
+        address: sellerInfo.commerceAddress,
+        paymentMethods: sellerInfo.paymentMethods,
+        daysAndHoursOpen: sellerInfo.daysAndHoursOpen,
+        arrivalRange: sellerInfo.arrivalRange
     };
-    callback(null, resInfo)
-   })
-   .catch((error) => callback(error, null))
+    return secureRequest({
+        url: `${API_BASE_URL}/user/seller/update`,
+        method: 'POST',
+        body: JSON.stringify(commerce)
+    });
 }
