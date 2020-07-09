@@ -20,6 +20,7 @@ export class HomeNavBar extends React.PureComponent {
 		this.doSearch = this.doSearch.bind(this);
 		this.goProductList = this.goProductList.bind(this);
 		this.goShoppingCart = this.goShoppingCart.bind(this);
+		this.goSalesList = this.goSalesList.bind(this);
 	}
 
 	openProfile(){
@@ -50,6 +51,10 @@ export class HomeNavBar extends React.PureComponent {
 		this.props.goShoppingCart();
 	}
 
+	goSalesList(){
+		this.props.goSalesList();
+	}
+
 	render() {
 		const { intl } = this.props;
 		const isSeller = this.props.accountType === 'seller'
@@ -75,6 +80,10 @@ export class HomeNavBar extends React.PureComponent {
 				{isSeller && <MenuItem icon="shop" 
 															 text={intl.formatMessage({id:'navbar.myproducts'})} 
 															 onClick={this.goProductList}/>}
+				{isSeller && <MenuDivider />}
+				{isSeller && <MenuItem icon="dollar" 
+															 text={intl.formatMessage({id:'seller.sales'})} 
+															 onClick={this.goSalesList}/>}
 				{!isSeller && <MenuItem icon="shopping-cart" 
 																text={intl.formatMessage({id:'navbar.myshopping'})}
 																onClick={this.goShoppingCart}/>
@@ -104,6 +113,10 @@ export class HomeNavBar extends React.PureComponent {
 																 icon="shop" 
 																 text={intl.formatMessage({id:'navbar.myproducts'})}
 																 onClick={this.goProductList}/>}
+						{isSeller && <Button className={Classes.MINIMAL} 
+																	icon="dollar" 
+															 		text={intl.formatMessage({id:'seller.sales'})} 
+															 		onClick={this.goSalesList}/>}
 						{!isSeller && <Button className={Classes.MINIMAL} 
 																	icon="shopping-cart" 
 																	text={intl.formatMessage({id:'navbar.myshopping'})}

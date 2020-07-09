@@ -12,6 +12,7 @@ import SellerProductsComponent from './SellerProductsComponent'
 import { FormattedMessage } from 'react-intl'
 import CartScreen from './CartScreen'
 import ShoppingHistory from './ShoppingHistory'
+import SalesScreen from './SalesScreen'
 
 class HomeScreen extends React.Component {
 
@@ -27,7 +28,8 @@ class HomeScreen extends React.Component {
       shoppingCart: false,
       alert: false, 
       isLoading: false,
-      history: false
+      history: false,
+      salesList: false
     }
     this.handleEvent = this.handleEvent.bind(this);
     this.logOut = this.logOut.bind(this);
@@ -36,6 +38,7 @@ class HomeScreen extends React.Component {
     this.goProductList = this.goProductList.bind(this);
     this.goShoppingCart = this.goShoppingCart.bind(this);
     this.goShoppingHistory = this.goShoppingHistory.bind(this);
+    this.goSalesList = this.goSalesList.bind(this);
   }
   
   componentWillMount(){
@@ -60,7 +63,8 @@ class HomeScreen extends React.Component {
       searchResult: false,
       productList: false,
       shoppingCart: false,
-      history: false
+      history: false,
+      salesList: false
     })
   }
 
@@ -72,7 +76,8 @@ class HomeScreen extends React.Component {
       searchResult: false,
       productList: false,
       shoppingCart: true,
-      history: false
+      history: false,
+      salesList: false
     })
   }
 
@@ -84,7 +89,8 @@ class HomeScreen extends React.Component {
       searchResult: false,
       productList: false,
       shoppingCart: false,
-      history: true
+      history: true,
+      salesList: false
     })
   }
 
@@ -102,7 +108,8 @@ class HomeScreen extends React.Component {
           productList: true,
           shoppingCart: false,
           products: res,
-          isLoading: false
+          isLoading: false,
+          salesList: false
         })
       }
     })
@@ -124,9 +131,23 @@ class HomeScreen extends React.Component {
           shoppingCart: false,
           products: res,
           isLoading: false,
-          history: false
+          history: false,
+          salesList: false
         })
       }
+    })
+  }
+
+  goSalesList(){
+    this.setState({
+      shopSearch: false,
+      productLoader: false,
+      profile: false,
+      searchResult: false,
+      productList: false,
+      shoppingCart: false,
+      history: false,
+      salesList: true
     })
   }
 
@@ -147,7 +168,8 @@ class HomeScreen extends React.Component {
                     handleLogOut={this.logOut}
                     handleSearch={this.doSearch}
                     goShoppingCart={this.goShoppingCart}
-                    goShoppingHistory={this.goShoppingHistory}/>
+                    goShoppingHistory={this.goShoppingHistory}
+                    goSalesList={this.goSalesList}/>
         {account === 'buyer' && this.state.shopSearch && <ShopSearch address={user.address}/>}
         {this.state.profile && <ProfileInfo isOpen={this.state.profile} 
                                             accountType={account} 
@@ -160,7 +182,8 @@ class HomeScreen extends React.Component {
                                                             products={this.state.products} 
                                                             shopId={user.id}/>}
         {account === 'buyer' && this.state.shoppingCart && <CartScreen/>}      
-        {account === 'buyer' && this.state.history && <ShoppingHistory userID={user.id}/>}                                                  
+        {account === 'buyer' && this.state.history && <ShoppingHistory userID={user.id}/>}       
+        {account === 'seller' && this.state.salesList && <SalesScreen/>}                                              
         <Alert isOpen={this.state.alert}
                confirmButtonText={<FormattedMessage id='t.accept'/>}
                icon='error'
