@@ -34,12 +34,6 @@ class HomeScreen extends React.Component {
         this.goShoppingCart = this.goShoppingCart.bind(this);
     }
 
-    componentWillMount() {
-        if (this.props.location.state === undefined) {
-            this.props.history.push('/');
-        }
-    }
-
     handleEvent(name, value) {
         this.setState({ [name]: value });
     }

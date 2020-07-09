@@ -3,23 +3,24 @@ import BuyerForm from '../forms/BuyerForm';
 import SellerForm from '../forms/SellerForm';
 import { registerBuyer, registerSeller } from '../services/UserService';
 import { withRouter } from 'react-router-dom';
-import { RadioGroup, Radio, Button, Alert, Spinner } from '@blueprintjs/core';
+import { RadioGroup, Radio, Button, Spinner } from '@blueprintjs/core';
 import '../styles/RegisterScreen.css';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { BUYER } from '../constants';
+import { ACCESS_TOKEN, BUYER } from '../constants';
+import { toast } from 'react-toastify';
 
 class RegisterScreen extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             form: BUYER,
             buyerInfo: {},
             sellerInfo: {},
-            alertSuccess: false,
             alertField: false,
             errorMsg: '',
-            isLoading: false
+            isLoading: false,
+            updateSuccess: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleRadio = this.handleRadio.bind(this);
@@ -30,6 +31,8 @@ class RegisterScreen extends React.Component {
         this.registerBuyer = this.registerBuyer.bind(this);
         this.isValidBuyer = this.isValidBuyer.bind(this);
         this.registerSeller = this.registerSeller.bind(this);
+        const { intl } = this.props;
+        this.intl = intl;
     }
 
     handleChange(event) {
@@ -41,7 +44,7 @@ class RegisterScreen extends React.Component {
     }
 
     goBack() {
-        this.props.history.push('/');
+        this.props.history.push('/login');
     }
 
     setBuyerInfo(info) {
@@ -60,44 +63,66 @@ class RegisterScreen extends React.Component {
         }
     }
 
-    registerBuyer() {
-        if (this.isValidBuyer()) {
+    updateUser(onUpdateUser, isValid, message) {
+        if (isValid) {
             this.setState({ isLoading: true });
-            registerBuyer(this.state.buyerInfo)
-                .then(response => this.setState({ alertSuccess: true, isLoading: false }))
+            onUpdateUser
+                .then(response => {
+                    this.setState({ isLoading: false, updateSuccess: true });
+                    this.props.history.push('/home');
+                    this.showOnSuccessful(message);
+                })
                 .catch(() => {
-                    this.setState({
-                        errorMsg: <FormattedMessage id='t.error'/>,
-                        alertField: true,
-                        isLoading: false
-                    });
+                    this.setState({ isLoading: false });
+                    this.showOnError(message);
                 });
         } else {
-            this.setState({
-                errorMsg: <FormattedMessage id='t.fillfields'/>,
-                alertField: true
-            });
+            this.onInvalidFields();
         }
     }
 
+    registerBuyer() {
+        this.updateUser(registerBuyer(this.state.buyerInfo), this.isValidBuyer(), 'dirección');
+    }
+
     registerSeller() {
-        if (this.isValidSeller()) {
-            this.setState({ isLoading: true });
-            registerSeller(this.state.sellerInfo)
-                .then(response => this.setState({ alertSuccess: true, isLoading: false }))
-                .catch(() => {
-                    this.setState({
-                        errorMsg: <FormattedMessage id='t.error'/>,
-                        alertField: true,
-                        isLoading: false
-                    });
-                });
-        } else {
-            this.setState({
-                errorMsg: <FormattedMessage id='t.fillfields'/>,
-                alertField: true
-            });
-        }
+        this.updateUser(registerBuyer(this.state.sellerInfo), this.isValidSeller(), 'comercio');
+    }
+
+    showOnSuccessful(message) {
+        toast.success(`😀 Gracias por actualizar tu ${message} `, {
+            position: 'bottom-center',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
+    }
+
+    showOnError(message) {
+        toast.error(`😔 No pudimos actualizar tu ${message}`, {
+            position: 'bottom-center',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
+    }
+
+    onInvalidFields() {
+        toast.warn(`${this.intl.formatMessage({ id: 't.fillfields' })}`, {
+            position: 'bottom-center',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
     }
 
     isValidBuyer() {
@@ -119,58 +144,55 @@ class RegisterScreen extends React.Component {
     }
 
     render() {
-        const { intl } = this.props;
-        return (
-            <div>
-                <div className="register-container">
-                    <p className="register-title">
-                        <FormattedMessage id='register.title'/>
-                    </p>
-                    <p className="register-sub">
-                        <FormattedMessage id='register.subtitle'/>
-                    </p>
-                    <RadioGroup
-                        className="radio"
-                        inline={true}
-                        onChange={this.handleRadio}
-                        selectedValue={this.state.form}>
-                        <Radio label={intl.formatMessage({ id: 't.buyer' })} value='buyer' large={true}/>
-                        <Radio label={intl.formatMessage({ id: 't.seller' })} value='seller' large={true}/>
-                    </RadioGroup>
+        if (this.updateSuccess) {
+            return <Redirect to={{
+                pathname: '/home',
+                state: { from: this.props.location }
+            }}/>;
+        } else {
+            return (
+                <div>
+                    <div className="register-container">
+                        <p className="register-title">
+                            <FormattedMessage id='register.title'/>
+                        </p>
+                        <p className="register-sub">
+                            <FormattedMessage id='register.subtitle'/>
+                        </p>
+                        <RadioGroup
+                            className="radio"
+                            inline={true}
+                            onChange={this.handleRadio}
+                            selectedValue={this.state.form}>
+                            <Radio label={this.intl.formatMessage({ id: 't.buyer' })} value='buyer' large={true}/>
+                            <Radio label={this.intl.formatMessage({ id: 't.seller' })} value='seller' large={true}/>
+                        </RadioGroup>
 
 
-                    {this.state.form === BUYER ?
-                        <div className="buyer-form"><BuyerForm user={this.props.user} update={this.setBuyerInfo}/></div>
-                        : <div className="seller-form"><SellerForm user={this.props.user} update={this.setSellerInfo}/>
-                        </div>}
+                        {this.state.form === BUYER ?
+                            <div className="buyer-form"><BuyerForm user={this.props.user} update={this.setBuyerInfo}/></div>
+                            : <div className="seller-form"><SellerForm user={this.props.user} update={this.setSellerInfo}/>
+                            </div>}
 
-                    <div className="buttons">
-                        <Button className="register-btn" intent="success" onClick={this.handleRegister}>
-                            <FormattedMessage id='t.register'/>
-                        </Button>
-                        <Button intent="danger" onClick={this.goBack}>
-                            <FormattedMessage id='t.goback'/>
-                        </Button>
+                        <div className="buttons">
+                            <Button className="register-btn" intent="success" onClick={this.handleRegister}>
+                                <FormattedMessage id='t.register'/>
+                            </Button>
+                            <Button intent="danger" onClick={this.goBack}>
+                                <FormattedMessage id='t.goback'/>
+                            </Button>
+                        </div>
+
                     </div>
 
+                    {this.state.isLoading &&
+                    <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                        <Spinner size='100' intent='primary'/>
+                    </div>
+                    }
                 </div>
-
-                <Alert isOpen={this.state.alertSuccess} confirmButtonText='ACEPTAR' intent='success'
-                       onClose={this.goBack}>
-                    <FormattedMessage id='register.success'/>
-                </Alert>
-                <Alert isOpen={this.state.alertField} confirmButtonText='ACEPTAR' intent='danger'
-                       onClose={() => this.setState({ alertField: false })}>
-                    {this.state.errorMsg}
-                </Alert>
-
-                {this.state.isLoading &&
-                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-                    <Spinner size='100' intent='primary'/>
-                </div>
-                }
-            </div>
-        );
+            );
+        }
     }
 
 }

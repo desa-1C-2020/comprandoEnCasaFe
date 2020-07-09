@@ -1,106 +1,106 @@
-import React from 'react'
-import '../styles/BuyerForm.css'
-import { InputGroup } from '@blueprintjs/core'
-import { injectIntl, FormattedMessage } from 'react-intl'
+import React from 'react';
+import '../styles/BuyerForm.css';
+import { InputGroup } from '@blueprintjs/core';
+import { injectIntl, FormattedMessage } from 'react-intl';
 
 export class BuyerForm extends React.Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      name: this.props.user.name,
-      surname: this.props.user.surname,
-      email: this.props.user.email,
-      password: '',
-      street: '',
-      lat: '',
-      lng: ''
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: this.props.user.name,
+            surname: this.props.user.surname,
+            email: this.props.user.email,
+            password: '',
+            street: '',
+            lat: '',
+            lng: ''
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.updateParent = this.updateParent.bind(this);
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.updateParent = this.updateParent.bind(this);
-  }
 
-  handleChange(event){
-    this.setState({[event.target.name]: event.target.value})
-  }
+    handleChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
+    }
 
-  updateParent(){
-    this.props.update({
-      name: this.state.name,
-      surname: this.state.surname,
-      email: this.state.email.toLowerCase(),
-      password: this.state.password,
-      address: {
-        street: this.state.street,
-        latitud: this.state.lat,
-        longitud: this.state.lng
-      }
-    })
-  }
+    updateParent() {
+        this.props.update({
+            name: this.state.name,
+            surname: this.state.surname,
+            email: this.state.email.toLowerCase(),
+            password: this.state.password,
+            address: {
+                street: this.state.street,
+                latitud: this.state.lat,
+                longitud: this.state.lng
+            }
+        });
+    }
 
-	render() {
-    const { intl } = this.props;
-    return (
-      <div>
-        <p className="dp"><FormattedMessage id='t.personaldata'/></p>
-        <span className="personal-buyer">
-          <InputGroup className="field" 
-                      type="text" 
+    render() {
+        const { intl } = this.props;
+        return (
+            <div>
+                <p className="dp"><FormattedMessage id='t.personaldata'/></p>
+                <span className="personal-buyer">
+          <InputGroup className="field"
+                      type="text"
                       name="name"
                       value={this.state.name}
-                      onChange={this.handleChange} 
+                      onChange={this.handleChange}
                       onBlur={this.updateParent}
-                      placeholder={intl.formatMessage({id:'t.name'})}
+                      placeholder={intl.formatMessage({ id: 't.name' })}
           />
-          <InputGroup className="field" 
-                      type="text" 
+          <InputGroup className="field"
+                      type="text"
                       name="surname"
                       value={this.state.surname}
-                      onChange={this.handleChange} 
+                      onChange={this.handleChange}
                       onBlur={this.updateParent}
-                      placeholder={intl.formatMessage({id:'t.surname'})}
-            />
-        </span>
-        <span className="personal-buyer">
-          <InputGroup className="field" 
-                      type="text" 
-                      name="email"
-                      value={this.state.email}
-                      onChange={this.handleChange} 
-                      onBlur={this.updateParent}
-                      placeholder={intl.formatMessage({id:'t.mail'})}
+                      placeholder={intl.formatMessage({ id: 't.surname' })}
           />
         </span>
-        <p className="dd"><FormattedMessage id='t.addressdata'/></p>
-        <span className="address-buyer">
-          <InputGroup className="field" 
-                      type="text" 
+                <span className="personal-buyer">
+          <InputGroup className="field"
+                      type="text"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                      onBlur={this.updateParent}
+                      placeholder={intl.formatMessage({ id: 't.mail' })}
+          />
+        </span>
+                <p className="dd"><FormattedMessage id='t.addressdata'/></p>
+                <span className="address-buyer">
+          <InputGroup className="field"
+                      type="text"
                       name="street"
                       value={this.state.street}
-                      onChange={this.handleChange} 
+                      onChange={this.handleChange}
                       onBlur={this.updateParent}
-                      placeholder={intl.formatMessage({id:'t.address'})}
+                      placeholder={intl.formatMessage({ id: 't.address' })}
           /> 
-          <InputGroup className="field" 
-                      type="text" 
+          <InputGroup className="field"
+                      type="text"
                       name="lat"
                       value={this.state.lat}
-                      onChange={this.handleChange} 
+                      onChange={this.handleChange}
                       onBlur={this.updateParent}
-                      placeholder={intl.formatMessage({id:'t.lat'})}
+                      placeholder={intl.formatMessage({ id: 't.lat' })}
           /> 
-          <InputGroup className="field" 
-                      type="text" 
+          <InputGroup className="field"
+                      type="text"
                       name="lng"
                       value={this.state.lng}
-                      onChange={this.handleChange} 
+                      onChange={this.handleChange}
                       onBlur={this.updateParent}
-                      placeholder={intl.formatMessage({id:'t.lgn'})}
+                      placeholder={intl.formatMessage({ id: 't.lgn' })}
           /> 
         </span>
-      </div>
-		);
-	}
+            </div>
+        );
+    }
 }
 
-export default injectIntl(BuyerForm)
+export default injectIntl(BuyerForm);
