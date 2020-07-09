@@ -34,3 +34,24 @@ import { apiBasicUrl } from "../utilities/Environment";
   .then((response) => callback(null, response.data))
   .catch((error) => callback(error, null))
  }
+
+ //TODO - implementar esto
+ export function getSales(userId, callback){
+   // MOCKS
+   const sales = [
+     {
+      name: 'Camila',
+      options: {deliver: 'take away',payment: 'debit'},
+      products: [{productName: 'Manteca',productAmmount: 3},
+                  {productName: 'Arroz',productAmmount: 2}]
+     },
+     {
+      name: 'Luciano',
+      options: {deliver: 'delivery',payment: 'money'},
+      products: [{productName: 'Leche',productAmmount: 1},
+                {productName: 'Manteca',productAmmount: 3},
+                {productName: 'Arvejas',productAmmount: 5}]
+     }
+   ];
+  callback(null, sales)
+ }

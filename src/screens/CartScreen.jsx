@@ -24,6 +24,7 @@ export class CartScreen extends React.Component {
     this.createShops = this.createShops.bind(this);
     this.delete = this.delete.bind(this);
     this.deleteFromLS = this.deleteFromLS.bind(this);  
+    this.doSuccess = this.doSuccess.bind(this);
   }
 
   componentDidMount(){
@@ -90,10 +91,30 @@ export class CartScreen extends React.Component {
     return shops;
   }
 
-  delete(productId){
+  delete(productId, shopId){
     const minusPrice = this.deleteFromLS(productId);
     const newTotal = this.state.total - minusPrice;
-    this.setState({total: newTotal, isEmpty: newTotal === 0 })
+    const newComponents = [];
+    const shopComponents = this.state.shopComponents;
+    shopComponents.forEach((sc) => {
+      if(sc.props.info.shopId === shopId){
+        if(sc.props.info.buyList.length !== 1){
+          const newBuyList = [];
+          sc.props.info.buyList.forEach((p) => {
+            if(p.product.productId !== productId){
+              newBuyList.push(p);
+            }
+          })
+          sc.props.info.buyList = newBuyList;
+          newComponents.push(sc);
+        }
+      } else {
+        newComponents.push(sc);
+      }
+    })
+    this.setState({total: newTotal, 
+                  shopComponents: newComponents, 
+                  isEmpty: newTotal === 0 })
   }
 
   deleteFromLS(productId){
@@ -109,6 +130,11 @@ export class CartScreen extends React.Component {
     })
     localStorage.setItem('usercart', JSON.stringify({cart: newShoppings}));
     return minusPrice;
+  }
+
+  doSuccess(){
+    localStorage.clear();
+    this.setState({isEmpty: true, list: true, confirm: false});
   }
 
 	render() {
@@ -137,7 +163,8 @@ export class CartScreen extends React.Component {
       }
         {this.state.confirm && <BuyConfirmationScreen isOpen={this.state.confirm} 
                                close={()=> this.setState({confirm: false, list: true})}
-                               total={this.state.total}/>
+                               total={this.state.total}
+                               success={this.doSuccess}/>
         }
       </div>
 		);

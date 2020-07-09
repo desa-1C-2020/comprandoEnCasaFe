@@ -64,6 +64,7 @@
   "navbar.alert": "Alerts",
   "navbar.logout": "Log out",
   "navbar.coor": "Coordenates",
+  "navbar.history": "History",
 
   "shopsearch.title": "Search commerces",
   "shopsearch.address": "My address",
@@ -103,5 +104,16 @@
   "cart.debit": "Debit",
   "cart.credit": "Credit",
   "cart.confirmTitle": "Choose delivery and payment options for each commerce",
-  "cart.confirmBuy": "Confirm purchase"
+  "cart.confirmBuy": "Confirm purchase",
+  "cart.success": "Purchase completed successfully.",
+  "cart.error": "Something went wrong, try again later.",
+
+  "ph.more": "More info",
+  "ph.less": "Less info",
+
+  "seller.sales": "My sales",
+  "seller.pay": "Payment method",
+  "seller.del": "Delivery method",
+  "seller.show": "Show products",
+  "seller.hide": "Hide products"
 } 

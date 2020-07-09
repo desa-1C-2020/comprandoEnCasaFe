@@ -1,0 +1,70 @@
+.ph-container {
+  width: 600px;
+  height: 100%;
+  background-color: rgb(196, 235, 247);
+  border-radius: 20px;
+  border: solid rgb(97, 192, 255);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  margin-left: calc(50% - 300px);
+}
+
+.ph-title{
+  font-size: 20px;
+  text-align: center;
+}
+
+.ph-btn{
+  text-align: center;
+  margin-left: 10px;
+}
+
+.ph-btn{
+  text-align: center;
+  width: 100px;
+}
+
+.ph-btn2{
+  width: 150px;
+  margin-left: calc(50% - 75px);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.ph-detail{
+  text-align: center;
+  font-size: 15px;
+}
+
+.ph-collapse{
+  background-color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 40px;
+  width: 550px;
+  margin-left: 25px;
+}
+
+@media (max-width: 700px){
+  .ph-container{
+    width: 90%;
+    margin-left: 5%;
+  }
+
+  .ph-title{
+    font-size: 15px;
+    margin-top: 10px;
+  }
+
+  .ph-btn{
+    margin-top: 10px;
+  }
+
+  .ph-collapse{
+    width: 80%;
+    margin-left: 10%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
