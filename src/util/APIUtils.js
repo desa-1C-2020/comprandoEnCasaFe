@@ -1,6 +1,4 @@
 import { ACCESS_TOKEN, API_BASE_URL, BUYER, SELLER } from '../constants';
-import axios from 'axios';
-import { apiBasicUrl } from '../utilities/Environment';
 
 const request = (options, headers) => {
     const defaults = { headers: headers };
@@ -38,6 +36,9 @@ export function getCurrentUser() {
         url: API_BASE_URL + '/user/me',
         method: 'GET'
     }).then((userLogged) => {
+        if(userLogged.rol == null){
+            return userLogged;
+        }
         const accountType = userLogged.rol.commerce === undefined ? BUYER : SELLER;
         return Object.assign(userLogged, { accountType });
     });
