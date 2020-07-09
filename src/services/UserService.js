@@ -12,9 +12,9 @@ export function registerBuyer(buyerInfo) {
 
 export function registerSeller(sellerInfo) {
     const commerce = {
-        commerceName: sellerInfo.commerceName,
-        commerceBusinessSector: sellerInfo.commerceBusinessSector,
-        commerceAddress: sellerInfo.commerceAddress,
+        name: sellerInfo.commerceName,
+        businessSector: sellerInfo.commerceBusinessSector,
+        address: sellerInfo.commerceAddress,
         paymentMethods: sellerInfo.paymentMethods,
         daysAndHoursOpen: sellerInfo.daysAndHoursOpen,
         arrivalRange: sellerInfo.arrivalRange

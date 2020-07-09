@@ -30,7 +30,6 @@ class RegisterScreen extends React.Component {
         this.registerBuyer = this.registerBuyer.bind(this);
         this.isValidBuyer = this.isValidBuyer.bind(this);
         this.registerSeller = this.registerSeller.bind(this);
-        console.log('register screen: ' + JSON.stringify(this.props));
     }
 
     handleChange(event) {
