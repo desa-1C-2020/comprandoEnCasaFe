@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button, Collapse } from '@blueprintjs/core'
+import '../styles/PurchaseHistory.css'
 
 export class PurchaseHistory extends React.Component{
 
@@ -55,9 +56,14 @@ export class PurchaseHistory extends React.Component{
   generateDetails(){
     const details = [];
     const shops = this.props.info.shops;
+    let key = 13500
     shops.forEach((s)=> {
       s.products.forEach((p)=>{
-        let detail = <p>[{s.name}] {p.productName} x{p.productAmmount}: ${p.productAmmount * p.productPrice}</p>
+        let detail = 
+          <p key={key}>
+            [{s.name}] {p.productName} x{p.productAmmount}: <b>${p.productAmmount * p.productPrice}</b>
+          </p>
+        key = key + 1;
         details.push(detail);
       })
     })
@@ -66,14 +72,18 @@ export class PurchaseHistory extends React.Component{
 
   render(){
     return(
-      <div>
-        <p>{this.state.title} {' - '} <FormattedMessage id='cart.total'/> ${this.state.total}</p>
-        <Button onClick={this.handleCollapse}>
-          <FormattedMessage id={this.state.btnText}/>
-        </Button>
-        <Collapse isOpen={this.state.collapse}>
-          {this.state.details}
-        </Collapse>
+      <div className='ph-container'>
+        <p className='ph-title'>
+          {this.state.title} {' - '} <FormattedMessage id='cart.total'/> <b>${this.state.total}</b>
+          <Button className='ph-btn' onClick={this.handleCollapse}>
+            <FormattedMessage id={this.state.btnText}/>
+          </Button>
+        </p>
+        <span className='ph-detail'>
+          <Collapse className='ph-collapse' isOpen={this.state.collapse}>
+            {this.state.details}
+          </Collapse>
+        </span>
       </div>
     )
   }
