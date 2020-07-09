@@ -8,9 +8,9 @@ export class BuyerForm extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      name: '',
-      surname: '',
-      email: '',
+      name: this.props.user.name,
+      surname: this.props.user.surname,
+      email: this.props.user.email,
       password: '',
       street: '',
       lat: '',
@@ -69,14 +69,6 @@ export class BuyerForm extends React.Component {
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
                       placeholder={intl.formatMessage({id:'t.mail'})}
-          />
-          <InputGroup className="field"
-                      type="password" 
-                      name="password"
-                      value={this.state.password}
-                      onChange={this.handleChange} 
-                      onBlur={this.updateParent}
-                      placeholder={intl.formatMessage({id:'t.password'})}
           />
         </span>
         <p className="dd"><FormattedMessage id='t.addressdata'/></p>

@@ -6,13 +6,12 @@ import { injectIntl, FormattedMessage } from 'react-intl'
 
 export class SellerForm extends React.Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
-      nameSeller: '',
-      surnameSeller: '',
-      email: '',
-      password: '',
+      nameSeller: this.props.user.name,
+      surnameSeller: this.props.user.surname,
+      email: this.props.user.email,
       name: '',
       sector: '',
       address: '',
@@ -98,14 +97,6 @@ export class SellerForm extends React.Component {
                       onChange={this.handleChange} 
                       onBlur={this.updateParent}
                       placeholder={intl.formatMessage({id:'t.mail'})}
-          />
-          <InputGroup className="field" 
-                      type="password" 
-                      name="password"
-                      value={this.state.password}
-                      onChange={this.handleChange} 
-                      onBlur={this.updateParent}
-                      placeholder={intl.formatMessage({id:'t.password'})}
           />
         </span>
         <p className="ddc"><FormattedMessage id='t.commercedata'/></p>
