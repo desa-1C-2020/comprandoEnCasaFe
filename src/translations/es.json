@@ -58,13 +58,14 @@
   "navbar.mycommerce": "Mi comercio",
   "navbar.myprofile": "Mi perfil",
   "navbar.myproducts": "Mis productos",
-  "navbar.myshopping": "Mis compras",
+  "navbar.myshopping": "Mi carrito",
   "navbar.home": "Inicio",
   "navbar.info": "Información",
   "navbar.data": "Mis datos",
   "navbar.alert": "Alertas",
   "navbar.logout": "Cerrar sesión",
   "navbar.coor": "Coordenadas",
+  "navbar.history": "Historial",
 
   "shopsearch.title": "Buscar comercios",
   "shopsearch.address": "Mi domicilio",
@@ -85,5 +86,35 @@
   "seller.deleteprod": "Producto borrado satisfactoriamente.",
   "seller.modifyprod": "Producto modificado satisfactoriamente.",
   "seller.deletemsg": "¿Está seguro que desea eliminar este producto?",
-  "seller.modifymsg": "Modificar producto"
+  "seller.modifymsg": "Modificar producto",
+
+  "buybox.title": "Detalles del producto",
+  "buybox.distance": "Distancia",
+  "buybox.addtocart": "Agregar al carrito",
+  "buybox.added": "Producto agregado al carrito.",
+  "buybox.ammount": "Cantidad: ",
+  "buybox.stock": "¡No hay suficiente stock!",
+
+  "cart.emptyTitle": "¡No hay productos en el carrito!",
+  "cart.unity": "Unidad: ",
+  "cart.total": "Total: ",
+  "cart.totalshop": "Total a pagar en la tienda: ",
+  "cart.buy": "COMPRAR",
+  "cart.del": "Entrega",
+  "cart.money": "Efectivo",
+  "cart.debit": "Débito",
+  "cart.credit": "Crédito",
+  "cart.confirmTitle": "Elija opciones de envío y pago para cada comercio",
+  "cart.confirmBuy": "Realizar compra",
+  "cart.success": "Compra realizada correctamente",
+  "cart.error": "Algo salió mal, intente más tarde.",
+
+  "ph.more": "Más info",
+  "ph.less": "Menos info",
+
+  "seller.sales": "Mis ventas",
+  "seller.pay": "Método de pago",
+  "seller.del": "Método de entrega",
+  "seller.show": "Ver productos",
+  "seller.hide": "Ocultar productos"
 }

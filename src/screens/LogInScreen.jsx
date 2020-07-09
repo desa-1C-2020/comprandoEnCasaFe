@@ -25,7 +25,7 @@ class LogInScreen extends React.Component {
 
   logIn(){
     if(this.isValid()){
-      const info = {email: this.state.user, password: this.state.pass}
+      const info = {email: this.state.user.toLowerCase(), password: this.state.pass}
       this.setState({isLoading: true})
       login(info, (err, res) =>{
         if(err){

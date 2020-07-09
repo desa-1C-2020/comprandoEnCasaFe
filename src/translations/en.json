@@ -57,13 +57,14 @@
   "navbar.mycommerce": "My commerce",
   "navbar.myprofile": "My profile",
   "navbar.myproducts": "My products",
-  "navbar.myshopping": "My shopping",
+  "navbar.myshopping": "My shopping cart",
   "navbar.home": "Home",
   "navbar.info": "Information",
   "navbar.data": "My info",
   "navbar.alert": "Alerts",
   "navbar.logout": "Log out",
   "navbar.coor": "Coordenates",
+  "navbar.history": "History",
 
   "shopsearch.title": "Search commerces",
   "shopsearch.address": "My address",
@@ -84,5 +85,35 @@
   "seller.deleteprod": "Product deleted successfully.",
   "seller.modifyprod": "Product modified successfully.",
   "seller.deletemsg": "Do you really want to delete this product?",
-  "seller.modifymsg": "Modify product"
-}
+  "seller.modifymsg": "Modify product",
+
+  "buybox.title": "Product's details",
+  "buybox.distance": "Distance",
+  "buybox.addtocart": "Add to cart",
+  "buybox.added": "Product added to cart.",
+  "buybox.ammount": "Quantity: ",
+  "buybox.stock": "Not enough stock!",
+
+  "cart.emptyTitle": "Your shopping cart is empty!",
+  "cart.unity": "Unity: ",
+  "cart.total": "Total: ",
+  "cart.totalshop": "Total to pay in shop: ",
+  "cart.buy": "BUY",
+  "cart.del": "Delivery",
+  "cart.money": "Cash",
+  "cart.debit": "Debit",
+  "cart.credit": "Credit",
+  "cart.confirmTitle": "Choose delivery and payment options for each commerce",
+  "cart.confirmBuy": "Confirm purchase",
+  "cart.success": "Purchase completed successfully.",
+  "cart.error": "Something went wrong, try again later.",
+
+  "ph.more": "More info",
+  "ph.less": "Less info",
+
+  "seller.sales": "My sales",
+  "seller.pay": "Payment method",
+  "seller.del": "Delivery method",
+  "seller.show": "Show products",
+  "seller.hide": "Hide products"
+} 

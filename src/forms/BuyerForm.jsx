@@ -28,7 +28,7 @@ export class BuyerForm extends React.Component {
     this.props.update({
       name: this.state.name,
       surname: this.state.surname,
-      email: this.state.email,
+      email: this.state.email.toLowerCase(),
       password: this.state.password,
       address: {
         street: this.state.street,

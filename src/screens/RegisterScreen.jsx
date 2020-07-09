@@ -1,6 +1,6 @@
 import React from 'react'
-import BuyerForm from '../components/BuyerForm'
-import SellerForm from '../components/SellerForm'
+import BuyerForm from '../forms/BuyerForm'
+import SellerForm from '../forms/SellerForm'
 import { registerBuyer, registerSeller } from '../services/UserService'
 import { withRouter } from "react-router-dom";
 import { RadioGroup, Radio, Button, Alert, Spinner } from '@blueprintjs/core'
@@ -154,11 +154,12 @@ class RegisterScreen extends React.Component {
           </Button>
         </div>
         </div>
-        <Alert isOpen={this.state.alertSuccess} confirmButtonText='ACEPTAR' intent='success' onClose={this.goBack}>    
+        <Alert isOpen={this.state.alertSuccess} confirmButtonText={<FormattedMessage id='t.accept'/>} 
+              intent='success' onClose={this.goBack}>    
           <FormattedMessage id='register.success'/>
         </Alert>
-        <Alert isOpen={this.state.alertField} confirmButtonText='ACEPTAR' intent='danger' 
-               onClose={() => this.setState({alertField: false})}>    
+        <Alert isOpen={this.state.alertField} confirmButtonText={<FormattedMessage id='t.accept'/>} 
+                intent='danger' onClose={() => this.setState({alertField: false})}>    
          {this.state.errorMsg}
         </Alert>
         {this.state.isLoading &&

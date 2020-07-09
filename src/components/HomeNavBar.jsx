@@ -19,6 +19,8 @@ export class HomeNavBar extends React.PureComponent {
 		this.goHome = this.goHome.bind(this);
 		this.doSearch = this.doSearch.bind(this);
 		this.goProductList = this.goProductList.bind(this);
+		this.goShoppingCart = this.goShoppingCart.bind(this);
+		this.goSalesList = this.goSalesList.bind(this);
 	}
 
 	openProfile(){
@@ -43,6 +45,14 @@ export class HomeNavBar extends React.PureComponent {
 
 	goProductList(){
 		this.props.showSellerProducts();
+	}
+
+	goShoppingCart(){
+		this.props.goShoppingCart();
+	}
+
+	goSalesList(){
+		this.props.goSalesList();
 	}
 
 	render() {
@@ -70,9 +80,19 @@ export class HomeNavBar extends React.PureComponent {
 				{isSeller && <MenuItem icon="shop" 
 															 text={intl.formatMessage({id:'navbar.myproducts'})} 
 															 onClick={this.goProductList}/>}
+				{isSeller && <MenuDivider />}
+				{isSeller && <MenuItem icon="dollar" 
+															 text={intl.formatMessage({id:'seller.sales'})} 
+															 onClick={this.goSalesList}/>}
 				{!isSeller && <MenuItem icon="shopping-cart" 
 																text={intl.formatMessage({id:'navbar.myshopping'})}
-																onClick={()=> this.setState({alert: true})}/>}
+																onClick={this.goShoppingCart}/>
+																}
+				{!isSeller && <MenuDivider />}
+				{!isSeller && <Button className={Classes.MINIMAL} 
+																	icon="history" 
+																	text={intl.formatMessage({id:'navbar.history'})}
+																	onClick={()=> this.props.goShoppingHistory()}/>}
 			</Menu>
 		);
 		const searchButton = <Button minimal={true} onClick={this.doSearch}>
@@ -93,10 +113,18 @@ export class HomeNavBar extends React.PureComponent {
 																 icon="shop" 
 																 text={intl.formatMessage({id:'navbar.myproducts'})}
 																 onClick={this.goProductList}/>}
+						{isSeller && <Button className={Classes.MINIMAL} 
+																	icon="dollar" 
+															 		text={intl.formatMessage({id:'seller.sales'})} 
+															 		onClick={this.goSalesList}/>}
 						{!isSeller && <Button className={Classes.MINIMAL} 
 																	icon="shopping-cart" 
 																	text={intl.formatMessage({id:'navbar.myshopping'})}
-																	onClick={()=> this.setState({alert: true})}/>}
+																	onClick={this.goShoppingCart}/>}
+						{!isSeller && <Button className={Classes.MINIMAL} 
+																	icon="history" 
+																	text={intl.formatMessage({id:'navbar.history'})}
+																	onClick={()=> this.props.goShoppingHistory()}/>}
 						<NavbarDivider />
 						{!isSeller &&<InputGroup style={{width: '300px'}} 
 																		 type="search" 
@@ -130,6 +158,7 @@ export class HomeNavBar extends React.PureComponent {
 																			type="search" 
 																			leftIcon="search" 
 																			placeholder={intl.formatMessage({id:'navbar.search'})} 
+																			value={this.state.search}
 																			onChange={(e) => this.setState({search: e.target.value})}
 																			rightElement={searchButton}/>}	
 						</span>

@@ -39,7 +39,7 @@ export class SellerForm extends React.Component {
       user: {
         name: this.state.nameSeller,
         surname: this.state.surnameSeller,
-        email: this.state.email,
+        email: this.state.email.toLowerCase(),
         password: this.state.password,
         address: {
           street: this.state.address,

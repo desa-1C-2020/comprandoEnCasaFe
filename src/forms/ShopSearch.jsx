@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/ShopSearch.css'
 import { InputGroup, Button } from '@blueprintjs/core'
-import SearchResult from './SearchResult';
+import SearchResult from '../components/SearchResult';
 import { injectIntl, FormattedMessage } from 'react-intl'
 
 export class ShopSearch extends React.Component {
