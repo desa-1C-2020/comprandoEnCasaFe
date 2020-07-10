@@ -64,30 +64,26 @@ class ProductBoxSell extends React.Component {
     }
 
     modifyProduct(product) {
-        modifyProduct(this.props.shopId, product, (err, _res) => {
-            if (err) {
-                this.setState({
-                    openMod: false,
-                    alertResult: true,
-                    alertResultIntent: 'danger',
-                    alertResultMsg: <FormattedMessage id='t.error'/>,
-                    alertResultIcon: 'error'
-                });
-            } else {
-                this.setState({
-                    name: product.name,
-                    brand: product.brand,
-                    price: product.price,
-                    stock: product.stock,
-                    url: product.url,
-                    openMod: false,
-                    alertResult: true,
-                    alertResultIntent: 'success',
-                    alertResultMsg: <FormattedMessage id='seller.modifyprod'/>,
-                    alertResultIcon: 'endorsed'
-                });
-            }
-        });
+        modifyProduct(product)
+            .then(() => this.setState({
+                name: product.name,
+                brand: product.brand,
+                price: product.price,
+                stock: product.stock,
+                url: product.url,
+                openMod: false,
+                alertResult: true,
+                alertResultIntent: 'success',
+                alertResultMsg: <FormattedMessage id='seller.modifyprod'/>,
+                alertResultIcon: 'endorsed'
+            }))
+            .catch(() => this.setState({
+                openMod: false,
+                alertResult: true,
+                alertResultIntent: 'danger',
+                alertResultMsg: <FormattedMessage id='t.error'/>,
+                alertResultIcon: 'error'
+            }));
     }
 
     closeMod() {
@@ -166,7 +162,7 @@ class ProductBoxSell extends React.Component {
                     <ModProductInfo isOpen={this.state.openMod}
                                     modify={this.modifyProduct}
                                     close={this.closeMod}
-                                    product={this.state.name === '' ? this.props.info : this.state}/>
+                                    saleableItem={this.state.name === '' ? this.props.info : this.state}/>
                     {this.state.isLoading &&
                     <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
                         <Spinner size='100' intent='primary'/>

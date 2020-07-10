@@ -15,25 +15,21 @@ export function deleteProduct(productId) {
     return secureRequest({
         url: `${API_BASE_URL}/seller/product?productId=${productId}`,
         method: 'DELETE'
-    }).then((response) => {
-        return response;
     });
 }
 
-// TODO - completar
-export function modifyProduct(userId, product, callback) {
-    axios.patch(`${apiBasicUrl()}/seller/product?userId=${userId}`, product)
-        .then((response) => callback(null, response))
-        .catch((error) => callback(error, null));
-    //callback(null, '')
+export function modifyProduct(product) {
+    return secureRequest({
+        url: `${API_BASE_URL}/seller/product`,
+        method: 'PATCH',
+        body: JSON.stringify(product)
+    });
 }
 
 export function getAllProducts() {
     return secureRequest({
         url: API_BASE_URL + '/seller/products',
         method: 'GET'
-    }).then((response) => {
-        return response;
     });
 }
 
