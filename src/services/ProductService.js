@@ -23,12 +23,12 @@ export function searchProduct(text, maxRange) {
     return productSearch(text, maxRange)
         .then((commerces) => {
             const products = [];
-            commerces.forEach((shop) => {
-                shop.saleableItems.forEach((item) => {
+            commerces.forEach((commerce) => {
+                commerce.saleableItems.forEach((item) => {
                     const product = {
-                        commerceId: shop.commerceId,
-                        commerceName: shop.commerceName,
-                        distance: shop.distance,
+                        commerceId: commerce.commerceId,
+                        commerceName: commerce.commerceName,
+                        distance: commerce.distance,
                         brand: item.brand,
                         imageUrl: item.imageUrl,
                         name: item.name,

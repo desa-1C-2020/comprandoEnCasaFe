@@ -92,7 +92,7 @@ class HomeScreen extends React.Component {
                     searchResult: false,
                     productList: true,
                     shoppingCart: false,
-                    products: products,
+                    products,
                     isLoading: false,
                     history: false,
                     salesList: false
@@ -154,13 +154,13 @@ class HomeScreen extends React.Component {
                             goSalesList={this.goSalesList}/>
                 {isBuyer && this.state.shopSearch && <ShopSearch/>}
                 {this.state.searchResult && <ProductComponent products={this.state.products}/>}
-                {accountType === 'seller' && this.state.productLoader && <ProductLoader userID={user.id}/>}
-                {accountType === 'seller' && this.state.productList && <SellerProductsComponent
+                {isSeller && this.state.productLoader && <ProductLoader userID={user.id}/>}
+                {isSeller && this.state.productList && <SellerProductsComponent
                     products={this.state.products}
                     shopId={user.id}/>}
-                {accountType === 'buyer' && this.state.shoppingCart && <CartScreen/>}
-                {accountType === 'buyer' && this.state.history && <ShoppingHistory userID={user.id}/>}
-                {accountType === 'seller' && this.state.salesList && <SalesScreen userID={user.id}/>}
+                {isBuyer && this.state.shoppingCart && <CartScreen/>}
+                {isBuyer && this.state.history && <ShoppingHistory userID={user.id}/>}
+                {isSeller && this.state.salesList && <SalesScreen userID={user.id}/>}
                 <ALERTITA isOpen={this.state.alert}
                           confirmButtonText='ACEPTAR'
                           icon='error'
