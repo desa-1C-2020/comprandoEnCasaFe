@@ -2,11 +2,11 @@ import React from 'react';
 import BuyerForm from '../forms/BuyerForm';
 import SellerForm from '../forms/SellerForm';
 import { registerBuyer, registerSeller } from '../services/UserService';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { RadioGroup, Radio, Button, Spinner } from '@blueprintjs/core';
 import '../styles/RegisterScreen.css';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { ACCESS_TOKEN, BUYER } from '../constants';
+import { BUYER } from '../constants';
 import { toast } from 'react-toastify';
 
 class RegisterScreen extends React.Component {
@@ -86,7 +86,7 @@ class RegisterScreen extends React.Component {
     }
 
     registerSeller() {
-        this.updateUser(registerBuyer(this.state.sellerInfo), this.isValidSeller(), 'comercio');
+        this.updateUser(registerSeller(this.state.sellerInfo), this.isValidSeller(), 'comercio');
     }
 
     showOnSuccessful(message) {
@@ -170,8 +170,10 @@ class RegisterScreen extends React.Component {
 
 
                         {this.state.form === BUYER ?
-                            <div className="buyer-form"><BuyerForm user={this.props.user} update={this.setBuyerInfo}/></div>
-                            : <div className="seller-form"><SellerForm user={this.props.user} update={this.setSellerInfo}/>
+                            <div className="buyer-form"><BuyerForm user={this.props.user} update={this.setBuyerInfo}/>
+                            </div>
+                            : <div className="seller-form"><SellerForm user={this.props.user}
+                                                                       update={this.setSellerInfo}/>
                             </div>}
 
                         <div className="buttons">
