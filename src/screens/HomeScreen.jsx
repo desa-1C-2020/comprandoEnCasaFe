@@ -1,15 +1,14 @@
 import React from 'react';
-import HomeNavBar from '../components/HomeNavBar';
-import ShopSearch from '../forms/ShopSearch';
-import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom';
-import ProductComponent from './ProductComponent';
+import { FormattedMessage } from 'react-intl';
+import { Alert as ALERTITA, Spinner } from '@blueprintjs/core';
+import ShopSearch from '../forms/ShopSearch';
+import ProductLoader from '../forms/ProductLoader';
 import { searchProduct } from '../services/ProductService';
 import { getAllProducts } from '../services/SellerService';
-import { Alert as ALERTITA, Spinner } from '@blueprintjs/core';
-import ProductLoader from '../forms/ProductLoader';
 import SellerProductsComponent from './SellerProductsComponent';
-import { FormattedMessage } from 'react-intl';
+import HomeNavBar from '../components/HomeNavBar';
+import ProductComponent from './ProductComponent';
 import { CartScreen } from './CartScreen';
 import SalesScreen from './SalesScreen';
 import ShoppingHistory from './ShoppingHistory';
@@ -86,7 +85,6 @@ class HomeScreen extends React.Component {
         this.setState({ isLoading: true });
         getAllProducts()
             .then(products => {
-                console.log('home prouctos: ' + JSON.stringify(products));
                 this.setState({
                     shopSearch: false,
                     productLoader: false,
@@ -99,7 +97,6 @@ class HomeScreen extends React.Component {
                     history: false,
                     salesList: false
                 });
-                console.log('home state: ' + this.state.products);
             })
             .catch(() => this.setState({ alert: true, isLoading: false }));
     }
@@ -122,9 +119,7 @@ class HomeScreen extends React.Component {
                     salesList: false
                 });
 
-            }).catch((err) => {
-            this.setState({ alert: true, isLoading: false });
-        });
+            }).catch(() => this.setState({ alert: true, isLoading: false }));
     }
 
     goSalesList() {
@@ -145,7 +140,6 @@ class HomeScreen extends React.Component {
         const isBuyer = this.props.isBuyer;
         const accountType = this.props.accountType;
         const user = this.props.currentUser;
-        const shop = this.props.rol.commerce;
 
         return (
             <div>

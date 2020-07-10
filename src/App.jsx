@@ -113,10 +113,12 @@ class App extends Component {
                                       component={HomeScreen}>
                         </PrivateRoute>
 
-                        <Route path="/profile"
-                               render={(props) => <ProfileInfo isOpen={this.state.profile} isBuyer={this.state.isBuyer}
-                                                               user={this.state.currentUser} {...props} />}></Route>
-
+                        <PrivateRoute path="/profile"
+                                      authenticated={this.state.authenticated}
+                                      userRol={this.state.userRol}
+                                      isBuyer={this.state.isBuyer}
+                                      component={ProfileInfo}>
+                        </PrivateRoute>
 
                         <Route component={NotFound}></Route>
                         {/*Para manejar componentes en paths privados. Este wrappea que cada componente privado chequee si está logeado o no.*/}
