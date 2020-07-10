@@ -20,16 +20,15 @@ export function findCommercesInRange(range) {
 }
 
 export function searchProduct(text, maxRange) {
-    productSearch(text, maxRange)
-        .then((response) => {
-            const shops = response.data;
+    return productSearch(text, maxRange)
+        .then((commerces) => {
             const products = [];
-            shops.forEach((shop) => {
-                shop.saleableItems.forEach((item) => {
+            commerces.forEach((commerce) => {
+                commerce.saleableItems.forEach((item) => {
                     const product = {
-                        commerceId: shop.commerceId,
-                        commerceName: shop.commerceName,
-                        distance: shop.distance,
+                        commerceId: commerce.commerceId,
+                        commerceName: commerce.commerceName,
+                        distance: commerce.distance,
                         brand: item.brand,
                         imageUrl: item.imageUrl,
                         name: item.name,
@@ -45,64 +44,64 @@ export function searchProduct(text, maxRange) {
 }
 
 // TODO - implementar
-export function sendPurchase(purchases, callback){
-  //purchases es una lista con obj que incluye el id de comercio, y los productos a comprar.
-  callback('', null)
+export function sendPurchase(purchases, callback) {
+    //purchases es una lista con obj que incluye el id de comercio, y los productos a comprar.
+    callback('', null);
 }
 
 // TODO - implementar
-export function getHistory(userId, callback){
-  // Devuelve una lista de 'compras'
+export function getHistory(userId, callback) {
+    // Devuelve una lista de 'compras'
 
-  const mock = [
-    {
-      shops: [
+    const mock = [
         {
-          name: 'Camilote',
-          products: [
-          {
-            productName: 'Arroz Gallo',
-            productAmmount: 2,
-            productPrice: 55
-          },
-          {
-            productName: 'Fideos Marolio',
-            productAmmount: 1,
-            productPrice: 89
-          }
-          ] 
+            shops: [
+                {
+                    name: 'Camilote',
+                    products: [
+                        {
+                            productName: 'Arroz Gallo',
+                            productAmmount: 2,
+                            productPrice: 55
+                        },
+                        {
+                            productName: 'Fideos Marolio',
+                            productAmmount: 1,
+                            productPrice: 89
+                        }
+                    ]
+                },
+                {
+                    name: 'Lo de Camila',
+                    products: [
+                        {
+                            productName: 'Manteca',
+                            productAmmount: 3,
+                            productPrice: 104
+                        }
+                    ]
+                }
+            ]
         },
         {
-          name: 'Lo de Camila',
-          products: [
-            {
-              productName: 'Manteca',
-              productAmmount: 3,
-              productPrice: 104
-            }
-          ]
+            shops: [
+                {
+                    name: 'Camilote',
+                    products: [
+                        {
+                            productName: 'Arroz Gallo',
+                            productAmmount: 2,
+                            productPrice: 55
+                        },
+                        {
+                            productName: 'Fideos Marolio',
+                            productAmmount: 1,
+                            productPrice: 89
+                        }
+                    ]
+                }
+            ]
         }
-      ]
-    },
-    {
-      shops: [
-        {
-          name: 'Camilote',
-          products: [
-          {
-            productName: 'Arroz Gallo',
-            productAmmount: 2,
-            productPrice: 55
-          },
-          {
-            productName: 'Fideos Marolio',
-            productAmmount: 1,
-            productPrice: 89
-          }
-        ]
-        }
-      ]
-    }
-  ]
-  callback(null, mock);
+    ];
+    callback(null, mock);
 }

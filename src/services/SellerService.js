@@ -8,9 +8,6 @@ export function saveProduct(product) {
         url: API_BASE_URL + '/seller/product',
         method: 'POST',
         body: JSON.stringify(product)
-    }).then((response) => {
-        console.log(`cargue uno: ${JSON.stringify(response)}`);
-        return response;
     });
 }
 
@@ -19,7 +16,6 @@ export function deleteProduct(productId) {
         url: `${API_BASE_URL}/seller/product?productId=${productId}`,
         method: 'DELETE'
     }).then((response) => {
-        console.log(`Borre : ${JSON.stringify(response)}`);
         return response;
     });
 }
@@ -37,7 +33,6 @@ export function getAllProducts() {
         url: API_BASE_URL + '/seller/products',
         method: 'GET'
     }).then((response) => {
-        console.log(`productos: ${JSON.stringify(response)}`);
         return response;
     });
 }

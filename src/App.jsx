@@ -85,7 +85,10 @@ class App extends Component {
                 <div className="app-body">
                     <ToastContainer autoClose={false}/>
                     <Switch>
-
+                        {/*Esto debería ser un home que te permita buscar productos y que te los muestre ordenados por comercio. */}
+                        {/*Adentro de home debería haber un componente que reciba una lista de comercios con productos, */}
+                        {/*y adentro de ese componente, otro que sepa dibujar un commercio con sus productos.  */}
+                        {/*<Route path="/" component={Home}></Route>*/}
                         <Route path="/login"
                                render={(props) => <Login
                                    authenticated={this.state.authenticated} {...props} />}></Route>
@@ -113,20 +116,14 @@ class App extends Component {
                                       component={HomeScreen}>
                         </PrivateRoute>
 
-                        <Route path="/profile"
-                               render={(props) => <ProfileInfo isOpen={this.state.profile} isBuyer={this.state.isBuyer}
-                                                               user={this.state.currentUser} {...props} />}></Route>
-
+                        <PrivateRoute path="/profile"
+                                      authenticated={this.state.authenticated}
+                                      userRol={this.state.userRol}
+                                      isBuyer={this.state.isBuyer}
+                                      component={ProfileInfo}>
+                        </PrivateRoute>
 
                         <Route component={NotFound}></Route>
-                        {/*Para manejar componentes en paths privados. Este wrappea que cada componente privado chequee si está logeado o no.*/}
-                        {/*<PrivateRoute path="/finder" authenticated={this.state.authenticated} currentUser={this.state.currentUser}*/}
-                        {/*component={ProductFinderWithAddress}></PrivateRoute>*/}
-
-                        {/*Esto debería ser un home que te permita buscar productos y que te los muestre ordenados por comercio. */}
-                        {/*Adentro de home debería haber un componente que reciba una lista de comercios con productos, */}
-                        {/*y adentro de ese componente, otro que sepa dibujar un commercio con sus productos.  */}
-                        {/*<Route path="/" component={Home}></Route>*/}
                     </Switch>
                 </div>
                 <Alert stack={{ limit: 3 }}
