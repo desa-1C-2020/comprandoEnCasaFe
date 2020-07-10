@@ -116,5 +116,8 @@
   "seller.pay": "Método de pago",
   "seller.del": "Método de entrega",
   "seller.show": "Ver productos",
-  "seller.hide": "Ocultar productos"
+  "seller.hide": "Ocultar productos",
+
+  "notfound.desc": "No hay nada que ver por acá...",
+  "notfound.btn": "Ir a Comprando en Casa"
 }

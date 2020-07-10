@@ -115,5 +115,8 @@
   "seller.pay": "Payment method",
   "seller.del": "Delivery method",
   "seller.show": "Show products",
-  "seller.hide": "Hide products"
+  "seller.hide": "Hide products",
+
+  "notfound.desc": "There is nothing to see over here...",
+  "notfound.btn": "Go to Comprando en Casa"
 } 
