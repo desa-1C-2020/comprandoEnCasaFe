@@ -1,16 +1,5 @@
-import axios from 'axios';
-import { apiBasicUrl } from '../utilities/Environment';
 import { productSearch, secureRequest } from '../util/APIUtils';
 import { API_BASE_URL } from '../constants';
-
-export function searchForShops(lat, lng, max, callback) {
-    findCommercesInRange();
-    axios.get(`${apiBasicUrl()}/commerces/findInRange?maxDistance=${max}&latitud=${lat}&longitud=${lng}`)
-        .then((response) => {
-            callback(null, response);
-        })
-        .catch((error) => callback(error, null));
-}
 
 export function findCommercesInRange(range) {
     return secureRequest({
