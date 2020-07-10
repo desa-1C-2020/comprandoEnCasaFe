@@ -22,12 +22,12 @@ class ModProductInfo extends React.Component {
 
   componentDidMount(){
     this.setState({
-      name: this.props.product.product.name,
-      brand: this.props.product.product.brand,
-      stock: this.props.product.stock,
-      price: this.props.product.price,
-      url: this.props.product.product.imageUrl,
-      id: this.props.product.id
+      name: this.props.saleableItem.product.name,
+      brand: this.props.saleableItem.product.brand,
+      stock: this.props.saleableItem.stock,
+      price: this.props.saleableItem.price,
+      url: this.props.saleableItem.product.imageUrl,
+      id: this.props.saleableItem.product.id
     })
   }
 
