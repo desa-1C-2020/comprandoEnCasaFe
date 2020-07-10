@@ -36,6 +36,7 @@
   "t.modify": "Modificar",
   "t.delete": "Eliminar",
 
+  "login.intro": "Bienvenido a ...",
   "login.title": "Ingrese para continuar",
   "login.btn.login": "Ingresar",
   "login.new": "¿Nuevo en la aplicación? ",
@@ -43,6 +44,8 @@
   "login.error.msg": "Usuario y/o contraseña incorrecto/s",
   "login.error.username": "Por favor, ingrese su nombre de usuario",
   "login.error.password": "Por favor, ingrese su contraseña",
+  "login.google": "Ingresar con Google",
+  "login.fb": "Ingresar con Facebook",
 
   "register.title": "Bienvenido a Comprando en Casa",
   "register.subtitle": "¿Cómo quiere registrarse?",
