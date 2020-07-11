@@ -102,6 +102,7 @@ class App extends Component {
                         <PrivateRoute path="/update-account"
                                       authenticated={this.state.authenticated}
                                       user={this.state.currentUser}
+                                      onLogout={this.handleLogout}
                                       component={RegisterScreen}>
                         </PrivateRoute>
 
