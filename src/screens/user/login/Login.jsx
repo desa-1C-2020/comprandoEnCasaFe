@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Login.css';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { Alert } from '@blueprintjs/core';
 import '../../../styles/LogInScreen.css';
 import { injectIntl, FormattedMessage } from 'react-intl';
@@ -41,7 +41,7 @@ class Login extends React.Component {
 		return (
 			<div className="login-container" style={{textAlign: 'center'}}>
 					<h1 className="login-title">{intl.formatMessage({ id: 'login.intro' })}</h1>
-					<img className='logo-login' src={logo}></img>
+					<img className='logo-login' src={logo} alt='CEC'></img>
 					<h1 className="login-title">{intl.formatMessage({ id: 'login.title' })}</h1>
 					<SocialLogin/>
 			</div>

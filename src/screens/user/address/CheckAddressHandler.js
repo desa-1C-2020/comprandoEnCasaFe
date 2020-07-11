@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ACCESS_TOKEN } from '../../../constants/index';
 import { Redirect } from 'react-router-dom';
 
 class CheckAddressHandler extends Component {
