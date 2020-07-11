@@ -19,6 +19,7 @@ class ProfileInfo extends React.Component {
     render() {
         const { intl } = this.props;
         const user = this.props.userRol.user;
+        const commerce = this.props.userRol.commerce;
         return (
             <div>
                 <Dialog isOpen={this.isOpen} onClose={this.close}
@@ -51,18 +52,18 @@ class ProfileInfo extends React.Component {
                                 </p>
                                 <h2><FormattedMessage id='t.commercedata'/></h2>
                                 <p className='text-format'>
-                                    <b><FormattedMessage id='t.commercename'/>:</b> {this.props.userRol.commerce.name}
+                                    <b><FormattedMessage id='t.commercename'/>:</b> {commerce.name}
                                 </p>
                                 <p className='text-format'>
                                     <b><FormattedMessage
-                                        id='t.sector'/>:</b> {this.props.userRol.commerce.businessSector}
+                                        id='t.sector'/>:</b> {commerce.businessSector}
                                 </p>
                                 <p className='text-format'>
-                                    <b><FormattedMessage id='t.address'/>:</b> {user.address.street}
+                                    <b><FormattedMessage id='t.address'/>:</b> {commerce.address.street}
                                 </p>
                                 <p className='text-format'><b><FormattedMessage id='navbar.coor'/>:</b>
-                                    <br/>{`${intl.formatMessage({ id: 't.lat' })}: ${user.address.latitud} -
-                   ${intl.formatMessage({ id: 't.lgn' })}: ${user.address.longitud}`}
+                                    <br/>{`${intl.formatMessage({ id: 't.lat' })}: ${commerce.address.latitud} |
+                   ${intl.formatMessage({ id: 't.lgn' })}: ${commerce.address.longitud}`}
                                 </p>
                             </div>
                         </div>
