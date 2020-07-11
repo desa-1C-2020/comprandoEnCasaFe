@@ -3,20 +3,32 @@ import BuyerForm from '../forms/BuyerForm';
 import SellerForm from '../forms/SellerForm';
 import { registerBuyer, registerSeller } from '../services/UserService';
 import { Redirect, withRouter } from 'react-router-dom';
-import { RadioGroup, Radio, Button, Spinner } from '@blueprintjs/core';
+import { Button, Radio, RadioGroup, Spinner } from '@blueprintjs/core';
 import '../styles/RegisterScreen.css';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import { BUYER } from '../constants';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { ACCESS_TOKEN, BUYER } from '../constants';
 import { toast } from 'react-toastify';
+import { coordsFrom } from '../services/GoogleService';
 
 class RegisterScreen extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            disableRegister: true,
+            disableValidate: false,
             form: BUYER,
-            buyerInfo: {},
             sellerInfo: {},
+            address: {
+                street: '',
+                number: '',
+                city: ''
+            },
+            addressLocation: {
+                street: null,
+                latitud: null,
+                longitud: null
+            },
             alertField: false,
             errorMsg: '',
             isLoading: false,
@@ -24,15 +36,76 @@ class RegisterScreen extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleRadio = this.handleRadio.bind(this);
-        this.goBack = this.goBack.bind(this);
-        this.setBuyerInfo = this.setBuyerInfo.bind(this);
+        this.setAddressInfo = this.setAddressInfo.bind(this);
         this.setSellerInfo = this.setSellerInfo.bind(this);
-        this.handleRegister = this.handleRegister.bind(this);
+        this.register = this.register.bind(this);
         this.registerBuyer = this.registerBuyer.bind(this);
-        this.isValidBuyer = this.isValidBuyer.bind(this);
         this.registerSeller = this.registerSeller.bind(this);
+        this.getLocationFromAddress = this.getLocationFromAddress.bind(this);
         const { intl } = this.props;
         this.intl = intl;
+    }
+
+    register() {
+        if (this.state.form === BUYER) {
+            this.registerBuyer();
+        } else {
+            this.registerSeller();
+        }
+    }
+
+    registerBuyer() {
+        this.updateUser(() => registerBuyer({
+            address: {
+                street: this.state.addressLocation.street,
+                latitud: this.state.addressLocation.latitud,
+                longitud: this.state.addressLocation.longitud
+            }
+        }), this.isValidAddress() && this.hasAddressLocation(), 'dirección');
+    }
+
+    registerSeller() {
+        const sellerInfo = this.state.sellerInfo;
+        const commerce = {
+            name: sellerInfo.commerceName,
+            businessSector: sellerInfo.commerceBusinessSector,
+            address: {
+                street: this.state.addressLocation.street,
+                latitud: this.state.addressLocation.latitud,
+                longitud: this.state.addressLocation.longitud
+            },
+            paymentMethods: sellerInfo.paymentMethods,
+            daysAndHoursOpen: sellerInfo.daysAndHoursOpen,
+            arrivalRange: sellerInfo.arrivalRange
+        };
+
+        this.updateUser(() => registerSeller(commerce),
+            this.isValidSeller() && this.isValidAddress() && this.hasAddressLocation(), 'comercio');
+    }
+
+    getLocationFromAddress() {
+        if (this.isValidAddress()) {
+            coordsFrom(this.state.address)
+                .then(locationObject => {
+                        this.setState(prevState => {
+                            const addressLocation = { ...prevState.addressLocation };
+                            addressLocation.latitud = locationObject.location.lat;
+                            addressLocation.longitud = locationObject.location.lng;
+                            addressLocation.street = locationObject.formattedAddress;
+                            return { addressLocation };
+                        });
+                        this.setState({ disableRegister: false, disableValidate: true });
+                        this.showOnSuccessful('latitud y longitud');
+                    }
+                ).catch(error => {
+                this.setState({ disableRegister: true, disableValidate: false });
+                console.log(`Fallo al requerir las coordenadas para [${JSON.stringify(this.state.address)}]. 
+                    Respuesta: [${error}]`);
+                this.onAddressValidationError();
+            });
+        } else {
+            this.onAddressValidationError();
+        }
     }
 
     handleChange(event) {
@@ -43,36 +116,30 @@ class RegisterScreen extends React.Component {
         this.setState({ form: event.target.value });
     }
 
-    goBack() {
-        this.props.history.push('/login');
-    }
-
-    setBuyerInfo(info) {
-        this.setState({ sellerInfo: {}, buyerInfo: info });
+    setAddressInfo(changed) {
+        if (this.state.disableValidate) {
+            this.setState({ disableRegister: true, disableValidate: false });
+        }
+        this.setState(prevState => {
+            const address = Object.assign(prevState.address, changed);
+            return { address };
+        });
     }
 
     setSellerInfo(info) {
-        this.setState({ sellerInfo: info, buyerInfo: {} });
+        this.setState({ sellerInfo: info });
     }
 
-    handleRegister() {
-        if (this.state.form === BUYER) {
-            this.registerBuyer();
-        } else {
-            this.registerSeller();
-        }
-    }
-
-    updateUser(onUpdateUser, isValid, message) {
-        if (isValid) {
+    updateUser(onUpdateUser, canUpdate, message) {
+        if (canUpdate) {
             this.setState({ isLoading: true });
-            onUpdateUser
+            onUpdateUser()
                 .then(response => {
                     this.setState({ isLoading: false, updateSuccess: true });
                     this.props.history.push('/home');
                     this.showOnSuccessful(message);
                 })
-                .catch(() => {
+                .catch((error) => {
                     this.setState({ isLoading: false });
                     this.showOnError(message);
                 });
@@ -81,18 +148,50 @@ class RegisterScreen extends React.Component {
         }
     }
 
-    registerBuyer() {
-        this.updateUser(registerBuyer(this.state.buyerInfo), this.isValidBuyer(), 'dirección');
+    isValidSeller() {
+        const seller = this.state.sellerInfo;
+        return seller !== undefined && seller.commerceName !== '' && seller.commerceBussinessSector !== ''
+            && seller.arrivalRange !== '' && seller.daysAndHoursOpen !== [];
     }
 
-    registerSeller() {
-        this.updateUser(registerSeller(this.state.sellerInfo), this.isValidSeller(), 'comercio');
+    isValidAddress() {
+        const address = this.state.address;
+        return address.street !== '' && address.number !== '' && address.city !== '';
+    }
+
+    hasAddressLocation() {
+        const addressLocation = this.state.addressLocation;
+        return (addressLocation.latitud !== '' && addressLocation.longitud !== '' && addressLocation.street !== '');
+    }
+
+    onInvalidFields() {
+        toast.warn(`${this.intl.formatMessage({ id: 't.fillfields' })}`, {
+            position: 'bottom-center',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
     }
 
     showOnSuccessful(message) {
         toast.success(`😀 Gracias por actualizar tu ${message} `, {
             position: 'bottom-center',
             autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        });
+    }
+
+    onAddressValidationError() {
+        toast.warn('No pudimos validar la dirección, por favor verificala.', {
+            position: 'bottom-center',
+            autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -111,36 +210,6 @@ class RegisterScreen extends React.Component {
             draggable: true,
             progress: undefined
         });
-    }
-
-    onInvalidFields() {
-        toast.warn(`${this.intl.formatMessage({ id: 't.fillfields' })}`, {
-            position: 'bottom-center',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined
-        });
-    }
-
-    isValidBuyer() {
-        const buyer = this.state.buyerInfo;
-        return (buyer.name !== undefined && buyer.name !== '' &&
-            buyer.surname !== '' && buyer.email !== '' && buyer.address.street !== '' &&
-            buyer.address.latitud !== '' && buyer.address.longitud !== '');
-    }
-
-    isValidSeller() {
-        const seller = this.state.sellerInfo;
-        return (
-            seller !== undefined && seller.user.name !== '' &&
-            seller.user.surname !== '' && seller.user.email !== '' && seller.commerceName !== '' &&
-            seller.commerceBussinessSector !== '' && seller.commerceAddress.street !== '' &&
-            seller.commerceAddress.latitud !== '' && seller.commerceAddress.longitud !== '' &&
-            seller.arrivalRange !== ''
-        );
     }
 
     render() {
@@ -170,18 +239,28 @@ class RegisterScreen extends React.Component {
 
 
                         {this.state.form === BUYER ?
-                            <div className="buyer-form"><BuyerForm user={this.props.user} update={this.setBuyerInfo}/>
+                            <div className="buyer-form"><BuyerForm user={this.props.user}
+                                                                   address={this.state.address}
+                                                                   updateRegisterState={this.setAddressInfo}/>
                             </div>
-                            : <div className="seller-form"><SellerForm user={this.props.user}
-                                                                       update={this.setSellerInfo}/>
+                            :
+                            <div className="seller-form"><SellerForm user={this.props.user}
+                                                                     address={this.state.address}
+                                                                     updateRegisterState={this.setAddressInfo}
+                                                                     update={this.setSellerInfo}/>
                             </div>}
 
                         <div className="buttons">
-                            <Button className="register-btn" intent="success" onClick={this.handleRegister}>
+                            <Button className="register-btn" intent="success" onClick={this.register}
+                                    disabled={this.state.disableRegister}>
                                 <FormattedMessage id='t.register'/>
                             </Button>
-                            <Button intent="danger" onClick={this.goBack}>
+                            <Button intent="danger" onClick={this.props.onLogout}>
                                 <FormattedMessage id='t.goback'/>
+                            </Button>
+                            <Button intent="warning" onClick={this.getLocationFromAddress}
+                                    disabled={this.state.disableValidate}>
+                                {this.state.disableValidate ? 'Dirección validada' : 'Validar domicilio'}
                             </Button>
                         </div>
 

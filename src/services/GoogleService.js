@@ -7,9 +7,12 @@ export function coordsFrom(addressParts) {
     const { street, number, city } = addressParts;
     const address = `${street} ${number}, ${city} `;
     console.log('dire que mando: ' + JSON.stringify(addressParts) + '.....' + address);
-    return Geocode.fromAddress(address).then(
-        response => {
-            return response.results[0].geometry.location;
+    return Geocode.fromAddress(address)
+        .then(response => {
+            const location = response.results[0].geometry.location;
+            const formattedAddress = response.results[0].formatted_address;
+
+            return {location, formattedAddress};
         });
 }
 
