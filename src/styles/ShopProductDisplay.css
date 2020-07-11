@@ -7,14 +7,14 @@
   border-radius: 20px;
 }
 
-.sdp-image-container {
-  width: 20%;
+.sdp-t1 {
+  text-align: center;
+  width: 80px;
 }
 
 .min-image {
-  width: 60px;
-  margin-left: 20px;
-  margin-top: 5px;
+  max-width: 60px;
+  max-height: 60px;
   border-radius: 10px;
 }
 

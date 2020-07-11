@@ -38,7 +38,6 @@ export class ProductLoader extends React.Component {
             imageUrl: this.state.url
         };
         if (this.isValidProduct()) {
-            const id = parseInt(this.props.userID);
             this.setState({ isLoading: true });
             saveProduct(product)
                 .then(() =>

@@ -81,7 +81,6 @@ class HomeScreen extends React.Component {
     }
 
     goProductList() {
-        const id = this.props.currentUser.id;
         this.setState({ isLoading: true });
         getAllProducts()
             .then(products => {
@@ -102,7 +101,6 @@ class HomeScreen extends React.Component {
     }
 
     doSearch(text, distance) {
-        const id = parseInt(this.props.currentUser.id);
         this.setState({ isLoading: true, searchResult: false });
         searchProduct(text, distance)
             .then(res => {

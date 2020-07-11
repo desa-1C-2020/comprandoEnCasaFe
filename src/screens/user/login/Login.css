@@ -10,10 +10,10 @@
     vertical-align: middle;
     position: relative;    
     padding: 35px;
+    width: 100%;
 }
 
 .social-btn {
-    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
     border-radius: 2px;
     width: 500px;
     margin-bottom: 15px;
@@ -50,6 +50,5 @@
     font-size: 1.5em;
     font-weight: 500;
     margin-top: 0;
-    margin-bottom: 30px;
     color: rgba(0, 0, 0, 0.65);
 }

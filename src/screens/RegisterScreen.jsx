@@ -6,7 +6,7 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { Button, Radio, RadioGroup, Spinner } from '@blueprintjs/core';
 import '../styles/RegisterScreen.css';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { ACCESS_TOKEN, BUYER } from '../constants';
+import { BUYER } from '../constants';
 import { toast } from 'react-toastify';
 import { coordsFrom } from '../services/GoogleService';
 
@@ -255,12 +255,14 @@ class RegisterScreen extends React.Component {
                                     disabled={this.state.disableRegister}>
                                 <FormattedMessage id='t.register'/>
                             </Button>
-                            <Button intent="danger" onClick={this.props.onLogout}>
+                            <Button intent="danger" onClick={this.props.onLogout} className="goback-btn">
                                 <FormattedMessage id='t.goback'/>
                             </Button>
                             <Button intent="warning" onClick={this.getLocationFromAddress}
                                     disabled={this.state.disableValidate}>
-                                {this.state.disableValidate ? 'Dirección validada' : 'Validar domicilio'}
+                                {this.state.disableValidate ? 
+                                <FormattedMessage id='register.validated'/> : 
+                                <FormattedMessage id='register.validate'/>}
                             </Button>
                         </div>
 

@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 class OAuth2RedirectHandler extends Component {
     getUrlParameter(name) {
+        // eslint-disable-next-line
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
 

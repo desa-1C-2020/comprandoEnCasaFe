@@ -30,9 +30,11 @@ const configureGeocode = () => {
     Geocode.enableDebug();
 };
 
+// eslint-disable-next-line
 const GeocodeFromLatLng = (latLng) => {
     configureGeocode();
     // Get address from latitude & longitude.
+    // eslint-disable-next-line
     const { lat, lng } = latLng;
     const lati = '-34.7040003';
     const long = '-58.2754042';
