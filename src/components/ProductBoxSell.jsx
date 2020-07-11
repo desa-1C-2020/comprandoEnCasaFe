@@ -99,7 +99,7 @@ class ProductBoxSell extends React.Component {
                     <table className='bs-image-container'>
                         <tbody>
                         <tr>
-                            <td><img className='bs-image' alt={p.name} src={p.url}></img></td>
+                            <td><img className='bs-image' alt={p.name} src={this.props.info.product.imageUrl}></img></td>
                         </tr>
                         </tbody>
                     </table>

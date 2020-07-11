@@ -55,6 +55,8 @@
   "register.tt.title": "Commerce schedule",
   "register.tt.invalid": "Invalid schedule.",
   "register.tt.savett": "Save schedule",
+  "register.validate": "Validate address",
+  "register.validated": "Address validated",
 
   "navbar.search": "Search product",
   "navbar.mycommerce": "My commerce",
