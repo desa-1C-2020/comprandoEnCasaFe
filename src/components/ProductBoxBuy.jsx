@@ -53,6 +53,7 @@ class ProductBoxBuy extends React.Component {
         <div className='main-container' onClick={() => this.setState({isOpen: true})}>
           <img className='product-image' alt={product.name} src={product.imageUrl}></img>
           <p className='name-brand'>{product.name}</p>
+          <p className='shop-name'><b>{product.commerceName.toUpperCase()}</b></p>
           <p className='product-price'><b>${product.price}</b></p>
         </div>
         <Dialog isOpen={this.state.isOpen} title={intl.formatMessage({id:'buybox.title'})} 
