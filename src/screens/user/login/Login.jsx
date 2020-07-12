@@ -40,7 +40,6 @@ class Login extends React.Component {
 
 		return (
 			<div className="login-container" style={{textAlign: 'center'}}>
-					<h1 className="login-title">{intl.formatMessage({ id: 'login.intro' })}</h1>
 					<img className='logo-login' src={logo} alt='CEC'></img>
 					<h1 className="login-title">{intl.formatMessage({ id: 'login.title' })}</h1>
 					<SocialLogin/>

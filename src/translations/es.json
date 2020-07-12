@@ -46,6 +46,7 @@
   "login.error.password": "Por favor, ingrese su contraseña",
   "login.google": "Ingresar con Google",
   "login.fb": "Ingresar con Facebook",
+  "login.enter": "Ingresar",
 
   "register.title": "Bienvenido a Comprando en Casa",
   "register.subtitle": "¿Cómo quiere registrarse?",

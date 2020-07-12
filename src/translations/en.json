@@ -45,6 +45,7 @@
   "login.error.password": "Please, enter your password",
   "login.google": "Log in with Google",
   "login.fb": "Log in with Facebook",
+  "login.enter": "Enter",
 
   "register.title": "Welcome to Comprando en Casa",
   "register.subtitle": "How would you like to register?",
