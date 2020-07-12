@@ -128,5 +128,6 @@
   "csv.title": "Add products from CSV file",
   "csv.success": "The products were loaded successfully",
   "csv.search": "Select a file",
-  "csv.load": "Upload products"
+  "csv.load": "Upload products",
+  "csv.info": "The required fields (in order) are the following: name, brand, stock, price, imageUrl. Divided using pipes (|)"
 } 

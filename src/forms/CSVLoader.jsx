@@ -1,5 +1,5 @@
-import React from 'react';
-import { FileInput, Button, Alert, Spinner } from '@blueprintjs/core';
+import React from 'react'
+import { FileInput, Button, Alert, Spinner, Icon, Tooltip } from '@blueprintjs/core';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { saveProduct, saveProductsBatch } from '../services/SellerService';
 import * as Papa from 'papaparse';
@@ -99,35 +99,39 @@ export class CSVLoader extends React.Component {
         });
     }
 
-    render() {
-        const { intl } = this.props;
-        return (
-            <div className='csv-loader'>
-                <p className='csv-title'><b><FormattedMessage id='csv.title'/></b></p>
-                <FileInput buttonText={intl.formatMessage({ id: 't.search' })}
-                           id='file-element'
-                           fill='true'
-                           large='true'
-                           hasSelection={this.state.isLoaded}
-                           onChange={this.handleReadCSV}
-                           text={this.state.isLoaded ? this.state.fileName : <FormattedMessage id='csv.search'/>}/>
-                <Button className='csv-btn' disabled={!this.state.isLoaded} onClick={this.uploadProducts}>
-                    <FormattedMessage id='csv.load'/>
-                </Button>
-                <Alert isOpen={this.state.alert}
-                       confirmButtonText={<FormattedMessage id='t.accept'/>}
-                       intent={this.state.alertIntent}
-                       icon={this.state.alertIntent === 'success' ? 'endorsed' : 'error'}
-                       onClose={this.resetState}>
-                    <FormattedMessage id={this.state.alertMsg}/>
-                </Alert>
-                {this.state.uploading &&
-                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-                    <Spinner size='100' intent='primary'/>
-                </div>}
-            </div>
-        );
-    }
+  render(){
+    const { intl } = this.props;
+    return(
+      <div className='csv-loader'>
+        <p className='csv-title'><b><FormattedMessage id='csv.title'/></b>
+        <Tooltip content={<FormattedMessage id='csv.info'/>}>
+          <Icon className='info-icon' icon='info-sign' iconSize='30'></Icon>
+        </Tooltip>
+        </p>
+         <FileInput buttonText={intl.formatMessage({id:'t.search'})}
+                  id='file-element'
+                  fill='true'
+                  large='true'
+                  hasSelection={this.state.isLoaded}
+                  onChange={this.handleReadCSV}
+                  text={this.state.isLoaded ? this.state.fileName : <FormattedMessage id='csv.search'/>}/>
+        <Button className='csv-btn' disabled={!this.state.isLoaded} onClick={this.uploadProducts}>
+          <FormattedMessage id='csv.load'/>
+        </Button> 
+        <Alert isOpen={this.state.alert}
+                confirmButtonText={<FormattedMessage id='t.accept'/>}
+                intent={this.state.alertIntent}
+                icon={this.state.alertIntent === 'success' ? 'endorsed' : 'error'}
+                onClose={this.resetState}>
+          <FormattedMessage id={this.state.alertMsg}/>
+        </Alert>
+        {this.state.uploading &&
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+          <Spinner size='100' intent='primary'/>
+        </div>}
+      </div>
+    )  
+  }
 }
 
 export default injectIntl(CSVLoader);
