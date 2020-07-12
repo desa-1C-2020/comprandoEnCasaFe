@@ -29,6 +29,11 @@
   vertical-align: top;
 }
 
+.info-icon {
+  margin-left: 10px;
+  color: rgb(155, 155, 209)
+}
+
 @media (max-width: 1024px){
   .csv-loader {
     width: 90%;
