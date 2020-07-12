@@ -2,6 +2,7 @@ import React from 'react'
 import { Divider } from '@blueprintjs/core'
 import { FormattedMessage } from 'react-intl'
 import { ShopProductDisplay } from '../components/ShopProductDisplay'
+import FormattedCurrency from '../components/FormattedCurrency'
 import '../styles/ShopCartBox.css'
 
 export class ShopCartBox extends React.Component {
@@ -59,9 +60,6 @@ export class ShopCartBox extends React.Component {
     }
   }
 
-  componentDidUpdate(){
-  }
-
   render(){
     const products = this.props.info.buyList
     return(
@@ -73,7 +71,7 @@ export class ShopCartBox extends React.Component {
         <Divider vertical='true'></Divider>
         {this.state.products}
         <p className='scb-total'><FormattedMessage id='cart.totalshop'/>
-          <b>${this.state.totalPrice}</b>
+          <b><FormattedCurrency value={this.state.totalPrice}/></b>
         </p>
       </div>
       </span>

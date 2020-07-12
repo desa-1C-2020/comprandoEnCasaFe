@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button, Collapse } from '@blueprintjs/core'
+import FormattedCurrency from './FormattedCurrency'
 import '../styles/PurchaseHistory.css'
 
 export class PurchaseHistory extends React.Component{
@@ -61,7 +62,8 @@ export class PurchaseHistory extends React.Component{
       s.products.forEach((p)=>{
         let detail = 
           <p key={key}>
-            [{s.name}] {p.productName} x{p.productAmmount}: <b>${p.productAmmount * p.productPrice}</b>
+            [{s.name}] {p.productName} x{p.productAmmount}: <b>          
+            <FormattedCurrency value={p.productAmmount * p.productPrice}/></b>
           </p>
         key = key + 1;
         details.push(detail);
@@ -74,7 +76,8 @@ export class PurchaseHistory extends React.Component{
     return(
       <div className='ph-container'>
         <p className='ph-title'>
-          {this.state.title} {' - '} <FormattedMessage id='cart.total'/> <b>${this.state.total}</b>
+          {this.state.title} {' - '} <FormattedMessage id='cart.total'/> <b>
+            <FormattedCurrency value={this.state.total}/> </b>
           <Button className='ph-btn' onClick={this.handleCollapse}>
             <FormattedMessage id={this.state.btnText}/>
           </Button>

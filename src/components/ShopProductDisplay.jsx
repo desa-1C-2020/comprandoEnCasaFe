@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '@blueprintjs/core'
 import { FormattedMessage } from 'react-intl'
+import FormattedCurrency from '../components/FormattedCurrency'
 import '../styles/ShopProductDisplay.css'
 
 export class ShopProductDisplay extends React.Component {
@@ -46,11 +47,11 @@ export class ShopProductDisplay extends React.Component {
                           </span>
                           <span className='stats-unit'>
                             <FormattedMessage id='cart.unity'/>
-                            <b>${product.price}</b>
+                            <b><FormattedCurrency value={product.price}/></b>
                           </span>
                           <span className='stats-unit'>
                             <FormattedMessage id='cart.total'/>
-                            <b>${product.price * this.props.product.ammount}</b>
+                            <b><FormattedCurrency value={product.price * this.props.product.ammount}/></b>
                           </span>
                         </p>
                       </td>

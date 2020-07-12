@@ -4,6 +4,7 @@ import { Button, Alert, Spinner } from '@blueprintjs/core';
 import { deleteProduct, modifyProduct } from '../services/SellerService';
 import ModProductInfo from '../forms/ModProductInfo';
 import { injectIntl, FormattedMessage } from 'react-intl';
+import FormattedCurrency from '../components/FormattedCurrency'
 
 class ProductBoxSell extends React.Component {
 
@@ -89,7 +90,6 @@ class ProductBoxSell extends React.Component {
     closeMod() {
         this.setState({ openMod: false });
     }
-
     render() {
         const p = this.state;
         const { intl } = this.props;
@@ -117,7 +117,8 @@ class ProductBoxSell extends React.Component {
                         </tr>
                         <tr>
                             <td className='bs-desc-item'>
-                                <b><FormattedMessage id='ploader.price'/>:</b> ${p.price}
+                                <b><FormattedMessage id='ploader.price'/>: </b>
+                                <FormattedCurrency value={p.price}/> 
                             </td>
                         </tr>
                         <tr>
