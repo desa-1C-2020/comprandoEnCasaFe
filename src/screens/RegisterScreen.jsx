@@ -61,7 +61,7 @@ class RegisterScreen extends React.Component {
                 latitud: this.state.addressLocation.latitud,
                 longitud: this.state.addressLocation.longitud
             }
-        }), this.isValidAddress() && this.hasAddressLocation(), 'dirección');
+        }), this.isValidAddress() && this.hasAddressLocation(), this.intl.formatMessage({id:'t.address'}));
     }
 
     registerSeller() {
@@ -95,7 +95,7 @@ class RegisterScreen extends React.Component {
                             return { addressLocation };
                         });
                         this.setState({ disableRegister: false, disableValidate: true });
-                        this.showOnSuccessful('latitud y longitud');
+                        this.showOnSuccessful(this.intl.formatMessage({ id:'toast.latlgn'}));
                     }
                 ).catch(error => {
                 this.setState({ disableRegister: true, disableValidate: false });
@@ -177,7 +177,7 @@ class RegisterScreen extends React.Component {
     }
 
     showOnSuccessful(message) {
-        toast.success(`😀 Gracias por actualizar tu ${message} `, {
+        toast.success(this.intl.formatMessage({id:'toast.update'}) + message , {
             position: 'bottom-center',
             autoClose: 3000,
             hideProgressBar: false,
@@ -189,7 +189,7 @@ class RegisterScreen extends React.Component {
     }
 
     onAddressValidationError() {
-        toast.warn('No pudimos validar la dirección, por favor verificala.', {
+        toast.warn(this.intl.formatMessage({id:'toast.addwarning'}), {
             position: 'bottom-center',
             autoClose: 5000,
             hideProgressBar: false,
@@ -201,7 +201,7 @@ class RegisterScreen extends React.Component {
     }
 
     showOnError(message) {
-        toast.error(`😔 No pudimos actualizar tu ${message}`, {
+        toast.error(this.intl.formatMessage({id:'toast.updatefail'}) + message, {
             position: 'bottom-center',
             autoClose: 3000,
             hideProgressBar: false,

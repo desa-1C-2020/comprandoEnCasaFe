@@ -133,5 +133,11 @@
   "csv.title": "Cargar productos mediante CSV",
   "csv.success": "Los productos fueron cargados satisfactoriamente",
   "csv.search": "Seleccione un archivo",
-  "csv.load": "Cargar productos"
+  "csv.load": "Cargar productos",
+
+  "toast.update": "😀 Gracias por actualizar tu ",
+  "toast.updatefail": "😔 No pudimos actualizar tu ",
+  "toast.latlgn": "latitud y longitud",
+  "toast.addwarning": "No pudimos validar la dirección, por favor verificala.",
+  "toast.bye": "Te esperamos pronto!"
 }

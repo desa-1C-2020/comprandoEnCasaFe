@@ -15,6 +15,7 @@ import OAuth2RedirectHandler from '../src/screens/user/oauth2/OAuth2RedirectHand
 import CheckAddressHandler from '../src/screens/user/address/CheckAddressHandler';
 import ProfileInfo from './components/ProfileInfo';
 import RegisterScreen from './screens/RegisterScreen';
+import { injectIntl } from 'react-intl';
 
 class App extends Component {
     constructor(props) {
@@ -28,6 +29,8 @@ class App extends Component {
 
         this.loadCurrentlyLoggedInUser = this.loadCurrentlyLoggedInUser.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        const { intl } = this.props;
+        this.intl = intl;
     }
 
     loadCurrentlyLoggedInUser() {
@@ -60,7 +63,7 @@ class App extends Component {
             authenticated: false,
             currentUser: null
         });
-        toast.success('Te esperamos pronto!', {
+        toast.success(this.intl.formatMessage({id:'toast.bye'}), {
             position: 'bottom-center',
             autoClose: 3000,
             hideProgressBar: false,
@@ -135,4 +138,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default injectIntl(App);
