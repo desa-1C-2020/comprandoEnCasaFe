@@ -9,6 +9,14 @@ export function saveProduct(product) {
     });
 }
 
+export function saveProductsBatch(products) {
+    return secureRequest({
+        url: API_BASE_URL + '/seller/productsBatch',
+        method: 'POST',
+        body: JSON.stringify(products)
+    });
+}
+
 export function deleteProduct(productId) {
     return secureRequest({
         url: `${API_BASE_URL}/seller/product?productId=${productId}`,
