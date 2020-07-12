@@ -142,7 +142,9 @@ export class CartScreen extends React.Component {
     const nisTitle = <FormattedMessage id='cart.emptyTitle'/>
     return (
       <div>
-        <div className='results-title'><FormattedMessage id='navbar.myshopping'/></div>
+        <div className='results-title'>
+          <FormattedMessage id={this.state.confirm ? 'cart.resume' : 'navbar.myshopping'}/>
+        </div>
         {this.state.list && 
         <span>
         {this.state.isEmpty ? 

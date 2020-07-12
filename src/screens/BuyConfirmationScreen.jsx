@@ -1,6 +1,6 @@
 import React from 'react'
 import DeliveryPayOptions from '../components/DeliveryPayOptions'
-import { Button, Alert } from '@blueprintjs/core'
+import { Button, Alert, RadioGroup, Radio } from '@blueprintjs/core'
 import { FormattedMessage } from 'react-intl'
 import '../styles/BuyConfirmationScreen.css'
 import { sendPurchase } from '../services/ProductService'
@@ -14,7 +14,9 @@ export class BuyConfirmationScreen extends React.Component {
       components: [],
       alert: false,
       alertIntent: '',
-      alertId: ''
+      alertId: '',
+      payment: 'money',
+      deliver: 'takeaway'
     }
     this.handleClose = this.handleClose.bind(this);
     this.createArray = this.createArray.bind(this);
@@ -23,6 +25,16 @@ export class BuyConfirmationScreen extends React.Component {
     this.createOptionsBoxes = this.createOptionsBoxes.bind(this);
     this.updateInfo = this.updateInfo.bind(this);
     this.doPurchase = this.doPurchase.bind(this);
+    this.handleDelivery = this.handleDelivery.bind(this); 
+    this.handlePayment = this.handlePayment.bind(this);
+  }
+
+  handleDelivery(e){
+    this.setState({deliver: e.target.value})
+  }
+
+  handlePayment(e){
+    this.setState({payment: e.target.value})
   }
   
   handleClose(){
@@ -117,6 +129,25 @@ export class BuyConfirmationScreen extends React.Component {
         <p className='bcs-title'><FormattedMessage id='cart.confirmTitle'/></p>
         {this.state.components}
         <div className='bcs-title'>
+        <div className='cart-radio'>  
+          <RadioGroup label={<FormattedMessage id='cart.del.ops'/>}
+            onChange={this.handleDelivery}
+            selectedValue={this.state.deliver}
+            inline='true'>
+            <Radio label="Take Away" value="takeaway" />
+            <Radio label="Delivery" value="delivery" />
+          </RadioGroup>
+        </div>
+        <div className='cart-radio'>
+        <RadioGroup label={<FormattedMessage id='cart.pay.ops'/>}
+            onChange={this.handlePayment}
+            selectedValue={this.state.payment}
+            inline='true'>
+            <Radio label={<FormattedMessage id='cart.money'/>} value="money" />
+            <Radio label={<FormattedMessage id='cart.debit'/>} value="debit" />
+            <Radio label={<FormattedMessage id='cart.credit'/>} value="credit" />
+        </RadioGroup>
+        </div>
           <Button intent='success' style={{marginRight: '20px'}}
                   onClick={this.doPurchase}>
             <FormattedMessage id='cart.confirmBuy'/>

@@ -11,6 +11,11 @@
   border: solid green;
 }
 
+.cart-radio {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
 @media (max-width: 700px) {
   .bcs-title {
     width: 90%;
