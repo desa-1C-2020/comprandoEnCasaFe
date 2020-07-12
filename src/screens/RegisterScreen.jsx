@@ -260,9 +260,9 @@ class RegisterScreen extends React.Component {
                             </Button>
                             <Button intent="warning" onClick={this.getLocationFromAddress}
                                     disabled={this.state.disableValidate}>
-                                {this.state.disableValidate ? 
-                                <FormattedMessage id='register.validated'/> : 
-                                <FormattedMessage id='register.validate'/>}
+                                {this.state.disableValidate ?
+                                    <FormattedMessage id='register.validated'/> :
+                                    <FormattedMessage id='register.validate'/>}
                             </Button>
                         </div>
 
