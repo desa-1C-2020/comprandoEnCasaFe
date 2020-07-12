@@ -12,6 +12,8 @@ import ProductComponent from './ProductComponent';
 import { CartScreen } from './CartScreen';
 import SalesScreen from './SalesScreen';
 import ShoppingHistory from './ShoppingHistory';
+import CSVLoader from '../forms/CSVLoader'
+import '../styles/CSVLoader.css'
 
 class HomeScreen extends React.Component {
 
@@ -152,7 +154,15 @@ class HomeScreen extends React.Component {
                             goSalesList={this.goSalesList}/>
                 {isBuyer && this.state.shopSearch && <ShopSearch/>}
                 {this.state.searchResult && <ProductComponent products={this.state.products}/>}
-                {isSeller && this.state.productLoader && <ProductLoader userID={user.id}/>}
+                {isSeller && this.state.productLoader && 
+                <div>
+                    <span className='component-container'>
+                        <ProductLoader userID={user.id}/>
+                    </span>
+                    <span className='component-container'>
+                        <CSVLoader/>
+                    </span>
+                </div>}
                 {isSeller && this.state.productList && <SellerProductsComponent
                     products={this.state.products}
                     shopId={user.id}/>}
