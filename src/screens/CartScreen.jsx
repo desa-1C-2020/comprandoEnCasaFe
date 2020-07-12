@@ -3,6 +3,7 @@ import {NonIdealState, Button} from '@blueprintjs/core'
 import { FormattedMessage } from 'react-intl'
 import { ShopCartBox } from '../forms/ShopCartBox'
 import { BuyConfirmationScreen } from './BuyConfirmationScreen' 
+import FormattedCurrency from '../components/FormattedCurrency'
 import '../styles/CartScreen.css'
 
 export class CartScreen extends React.Component {
@@ -152,7 +153,9 @@ export class CartScreen extends React.Component {
         <div>
           {this.state.shopComponents}
           <div className='buy-resume'>
-            <p className='cart-total'><FormattedMessage id='cart.total'/> ${this.state.total}</p>
+            <p className='cart-total'>
+              <FormattedMessage id='cart.total'/> <FormattedCurrency value={this.state.total}/> 
+            </p>
             <Button icon='dollar' large={true} intent='success'
                     onClick={() => this.setState({confirm: true, list: false})}>
               <FormattedMessage id='cart.buy'/>

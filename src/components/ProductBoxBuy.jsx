@@ -2,6 +2,7 @@ import React from 'react'
 import '../styles/ProductBoxBuy.css'
 import { Dialog, Button, Alert, NumericInput } from '@blueprintjs/core'
 import { FormattedMessage, injectIntl } from 'react-intl'
+import FormattedCurrency from '../components/FormattedCurrency'
 
 class ProductBoxBuy extends React.Component {
 
@@ -54,7 +55,8 @@ class ProductBoxBuy extends React.Component {
           <img className='product-image' alt={product.name} src={product.imageUrl}></img>
           <p className='name-brand'>{product.name}</p>
           <p className='shop-name'><b>{product.commerceName.toUpperCase()}</b></p>
-          <p className='product-price'><b>${product.price}</b></p>
+          <p className='product-price'>
+            <b> <FormattedCurrency value={product.price}/> </b></p>
         </div>
         <Dialog isOpen={this.state.isOpen} title={intl.formatMessage({id:'buybox.title'})} 
         onClose={() => this.setState({isOpen: false})}>
@@ -67,7 +69,9 @@ class ProductBoxBuy extends React.Component {
                 <table className='dialog-desc'><tbody>
                   <tr><td><p><FormattedMessage id='ploader.prodname'/><b>: {product.name}</b></p></td></tr>
                   <tr><td><p><FormattedMessage id='ploader.brand'/><b>: {product.brand}</b></p></td></tr>
-                  <tr><td><p><FormattedMessage id='ploader.price'/><b>: ${product.price}</b></p></td></tr>
+                  <tr><td><p><FormattedMessage id='ploader.price'/>
+                    <b>: <FormattedCurrency value={product.price}/> </b>
+                  </p></td></tr>
                   <tr><td><p><FormattedMessage id='ploader.stock'/><b>: {product.stock}</b></p></td></tr>
                   <tr><td><FormattedMessage id='buybox.ammount'/>
                     <NumericInput style={{width: '50px'}} max={10} min={1} value={this.state.ammount}

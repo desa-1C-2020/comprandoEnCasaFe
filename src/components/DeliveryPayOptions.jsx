@@ -2,6 +2,7 @@ import React from 'react'
 import '../styles/DeliveryPayOptions.css'
 import { FormattedMessage } from 'react-intl'
 import {Divider, RadioGroup, Radio} from '@blueprintjs/core'
+import FormattedCurrency from '../components/FormattedCurrency'
 
 export class DeliveryPayOptions extends React.Component{
 
@@ -73,8 +74,7 @@ export class DeliveryPayOptions extends React.Component{
         <div>
         <RadioGroup label={<span>
             <FormattedMessage id='cart.total'/>
-            {' $ '}
-            {this.state.total}
+            <FormattedCurrency value={this.state.total}/>
             </span> }
             onChange={this.handlePayment}
             selectedValue={this.state.payment}
