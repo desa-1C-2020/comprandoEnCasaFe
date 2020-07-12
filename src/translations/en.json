@@ -123,5 +123,10 @@
   "seller.hide": "Hide products",
 
   "notfound.desc": "There is nothing to see over here...",
-  "notfound.btn": "Go to Comprando en Casa"
+  "notfound.btn": "Go to Comprando en Casa",
+
+  "csv.title": "Add products from CSV file",
+  "csv.success": "The products were loaded successfully",
+  "csv.search": "Select a file",
+  "csv.load": "Upload products"
 } 

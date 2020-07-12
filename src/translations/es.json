@@ -124,5 +124,10 @@
   "seller.hide": "Ocultar productos",
 
   "notfound.desc": "No hay nada que ver por acá...",
-  "notfound.btn": "Ir a Comprando en Casa"
+  "notfound.btn": "Ir a Comprando en Casa",
+
+  "csv.title": "Cargar productos mediante CSV",
+  "csv.success": "Los productos fueron cargados satisfactoriamente",
+  "csv.search": "Seleccione un archivo",
+  "csv.load": "Cargar productos"
 }

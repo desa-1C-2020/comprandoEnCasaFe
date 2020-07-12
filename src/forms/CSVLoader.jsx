@@ -1,6 +1,6 @@
 import React from 'react'
 import { FileInput, Button, Alert, Spinner } from '@blueprintjs/core';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { saveProduct } from '../services/SellerService';
 import * as Papa from 'papaparse'
 import '../styles/CSVLoader.css'
@@ -16,11 +16,12 @@ export class CSVLoader extends React.Component {
       fileName: '',
       totalProducts: 0,
       alert: false,
-      alertMsg: '',
-      alertIntent: ''
+      alertMsg: 'csv.success',
+      alertIntent: 'success'
     }
     this.handleReadCSV = this.handleReadCSV.bind(this);
     this.uploadProducts = this.uploadProducts.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
 
  handleReadCSV(event){
@@ -57,54 +58,66 @@ export class CSVLoader extends React.Component {
       saveProduct(productBody).then(()=>{
         index = index + 1;
         if(total === index){
-          this.setState({uploading: false,
-                        alert: true,
-                        alertMsg: 'todo bien',
-                        alertIntent: 'success'});
+          this.setState({
+            uploading: false,
+            alert: true,
+            alertMsg: 'csv.success',
+            alertIntent: 'success'
+          });
         }
       }).catch(
-        this.setState({uploading: false,
-                      alert: true,
-                      alertMsg: 'todo mal',
-                      alertIntent: 'danger'})
+        this.setState({
+          uploading: false,
+          alert: true,
+          alertMsg: 't.error',
+          alertIntent: 'danger'
+        })
       )
     })
   }
 
-  componentDidUpdate(){
-    console.log(this.state)
+  resetState(){
+    this.setState({
+      isLoaded: false,
+      uploading: false,
+      productArray: [],
+      fileName: '',
+      totalProducts: 0,
+      alert: false,
+      alertMsg: 'csv.success',
+      alertIntent: 'success'
+    })
   }
 
   render(){
+    const { intl } = this.props;
     return(
       <div className='csv-loader'>
-        <h1>Cargar productos mediante CSV</h1>
-         <FileInput buttonText='buscar'
+        <p className='csv-title'><b><FormattedMessage id='csv.title'/></b></p>
+         <FileInput buttonText={intl.formatMessage({id:'t.search'})}
                   id='file-element'
                   fill='true'
                   large='true'
                   hasSelection={this.state.isLoaded}
                   onChange={this.handleReadCSV}
-                  text={this.state.isLoaded ? this.state.fileName : 'elegi un archivo' } />
-        <Button disabled={!this.state.isLoaded} onClick={this.uploadProducts}>Cargar</Button> 
+                  text={this.state.isLoaded ? this.state.fileName : <FormattedMessage id='csv.search'/>}/>
+        <Button className='csv-btn' disabled={!this.state.isLoaded} onClick={this.uploadProducts}>
+          <FormattedMessage id='csv.load'/>
+        </Button> 
         <Alert isOpen={this.state.alert}
-                       confirmButtonText={<FormattedMessage id='t.accept'></FormattedMessage>}
-                       intent='warning'
-                       icon='wrench'
-                       onClose={() => {
-                           this.setState({ alert: false });
-                       }}>
-                    <FormattedMessage id='t.commingsoon'/>
+                confirmButtonText={<FormattedMessage id='t.accept'/>}
+                intent={this.state.alertIntent}
+                icon={this.state.alertIntent === 'success' ? 'endorsed' : 'error'}
+                onClose={this.resetState}>
+          <FormattedMessage id={this.state.alertMsg}/>
         </Alert>
         {this.state.uploading &&
-                    <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-                        <Spinner size='100' intent='primary'/>
-                    </div>
-        }
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+          <Spinner size='100' intent='primary'/>
+        </div>}
       </div>
-    )
-    
+    )  
   }
 }
 
-export default CSVLoader;
+export default injectIntl(CSVLoader);

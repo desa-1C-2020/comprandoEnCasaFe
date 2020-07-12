@@ -1,6 +1,33 @@
 .csv-loader {
-  width: 600px;
-  height: 100px;
+  width: 500px;
+  height: 150px;
   top: 0;
-  background-color: brown;
+  background-color: white;
+  border-radius: 20px;
+  margin-top: 20px;
+  margin-left: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border: solid rgb(255, 167, 5);
+  border-width: 0 10px;
+}
+
+.csv-title{
+  font-size: 25px;
+  text-align: center;
+}
+
+.csv-btn {
+  text-align: center;
+  margin-top: 10px;
+}
+
+@media (max-width: 1024px){
+  .csv-loader {
+    width: 90%;
+    height: 100%;
+    margin-left: 5%;
+  }
 }
