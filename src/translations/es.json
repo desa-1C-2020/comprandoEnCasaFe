@@ -129,5 +129,6 @@
   "csv.title": "Cargar productos mediante CSV",
   "csv.success": "Los productos fueron cargados satisfactoriamente",
   "csv.search": "Seleccione un archivo",
-  "csv.load": "Cargar productos"
+  "csv.load": "Cargar productos",
+  "csv.info": "Los campos necesarios son los siguientes, en el siguiente orden: name, brand, stock, price, imageUrl. Separados por pipes (|)"
 }

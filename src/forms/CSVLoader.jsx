@@ -1,5 +1,5 @@
 import React from 'react'
-import { FileInput, Button, Alert, Spinner } from '@blueprintjs/core';
+import { FileInput, Button, Alert, Spinner, Icon, Tooltip } from '@blueprintjs/core';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { saveProduct } from '../services/SellerService';
 import * as Papa from 'papaparse'
@@ -93,7 +93,11 @@ export class CSVLoader extends React.Component {
     const { intl } = this.props;
     return(
       <div className='csv-loader'>
-        <p className='csv-title'><b><FormattedMessage id='csv.title'/></b></p>
+        <p className='csv-title'><b><FormattedMessage id='csv.title'/></b>
+        <Tooltip content={<FormattedMessage id='csv.info'/>}>
+          <Icon className='info-icon' icon='info-sign' iconSize='30'></Icon>
+        </Tooltip>
+        </p>
          <FileInput buttonText={intl.formatMessage({id:'t.search'})}
                   id='file-element'
                   fill='true'
