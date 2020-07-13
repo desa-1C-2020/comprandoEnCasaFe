@@ -13,6 +13,8 @@ export class TakeAwayDetails extends React.Component{
     }
     this.handleDateChange = this.handleDateChange.bind(this);
     this.isValidDate = this.isValidDate.bind(this);
+    this.formatDate = this.formatDate.bind(this);
+    this.addZeroes = this.addZeroes.bind(this);
   }
    
   componentDidMount(){
@@ -20,20 +22,13 @@ export class TakeAwayDetails extends React.Component{
   }
 
   handleDateChange(date){
-    this.setState({date: date})
-    if(this.isValidDate()){
-      //parse date y setearla en string
-      this.setState({isValidDate: true})
+    if(this.isValidDate(date)){
+      let strDate = this.formatDate(date);
+      this.props.updateDate(strDate);
+      this.setState({date: date, isValidDate: true, stringDate: strDate});
     } else {
-      this.setState({isValidDate: false})
+      this.setState({date: date, isValidDate: false});
     }
-    
-  }
-
-  //TODO - String con formato "yyyyMMdd:HHmmss"
-  componentDidUpdate(){
-    console.log(this.state.date)
-    // TODO - enviar al padre la fecha string
   }
 
   // TODO - verificar que sea valido segun los horarios del comercio
@@ -41,6 +36,26 @@ export class TakeAwayDetails extends React.Component{
     return true
   }
 
+  formatDate(date){
+    let d = new Date(date);
+    const year = d.getFullYear();
+    const month = this.addZeroes(d.getMonth().toString());
+    const day = this.addZeroes(d.getDate().toString());
+    const hour = this.addZeroes(d.getHours().toString());
+    const minute = this.addZeroes(d.getMinutes().toString());
+    const second = '00'
+    return(`${year}${month}${day}:${hour}${minute}${second}`)
+  }
+
+  addZeroes(string){
+    let newString = string;
+    if(string.length === 1){
+      newString = '0' + string;
+    }
+    return newString
+  }
+
+  // TODO - traducciones y estilos
   render(){
     const today = new Date();
     let maxDate = new Date();
