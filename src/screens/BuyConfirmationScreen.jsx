@@ -4,6 +4,8 @@ import { Button, Alert, RadioGroup, Radio } from '@blueprintjs/core'
 import { FormattedMessage } from 'react-intl'
 import '../styles/BuyConfirmationScreen.css'
 import { sendPurchase } from '../services/ProductService'
+import DeliveryDetails from '../forms/DeliveryDetails'
+import takeawayDetails, { TakeAwayDetails } from '../forms/TakeAwayDetails'
 
 export class BuyConfirmationScreen extends React.Component {
 
@@ -16,13 +18,15 @@ export class BuyConfirmationScreen extends React.Component {
       alertIntent: '',
       alertId: '',
       payment: 'CASH',
-      deliver: 'TAKE_AWAY'
+      deliver: 'TAKE_AWAY',
+      takeawayDetails: {},
+      deliveryDetails: {}
     }
     this.handleClose = this.handleClose.bind(this);
     this.createArray = this.createArray.bind(this);
     this.getShopIds = this.getShopIds.bind(this);
     this.generateShoppings = this.generateShoppings.bind(this);
-    this.createOptionsBoxes = this.createOptionsBoxes.bind(this);
+    this.createBoxes = this.createOptionsBoxes.bind(this);
     this.updateInfo = this.updateInfo.bind(this);
     this.doPurchase = this.doPurchase.bind(this);
     this.handleDelivery = this.handleDelivery.bind(this); 
@@ -47,6 +51,7 @@ export class BuyConfirmationScreen extends React.Component {
   }
   
   componentDidMount(){
+    //TODO - traer opciones para delivery y takeaway del back. Guardarlas en algún lado.
     const products = this.createArray();
     const shopIds = this.getShopIds(products);
     const myShoppings = this.generateShoppings(shopIds, products);
@@ -197,10 +202,13 @@ export class BuyConfirmationScreen extends React.Component {
             <Radio label="Delivery" value="DELIVERY" />
           </RadioGroup>
         </div>
-
-        {this.state.deliver === 'DELIVERY' && <div className='delivery-fee'>
-          <span className='delivery-text'><FormattedMessage id='delivery.fee'/></span>
-        </div>}
+        {this.state.deliver === 'DELIVERY' && <span>
+          <div className='delivery-fee'>
+            <span className='delivery-text'><FormattedMessage id='delivery.fee'/></span>
+          </div>
+          <div><DeliveryDetails/></div>
+        </span>}
+        {this.state.deliver === 'TAKE_AWAY' && <div><TakeAwayDetails/></div>}
         <div className='cart-radio'>
         <RadioGroup label={<FormattedMessage id='cart.pay.ops'/>}
             onChange={this.handlePayment}
@@ -211,6 +219,7 @@ export class BuyConfirmationScreen extends React.Component {
             <Radio label={<FormattedMessage id='cart.credit'/>} value="CREDIT" />
         </RadioGroup>
         </div>
+        <div style={{marginTop: '25px'}}>
           <Button intent='success' style={{marginRight: '20px'}}
                   onClick={this.doPurchase}>
             <FormattedMessage id='cart.confirmBuy'/>
@@ -219,6 +228,7 @@ export class BuyConfirmationScreen extends React.Component {
                   onClick={()=>this.props.close()}>
             <FormattedMessage id='t.goback'/>
           </Button>
+        </div>
         </div>
         <Alert isOpen={this.state.alert}
                confirmButtonText={<FormattedMessage id='t.accept'/>}
