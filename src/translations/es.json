@@ -142,5 +142,7 @@
   "toast.addwarning": "No pudimos validar la dirección, por favor verificala.",
   "toast.bye": "Te esperamos pronto!",
 
-  "delivery.fee": "La tarifa por delivery son $30 extra"
+  "delivery.fee": "La tarifa por delivery son $30 extra",
+  "delivery.title": "Elija día y hora para retirar sus productos:",
+  "delivery.error": "No es posible retirar en ese día/fecha"
 }

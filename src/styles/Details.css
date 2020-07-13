@@ -15,6 +15,17 @@
   margin-left: 80px;
 }
 
+.calendar-title{
+  font-size: 20px;
+}
+
+.calendar-error{
+  font-size: 20px;
+  background-color: rgb(238, 146, 130);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 20px;
+}
 
 @media (max-width: 700px) {
   .detail-container {

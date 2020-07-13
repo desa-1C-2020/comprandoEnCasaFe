@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/Details.css'
 import { DatePicker, TimePrecision } from "@blueprintjs/datetime";
+import { FormattedMessage } from 'react-intl'
 
 export class TakeAwayDetails extends React.Component{
 
@@ -62,7 +63,7 @@ export class TakeAwayDetails extends React.Component{
     maxDate.setDate(today.getDate() + 10)
     return(
       <div className='detail-container'>
-        <p>Elija día y hora para pasar por el comercio:</p>
+        <p className='calendar-title'><FormattedMessage id='delivery.title'/></p>
         <div className='calendar'>
           <DatePicker minDate={today} 
                       maxDate={maxDate}
@@ -71,7 +72,7 @@ export class TakeAwayDetails extends React.Component{
                       onChange={this.handleDateChange}>
           </DatePicker>
         </div>
-        {!this.state.isValidDate && <p>No es una fecha/hora hábil</p>}
+        {!this.state.isValidDate && <p className='calendar-error'><FormattedMessage id='delivery.error'/></p>}
       </div>
     )
   }
