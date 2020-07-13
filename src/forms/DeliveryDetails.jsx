@@ -1,10 +1,11 @@
 import React from 'react'
+import '../styles/Details.css'
 
 export class DeliveryDetails extends React.Component {
 
   render(){
     return(
-      <div>
+      <div className='detail-container'>
         delivery
       </div>
     )

@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import '../styles/BuyConfirmationScreen.css'
 import { sendPurchase } from '../services/ProductService'
 import DeliveryDetails from '../forms/DeliveryDetails'
-import takeawayDetails, { TakeAwayDetails } from '../forms/TakeAwayDetails'
+import { TakeAwayDetails } from '../forms/TakeAwayDetails'
 
 export class BuyConfirmationScreen extends React.Component {
 
@@ -19,8 +19,7 @@ export class BuyConfirmationScreen extends React.Component {
       alertId: '',
       payment: 'CASH',
       deliver: 'TAKE_AWAY',
-      takeawayDetails: {},
-      deliveryDetails: {}
+      suggestedDay: ''
     }
     this.handleClose = this.handleClose.bind(this);
     this.createArray = this.createArray.bind(this);
@@ -51,7 +50,6 @@ export class BuyConfirmationScreen extends React.Component {
   }
   
   componentDidMount(){
-    //TODO - traer opciones para delivery y takeaway del back. Guardarlas en algún lado.
     const products = this.createArray();
     const shopIds = this.getShopIds(products);
     const myShoppings = this.generateShoppings(shopIds, products);
@@ -132,18 +130,18 @@ export class BuyConfirmationScreen extends React.Component {
    return total;
   }
 
-  //TODO - devolver algo elegido por el comprador
   generateDeliveryOption(){
+    const products = Array.from(JSON.parse(localStorage.getItem('usercart')).cart);
     let options = {}
     if(this.state.deliver === 'TAKE_AWAY'){
       options = {
-        commercesId: [], //lista de longs con los id de los shop
-        suggestedDay: '' //String con formato "yyyyMMdd:HHmmss"
+        commercesId: this.getShopIds(products),
+        suggestedDay: this.state.suggestedDay
       }
     } else {
       options = {
-        commercesId: [], //lista de longs con los id de los shop
-        //??
+        commercesId: this.getShopIds(products),
+        //TODO - Delivery TO?
       }
     }
     return options;
@@ -156,7 +154,6 @@ export class BuyConfirmationScreen extends React.Component {
     const bodyProducts = this.generateItemByCommerce(shoppings);
     const shoppingListTO = {
       itemByCommerceTo: bodyProducts,
-      creationDataTime: (new Date()), //TODO - con qué formato??
       total: this.calculateTotal()
     }
     return shoppingListTO;
