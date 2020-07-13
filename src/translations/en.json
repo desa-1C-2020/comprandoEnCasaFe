@@ -139,5 +139,7 @@
   "toast.updatefail": "😔 We couldn't update your  ",
   "toast.latlgn": "latitude and longitude",
   "toast.addwarning": "We couldn't validate you address, please verify it.",
-  "toast.bye": "See you soon!"
+  "toast.bye": "See you soon!",
+
+  "delivery.fee": "The delivery fee is $30 extra"
 } 

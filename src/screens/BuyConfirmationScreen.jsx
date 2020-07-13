@@ -103,12 +103,12 @@ export class BuyConfirmationScreen extends React.Component {
   }
 
   doPurchase(){
-    //TODO-sumarle 30 pe al total, si usa delivery
+    let deliverFee = this.state.deliver === 'TAKE_AWAY' ? 0 : 30;
     const body = {
       shoppingListTO: this.generateShoppingListTO(),
       selectedPaymentMethod: this.state.payment,
       deliveryOption: this.generateDeliveryOption(),
-      total: this.calculateTotal()
+      total: (this.calculateTotal() + deliverFee)
     }
     sendPurchase(body, this.state.deliver, (err, res)=> {
       if(err){
@@ -197,6 +197,10 @@ export class BuyConfirmationScreen extends React.Component {
             <Radio label="Delivery" value="DELIVERY" />
           </RadioGroup>
         </div>
+
+        {this.state.deliver === 'DELIVERY' && <div className='delivery-fee'>
+          <span className='delivery-text'><FormattedMessage id='delivery.fee'/></span>
+        </div>}
         <div className='cart-radio'>
         <RadioGroup label={<FormattedMessage id='cart.pay.ops'/>}
             onChange={this.handlePayment}

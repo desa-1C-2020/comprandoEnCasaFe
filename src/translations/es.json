@@ -140,5 +140,7 @@
   "toast.updatefail": "😔 No pudimos actualizar tu ",
   "toast.latlgn": "latitud y longitud",
   "toast.addwarning": "No pudimos validar la dirección, por favor verificala.",
-  "toast.bye": "Te esperamos pronto!"
+  "toast.bye": "Te esperamos pronto!",
+
+  "delivery.fee": "La tarifa por delivery son $30 extra"
 }
