@@ -33,7 +33,7 @@ export function searchProduct(text, maxRange) {
 }
 
 // TODO - implementar
-export function sendPurchase(purchases, callback) {
+export function sendPurchase(purchases, delivery, callback) {
     //purchases es una lista con obj que incluye el id de comercio, y los productos a comprar.
     callback('', null);
 }

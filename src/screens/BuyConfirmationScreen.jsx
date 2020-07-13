@@ -15,8 +15,8 @@ export class BuyConfirmationScreen extends React.Component {
       alert: false,
       alertIntent: '',
       alertId: '',
-      payment: 'money',
-      deliver: 'takeaway'
+      payment: 'CASH',
+      deliver: 'TAKE_AWAY'
     }
     this.handleClose = this.handleClose.bind(this);
     this.createArray = this.createArray.bind(this);
@@ -27,6 +27,11 @@ export class BuyConfirmationScreen extends React.Component {
     this.doPurchase = this.doPurchase.bind(this);
     this.handleDelivery = this.handleDelivery.bind(this); 
     this.handlePayment = this.handlePayment.bind(this);
+    this.calculateTotal = this.calculateTotal.bind(this);
+    this.generateDeliveryOption = this.generateDeliveryOption.bind(this);
+    this.generateShoppingListTO = this.generateShoppingListTO.bind(this);
+    this.generateItemByCommerce = this.generateItemByCommerce.bind(this);
+    this.generateItemList = this.generateItemList.bind(this);
   }
 
   handleDelivery(e){
@@ -97,30 +102,84 @@ export class BuyConfirmationScreen extends React.Component {
     this.setState({options: ops});
   }
 
-  // TODO - faltan definiciones para hacer esto
   doPurchase(){
-    const shopsIds = Array.from(this.state.options.keys());
-    const purchases = [];
-    shopsIds.forEach((id) => {
-      //obtener productos del localStorage que tengan este shop ID
-      let products = [];
-      //Armo el purchase para la tienda [FALTA DEFINIR EL FORMATO DE ESTO!]
-      let purchase = {
-        shopId: id,
-        items: products 
+    //TODO-sumarle 30 pe al total, si usa delivery
+    const body = {
+      shoppingListTO: this.generateShoppingListTO(),
+      selectedPaymentMethod: this.state.payment,
+      deliveryOption: this.generateDeliveryOption(),
+      total: this.calculateTotal()
+    }
+    sendPurchase(body, this.state.deliver, (err, res)=> {
+      if(err){
+        //this.setState({alert: true, alertId: 'cart.error', alertIntent: 'danger'})
+      } else{
+        console.log(body);
+        //this.setState({alert: true, alertId: 'cart.success', alertIntent: 'success'})
       }
-      purchases.push(purchase);
+    })  
+  }
+
+  calculateTotal(){
+   const products = Array.from(JSON.parse(localStorage.getItem('usercart')).cart);
+   let total = 0;
+   products.forEach((p) =>{total = total + (p.product.price * p.ammount);})
+   return total;
+  }
+
+  //TODO - devolver algo elegido por el comprador
+  generateDeliveryOption(){
+    let options = {}
+    if(this.state.deliver === 'TAKE_AWAY'){
+      options = {
+        commercesId: [], //lista de longs con los id de los shop
+        suggestedDay: '' //String con formato "yyyyMMdd:HHmmss"
+      }
+    } else {
+      options = {
+        commercesId: [], //lista de longs con los id de los shop
+        //??
+      }
+    }
+    return options;
+  }
+
+  generateShoppingListTO(){
+    const products = this.createArray();
+    const shopIds = this.getShopIds(products);
+    const shoppings = this.generateShoppings(shopIds, products);
+    const bodyProducts = this.generateItemByCommerce(shoppings);
+    const shoppingListTO = {
+      itemByCommerceTo: bodyProducts,
+      creationDataTime: (new Date()), //TODO - con qué formato??
+      total: this.calculateTotal()
+    }
+    return shoppingListTO;
+  }
+
+  generateItemByCommerce(shops){
+    const items = [];
+    shops.forEach((shop) => {
+      let item = {
+        commerceId: shop.shopId,
+        items: this.generateItemList(shop.buyList)
+      }
+      items.push(item);
     })
-    sendPurchase(purchases, (err, res) =>{
-      if(err) {
-        this.setState({alert: true, alertId: 'cart.error', alertIntent: 'danger'})
-      } 
-      else {
-        //guardo la compra, llamado al back no definido
-        //si sale bien, levanto alert OK [falta definir como es esto]
-        this.setState({alert: true, alertId: 'cart.success', alertIntent: 'success'})
+    return items;
+  }
+
+  generateItemList(buyList){
+    const itemList = [];
+    buyList.forEach((item) =>{
+      let i = {
+        productId: item.product.productId,
+        quantity: item.ammount,
+        price: item.product.price
       }
-    });
+      itemList.push(i)
+    })
+    return itemList;
   }
 
   render(){
@@ -134,8 +193,8 @@ export class BuyConfirmationScreen extends React.Component {
             onChange={this.handleDelivery}
             selectedValue={this.state.deliver}
             inline='true'>
-            <Radio label="Take Away" value="takeaway" />
-            <Radio label="Delivery" value="delivery" />
+            <Radio label="Take Away" value="TAKE_AWAY" />
+            <Radio label="Delivery" value="DELIVERY" />
           </RadioGroup>
         </div>
         <div className='cart-radio'>
@@ -143,9 +202,9 @@ export class BuyConfirmationScreen extends React.Component {
             onChange={this.handlePayment}
             selectedValue={this.state.payment}
             inline='true'>
-            <Radio label={<FormattedMessage id='cart.money'/>} value="money" />
-            <Radio label={<FormattedMessage id='cart.debit'/>} value="debit" />
-            <Radio label={<FormattedMessage id='cart.credit'/>} value="credit" />
+            <Radio label={<FormattedMessage id='cart.money'/>} value="CASH" />
+            <Radio label={<FormattedMessage id='cart.debit'/>} value="DEBIT" />
+            <Radio label={<FormattedMessage id='cart.credit'/>} value="CREDIT" />
         </RadioGroup>
         </div>
           <Button intent='success' style={{marginRight: '20px'}}

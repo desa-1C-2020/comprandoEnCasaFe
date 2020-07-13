@@ -38,7 +38,6 @@ export class DeliveryPayOptions extends React.Component{
 
   render(){
     const item = this.props.info.buyList[0].product
-    console.log(this.props.info.buyList)
     return(
       <div className='dpo-container'>
         <p className='dpo-title'>

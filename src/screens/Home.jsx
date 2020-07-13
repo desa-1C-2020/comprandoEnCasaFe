@@ -8,7 +8,6 @@ import { withRouter } from 'react-router-dom';
 export class Home extends React.Component {
 
   render(){
-    const { intl } = this.props;
     return(
       <div className="login-container" style={{textAlign: 'center'}}>
 					<h1 className="login-title"><FormattedMessage id='login.intro'/></h1>
