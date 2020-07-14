@@ -110,7 +110,7 @@ export class BuyConfirmationScreen extends React.Component {
         if (this.state.suggestedDay !== '') {
             let deliverFee = this.state.deliver === 'TAKE_AWAY' ? 0 : 30;
             const body = {
-                shoppingListTO: this.generateShoppingListTO(),
+                shoppingListTo: this.generateShoppingListTO(),
                 selectedPaymentMethod: this.state.payment,
                 deliveryOption: this.generateDeliveryOption(),
                 total: (this.calculateTotal() + deliverFee)
