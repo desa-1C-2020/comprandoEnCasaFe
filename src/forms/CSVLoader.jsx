@@ -1,99 +1,113 @@
 import React from 'react'
-import { FileInput, Button, Alert, Spinner } from '@blueprintjs/core';
+import { FileInput, Button, Alert, Spinner, Icon, Tooltip } from '@blueprintjs/core';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { saveProduct } from '../services/SellerService';
-import * as Papa from 'papaparse'
-import '../styles/CSVLoader.css'
+import { saveProduct, saveProductsBatch } from '../services/SellerService';
+import * as Papa from 'papaparse';
+import '../styles/CSVLoader.css';
 
 export class CSVLoader extends React.Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      isLoaded: false,
-      uploading: false,
-      productArray: [],
-      fileName: '',
-      totalProducts: 0,
-      alert: false,
-      alertMsg: 'csv.success',
-      alertIntent: 'success'
-    }
-    this.handleReadCSV = this.handleReadCSV.bind(this);
-    this.uploadProducts = this.uploadProducts.bind(this);
-    this.resetState = this.resetState.bind(this);
-  }
-
- handleReadCSV(event){
-    if(event.target.files) {
-      const name = event.target.files[0].name
-      Papa.parse(event.target.files[0], {
-        complete: function(results) {
-          let products = results.data;
-          let lastElem = results.data.length;
-          products.splice(lastElem-1,1);
-          products.splice(0,1);
-          this.setState({productArray: products, 
-                        fileName: name, 
-                        isLoaded: true,
-                        totalProducts: products.length});
-        }.bind(this)
-      });
-    }
-  }
-
-  uploadProducts(){
-    const products = this.state.productArray;
-    const total = products.length;
-    let index = 1;
-    this.setState({uploading: true})
-    products.forEach((product)=>{
-      let productBody = {
-        name: product[0],
-        brand: product[1],
-        stock: parseInt(product[2]),
-        price: parseFloat(product[3]),
-        imageUrl: product[4]
-      }
-      saveProduct(productBody).then(()=>{
-        index = index + 1;
-        if(total === index){
-          this.setState({
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoaded: false,
             uploading: false,
-            alert: true,
+            productArray: [],
+            fileName: '',
+            totalProducts: 0,
+            alert: false,
             alertMsg: 'csv.success',
             alertIntent: 'success'
-          });
-        }
-      }).catch(
-        this.setState({
-          uploading: false,
-          alert: true,
-          alertMsg: 't.error',
-          alertIntent: 'danger'
-        })
-      )
-    })
-  }
+        };
+        this.handleReadCSV = this.handleReadCSV.bind(this);
+        this.uploadProducts = this.uploadProducts.bind(this);
+        this.resetState = this.resetState.bind(this);
+    }
 
-  resetState(){
-    this.setState({
-      isLoaded: false,
-      uploading: false,
-      productArray: [],
-      fileName: '',
-      totalProducts: 0,
-      alert: false,
-      alertMsg: 'csv.success',
-      alertIntent: 'success'
-    })
-  }
+    handleReadCSV(event) {
+        if (event.target.files) {
+            const name = event.target.files[0].name;
+            Papa.parse(event.target.files[0], {
+                complete: function (results) {
+                    let products = results.data;
+                    let lastElem = results.data.length;
+                    products.splice(lastElem - 1, 1);
+                    products.splice(0, 1);
+                    this.setState({
+                        productArray: products,
+                        fileName: name,
+                        isLoaded: true,
+                        totalProducts: products.length
+                    });
+                }.bind(this)
+            });
+        }
+    }
+
+    getProductList(productsObjet) {
+        const total = productsObjet.length;
+        let index = 1;
+        return productsObjet.map(productObject => {
+            const productParts = productObject[0].split('|');
+            return {
+                name: productParts[0],
+                brand: productParts[1],
+                stock: parseInt(productParts[2]),
+                price: parseFloat(productParts[3]),
+                imageUrl: productParts[4]
+            };
+        });
+    }
+
+    uploadProducts() {
+        const productsObjet = this.state.productArray;
+        this.setState({ uploading: true });
+
+        const productList = this.getProductList(productsObjet);
+
+        console.log(productList);
+
+        saveProductsBatch(productList)
+            .then(() => {
+                this.setState({
+                    uploading: false,
+                    alert: true,
+                    alertMsg: 'csv.success',
+                    alertIntent: 'success'
+                });
+
+            }).catch(
+            this.setState({
+                uploading: false,
+                alert: true,
+                alertMsg: 't.error',
+                alertIntent: 'danger'
+            })
+        );
+    }
+
+    resetState() {
+        this.setState({
+            isLoaded: false,
+            uploading: false,
+            productArray: [],
+            fileName: '',
+            totalProducts: 0,
+            alert: false,
+            alertMsg: 'csv.success',
+            alertIntent: 'success'
+        });
+    }
 
   render(){
     const { intl } = this.props;
     return(
       <div className='csv-loader'>
-        <p className='csv-title'><b><FormattedMessage id='csv.title'/></b></p>
+        <p className='csv-title'><b><FormattedMessage id='csv.title'/></b>
+        <Tooltip content={<FormattedMessage id='csv.info'/>}>
+          <Icon className='info-icon' icon='info-sign' iconSize='30'></Icon>
+        </Tooltip>
+        </p>
          <FileInput buttonText={intl.formatMessage({id:'t.search'})}
                   id='file-element'
                   fill='true'

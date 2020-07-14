@@ -135,6 +135,7 @@
   "csv.success": "The products were loaded successfully",
   "csv.search": "Select a file",
   "csv.load": "Upload products",
+  "csv.info": "The required fields (in order) are the following: name, brand, stock, price, imageUrl. Divided using pipes (|)"
 
   "toast.update": "😀 Thank you for updating your ",
   "toast.updatefail": "😔 We couldn't update your  ",
@@ -149,4 +150,5 @@
   "delivery.suggested": "Your turn is on ",
   "delivery.arrive": "You will recieve your products on ",
   "delivery.at": " at "
+
 } 
