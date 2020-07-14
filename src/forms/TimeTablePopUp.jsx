@@ -62,8 +62,8 @@ export class TimeTablePopUp extends React.Component {
       let f = parseInt(day.from)
       let t = parseInt(day.to)
       return (
-        f !== '' && t !== '' && f < t &&
-        f < 25 && f >= 0 && t < 25 && t >= 0
+        f !== '' && t !== '' && 
+        f < 24 && f >= 0 && t < 24 && t >= 0
       )
     } else {
       return true
@@ -73,12 +73,17 @@ export class TimeTablePopUp extends React.Component {
   zipTimetable(){
     const days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
     const zipped = []
+    let index = 1;
     days.forEach((d) =>{
-      let day = this.state[d]
+      let day = this.state[d];
       if(day.open){
-        let dayString = `${d}-${day.from}-${day.to}`
-        zipped.push(dayString)
+        let dayTO = {
+          dayOfWeek: index,
+          timeRanges: [day.from,day.to]
+        }
+        zipped.push(dayTO);
       }
+      index = index + 1;
     })
     return zipped;
   }

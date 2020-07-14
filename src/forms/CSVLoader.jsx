@@ -63,8 +63,6 @@ export class CSVLoader extends React.Component {
 
         const productList = this.getProductList(productsObjet);
 
-        console.log(productList);
-
         saveProductsBatch(productList)
             .then(() => {
                 this.setState({
