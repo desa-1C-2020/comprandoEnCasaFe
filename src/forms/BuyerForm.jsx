@@ -15,7 +15,6 @@ export class BuyerForm extends Component {
                 number: '',
                 city: ''
             }
-
         };
         this.handleAddressChange = this.handleAddressChange.bind(this);
     }

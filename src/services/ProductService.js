@@ -33,12 +33,6 @@ export function searchProduct(text, maxRange) {
 }
 
 // TODO - implementar
-export function sendPurchase(purchases, callback) {
-    //purchases es una lista con obj que incluye el id de comercio, y los productos a comprar.
-    callback('', null);
-}
-
-// TODO - implementar
 export function getHistory(userId, callback) {
     // Devuelve una lista de 'compras'
 

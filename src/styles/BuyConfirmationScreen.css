@@ -11,6 +11,24 @@
   border: solid green;
 }
 
+.cart-radio {
+  font-size: 15px;
+  margin-top:20px;
+}
+
+.delivery-fee {
+  font-size: 12px;
+}
+
+.delivery-text {
+  background-color: rgb(252, 174, 174);
+  padding-top: 2px;
+  padding-right: 2px;
+  padding-left: 2px;
+  padding-bottom: 2px;
+  border-radius: 5px;
+}
+
 @media (max-width: 700px) {
   .bcs-title {
     width: 90%;

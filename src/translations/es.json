@@ -46,6 +46,7 @@
   "login.error.password": "Por favor, ingrese su contraseña",
   "login.google": "Ingresar con Google",
   "login.fb": "Ingresar con Facebook",
+  "login.enter": "Ingresar",
 
   "register.title": "Bienvenido a Comprando en Casa",
   "register.subtitle": "¿Cómo quiere registrarse?",
@@ -105,14 +106,19 @@
   "cart.total": "Total: ",
   "cart.totalshop": "Total a pagar en la tienda: ",
   "cart.buy": "COMPRAR",
-  "cart.del": "Entrega",
+  "cart.del": "Distancia desde mi domicilio: ",
   "cart.money": "Efectivo",
   "cart.debit": "Débito",
   "cart.credit": "Crédito",
-  "cart.confirmTitle": "Elija opciones de envío y pago para cada comercio",
+  "cart.confirmTitle": "Elija opciones de envío y pago",
   "cart.confirmBuy": "Realizar compra",
   "cart.success": "Compra realizada correctamente",
   "cart.error": "Algo salió mal, intente más tarde.",
+  "cart.date.error": "Sugiera una fecha antes de confirmar la compra.",
+  "cart.quant": "Cantidad de productos: ",
+  "cart.del.ops": "Opciones de envío",
+  "cart.pay.ops": "Opciones de pago",
+  "cart.resume": "Mi resumen",
 
   "ph.more": "Más info",
   "ph.less": "Menos info",
@@ -131,4 +137,19 @@
   "csv.search": "Seleccione un archivo",
   "csv.load": "Cargar productos",
   "csv.info": "Los campos necesarios son los siguientes, en el siguiente orden: name, brand, stock, price, imageUrl. Separados por pipes (|)"
+
+  "toast.update": "😀 Gracias por actualizar tu ",
+  "toast.updatefail": "😔 No pudimos actualizar tu ",
+  "toast.latlgn": "latitud y longitud",
+  "toast.addwarning": "No pudimos validar la dirección, por favor verificala.",
+  "toast.bye": "Te esperamos pronto!",
+
+  "delivery.fee": "La tarifa por delivery son $30 extra",
+  "delivery.title": "Sugiera un día y hora para retirar sus productos para obtener un turno",
+  "delivery.error": "No es posible retirar en ese día/fecha",
+  "delivery.validate": "Sugerir",
+  "delivery.suggested": "Su turno es el día ",
+  "delivery.arrive": "Su pedido llegará el ",
+  "delivery.at": " a las "
+
 }

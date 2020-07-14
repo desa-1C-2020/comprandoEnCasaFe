@@ -1,49 +1,70 @@
 import React from 'react'
 import DeliveryPayOptions from '../components/DeliveryPayOptions'
-import { Button, Alert } from '@blueprintjs/core'
+import { Button, Alert, RadioGroup, Radio } from '@blueprintjs/core'
 import { FormattedMessage } from 'react-intl'
 import '../styles/BuyConfirmationScreen.css'
-import { sendPurchase } from '../services/ProductService'
+import { sendPurchase } from '../services/PurchaseService'
+import DeliveryDetails from '../forms/DeliveryDetails'
+import { TakeAwayDetails } from '../forms/TakeAwayDetails'
 
 export class BuyConfirmationScreen extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       options: {},
       components: [],
       alert: false,
       alertIntent: '',
-      alertId: ''
+      alertId: '',
+      payment: 'CASH',
+      deliver: 'TAKE_AWAY',
+      suggestedDay: ''
     }
     this.handleClose = this.handleClose.bind(this);
     this.createArray = this.createArray.bind(this);
     this.getShopIds = this.getShopIds.bind(this);
     this.generateShoppings = this.generateShoppings.bind(this);
-    this.createOptionsBoxes = this.createOptionsBoxes.bind(this);
+    this.createBoxes = this.createOptionsBoxes.bind(this);
     this.updateInfo = this.updateInfo.bind(this);
     this.doPurchase = this.doPurchase.bind(this);
+    this.handleDelivery = this.handleDelivery.bind(this);
+    this.handlePayment = this.handlePayment.bind(this);
+    this.calculateTotal = this.calculateTotal.bind(this);
+    this.generateDeliveryOption = this.generateDeliveryOption.bind(this);
+    this.generateShoppingListTO = this.generateShoppingListTO.bind(this);
+    this.generateItemByCommerce = this.generateItemByCommerce.bind(this);
+    this.generateItemList = this.generateItemList.bind(this);
+    this.handleSuggestedDay = this.handleSuggestedDay.bind(this);
   }
-  
-  handleClose(){
+
+  handleDelivery(e) {
+    this.setState({ deliver: e.target.value })
+  }
+
+  handlePayment(e) {
+    this.setState({ payment: e.target.value })
+  }
+
+  handleClose() {
     this.props.close();
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
     const products = this.createArray();
     const shopIds = this.getShopIds(products);
     const myShoppings = this.generateShoppings(shopIds, products);
     const components = this.createOptionsBoxes(myShoppings);
     const options = new Map();
-    this.setState({components: components, options: options});
+    this.setState({ components: components, options: options });
   }
 
-  createArray(){
+  createArray() {
     const shoppings = Array.from(JSON.parse(localStorage.getItem('usercart')).cart);
     return shoppings;
   }
 
-  generateShoppings(shopIds, products){
+  generateShoppings(shopIds, products) {
     const myShoppings = [];
     shopIds.forEach((id) => {
       myShoppings.push({
@@ -53,91 +74,172 @@ export class BuyConfirmationScreen extends React.Component {
     })
     products.forEach((p) => {
       myShoppings.forEach((shop) => {
-        if(shop.shopId === p.product.commerceId) shop.buyList.push(p);
+        if (shop.shopId === p.product.commerceId) shop.buyList.push(p);
       })
     })
     return myShoppings;
   }
 
-  getShopIds(products){
+  getShopIds(products) {
     const ids = [];
     products.forEach(element => {
       let id = element.product.commerceId;
-      if(!ids.includes(id)) ids.push(id);
+      if (!ids.includes(id)) ids.push(id);
     })
     return ids;
   }
 
-  createOptionsBoxes(myShoppings){
+  createOptionsBoxes(myShoppings) {
     const shops = []
     let key = 7000;
     myShoppings.forEach((shop) => {
-      let e = <DeliveryPayOptions key={key} info={shop} updateInfo={this.updateInfo}/>
+      let e = <DeliveryPayOptions key={key} info={shop} updateInfo={this.updateInfo} />
       shops.push(e);
       key = key + 1;
     })
     return shops;
   }
 
-  updateInfo(info){
+  updateInfo(info) {
     const ops = this.state.options;
     ops.set(info.shopId, info);
-    this.setState({options: ops});
+    this.setState({ options: ops });
   }
 
-  // TODO - faltan definiciones para hacer esto
-  doPurchase(){
-    const shopsIds = Array.from(this.state.options.keys());
-    const purchases = [];
-    shopsIds.forEach((id) => {
-      //obtener productos del localStorage que tengan este shop ID
-      let products = [];
-      //Armo el purchase para la tienda [FALTA DEFINIR EL FORMATO DE ESTO!]
-      let purchase = {
-        shopId: id,
-        items: products 
+  doPurchase() {
+    if (this.state.suggestedDay !== '') {
+      let deliverFee = this.state.deliver === 'TAKE_AWAY' ? 0 : 30;
+      const body = {
+        shoppingListTO: this.generateShoppingListTO(),
+        selectedPaymentMethod: this.state.payment,
+        deliveryOption: this.generateDeliveryOption(),
+        total: (this.calculateTotal() + deliverFee)
       }
-      purchases.push(purchase);
+      sendPurchase(body, this.state.deliver, (err, _res) => {
+        if (err) {
+          this.setState({alert: true, alertId: 'cart.error', alertIntent: 'danger'})
+        } else {
+          this.setState({alert: true, alertId: 'cart.success', alertIntent: 'success'})
+        }
+      })
+    } else {
+      this.setState({alert: true, alertId: 'cart.date.error', alertIntent: 'danger'})
+    }
+  }
+
+  calculateTotal() {
+    const products = Array.from(JSON.parse(localStorage.getItem('usercart')).cart);
+    let total = 0;
+    products.forEach((p) => { total = total + (p.product.price * p.ammount); })
+    return total;
+  }
+
+  generateDeliveryOption() {
+    let options = {
+      type: this.state.deliver,
+      suggestedDay: this.state.suggestedDay
+    }
+    return options;
+  }
+
+  generateShoppingListTO() {
+    const products = this.createArray();
+    const shopIds = this.getShopIds(products);
+    const shoppings = this.generateShoppings(shopIds, products);
+    const bodyProducts = this.generateItemByCommerce(shoppings);
+    const shoppingListTO = {
+      itemByCommerceTo: bodyProducts,
+      total: this.calculateTotal()
+    }
+    return shoppingListTO;
+  }
+
+  generateItemByCommerce(shops) {
+    const items = [];
+    shops.forEach((shop) => {
+      let item = {
+        commerceId: shop.shopId,
+        items: this.generateItemList(shop.buyList)
+      }
+      items.push(item);
     })
-    sendPurchase(purchases, (err, res) =>{
-      if(err) {
-        this.setState({alert: true, alertId: 'cart.error', alertIntent: 'danger'})
-      } 
-      else {
-        //guardo la compra, llamado al back no definido
-        //si sale bien, levanto alert OK [falta definir como es esto]
-        this.setState({alert: true, alertId: 'cart.success', alertIntent: 'success'})
-      }
-    });
+    return items;
   }
 
-  render(){
-    return(
-      <div style={{marginBottom: '50px'}}>
-        <p className='bcs-title'><FormattedMessage id='cart.confirmTitle'/></p>
+  generateItemList(buyList) {
+    const itemList = [];
+    buyList.forEach((item) => {
+      let i = {
+        productId: item.product.productId,
+        quantity: item.ammount,
+        price: item.product.price
+      }
+      itemList.push(i)
+    })
+    return itemList;
+  }
+
+  handleSuggestedDay(dateString) {
+    this.setState({ suggestedDay: dateString });
+  }
+
+  render() {
+    return (
+      <div style={{ marginBottom: '50px' }}>
+        <p className='bcs-title'><FormattedMessage id='cart.confirmTitle' /></p>
         {this.state.components}
         <div className='bcs-title'>
-          <Button intent='success' style={{marginRight: '20px'}}
-                  onClick={this.doPurchase}>
-            <FormattedMessage id='cart.confirmBuy'/>
-          </Button>
-          <Button intent='danger'
-                  onClick={()=>this.props.close()}>
-            <FormattedMessage id='t.goback'/>
-          </Button>
+          <div className='cart-radio'>
+            <RadioGroup label={<FormattedMessage id='cart.del.ops' />}
+              onChange={this.handleDelivery}
+              selectedValue={this.state.deliver}
+              inline='true'>
+              <Radio label="Take Away" value="TAKE_AWAY" />
+              <Radio label="Delivery" value="DELIVERY" />
+            </RadioGroup>
+          </div>
+          {this.state.deliver === 'DELIVERY' && <span>
+            <div className='delivery-fee'>
+              <span className='delivery-text'><FormattedMessage id='delivery.fee' /></span>
+            </div>
+            <div><DeliveryDetails updateDate={this.handleSuggestedDay}/></div>
+          </span>}
+          {this.state.deliver === 'TAKE_AWAY' && <div>
+            <TakeAwayDetails updateDate={this.handleSuggestedDay} ids={this.getShopIds(this.createArray())}/>
+          </div>}
+          <div className='cart-radio'>
+            <RadioGroup label={<FormattedMessage id='cart.pay.ops' />}
+              onChange={this.handlePayment}
+              selectedValue={this.state.payment}
+              inline='true'>
+              <Radio label={<FormattedMessage id='cart.money' />} value="CASH" />
+              <Radio label={<FormattedMessage id='cart.debit' />} value="DEBIT" />
+              <Radio label={<FormattedMessage id='cart.credit' />} value="CREDIT" />
+            </RadioGroup>
+          </div>
+          <div style={{ marginTop: '25px' }}>
+            <Button intent='success' style={{ marginRight: '20px' }}
+              onClick={this.doPurchase}>
+              <FormattedMessage id='cart.confirmBuy' />
+            </Button>
+            <Button intent='danger'
+              onClick={() => this.props.close()}>
+              <FormattedMessage id='t.goback' />
+            </Button>
+          </div>
         </div>
         <Alert isOpen={this.state.alert}
-               confirmButtonText={<FormattedMessage id='t.accept'/>}
-               intent={this.state.alertIntent}
-							 icon={this.state.alertIntent === 'danger' ? 'error' : 'endorsed'}
-               onClose={() => {
-                 if(this.state.alertIntent === 'success'){
-                  this.props.success();
-                 } else {
-                  this.setState({alert: false})
-                 }
-               }}>
-          <FormattedMessage id={this.state.alertId}/>
+          confirmButtonText={<FormattedMessage id='t.accept' />}
+          intent={this.state.alertIntent}
+          icon={this.state.alertIntent === 'danger' ? 'error' : 'endorsed'}
+          onClose={() => {
+            if (this.state.alertIntent === 'success') {
+              this.props.success();
+            } else {
+              this.setState({ alert: false })
+            }
+          }}>
+          <FormattedMessage id={this.state.alertId} />
         </Alert>
       </div>
     )

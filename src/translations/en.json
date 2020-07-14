@@ -45,6 +45,7 @@
   "login.error.password": "Please, enter your password",
   "login.google": "Log in with Google",
   "login.fb": "Log in with Facebook",
+  "login.enter": "Enter",
 
   "register.title": "Welcome to Comprando en Casa",
   "register.subtitle": "How would you like to register?",
@@ -104,14 +105,19 @@
   "cart.total": "Total: ",
   "cart.totalshop": "Total to pay in shop: ",
   "cart.buy": "BUY",
-  "cart.del": "Delivery",
+  "cart.del": "Distance from my home: ",
   "cart.money": "Cash",
   "cart.debit": "Debit",
   "cart.credit": "Credit",
-  "cart.confirmTitle": "Choose delivery and payment options for each commerce",
+  "cart.confirmTitle": "Choose delivery and payment options",
   "cart.confirmBuy": "Confirm purchase",
   "cart.success": "Purchase completed successfully.",
   "cart.error": "Something went wrong, try again later.",
+  "cart.date.error": "Suggest a date before confirming the purchase.",
+  "cart.quant": "Quantity of products: ",
+  "cart.del.ops": "Delivery options",
+  "cart.pay.ops": "Payment options",
+  "cart.resume": "My resume",
 
   "ph.more": "More info",
   "ph.less": "Less info",
@@ -130,4 +136,19 @@
   "csv.search": "Select a file",
   "csv.load": "Upload products",
   "csv.info": "The required fields (in order) are the following: name, brand, stock, price, imageUrl. Divided using pipes (|)"
+
+  "toast.update": "😀 Thank you for updating your ",
+  "toast.updatefail": "😔 We couldn't update your  ",
+  "toast.latlgn": "latitude and longitude",
+  "toast.addwarning": "We couldn't validate you address, please verify it.",
+  "toast.bye": "See you soon!",
+
+  "delivery.fee": "The delivery fee is $30 extra",
+  "delivery.title": "Suggest a date and time to pick up your products to get a turn",
+  "delivery.error": "It's not posible to pick up your products this date/hour",
+  "delivery.validate": "Suggest",
+  "delivery.suggested": "Your turn is on ",
+  "delivery.arrive": "You will recieve your products on ",
+  "delivery.at": " at "
+
 } 
