@@ -149,6 +149,13 @@
   "delivery.validate": "Suggest",
   "delivery.suggested": "Your turn is on ",
   "delivery.arrive": "You will recieve your products on ",
-  "delivery.at": " at "
+  "delivery.at": " at ",
+
+  "seller.h.state": "Purchase status: ",
+  "seller.h.conf": "Confirm purchase",
+  "seller.h.canc": "Cancel purchase",
+  "seller.h.pending": "PENDING",
+  "seller.h.canceled": "CANCELED",
+  "seller.h.confirmed": "CONFIRMED"
 
 } 

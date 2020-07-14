@@ -150,6 +150,13 @@
   "delivery.validate": "Sugerir",
   "delivery.suggested": "Su turno es el día ",
   "delivery.arrive": "Su pedido llegará el ",
-  "delivery.at": " a las "
+  "delivery.at": " a las ",
+
+  "seller.h.state": "Estado de la compra: ",
+  "seller.h.conf": "Confirmar compra",
+  "seller.h.canc": "Cancelar compra",
+  "seller.h.pending": "PENDIENTE",
+  "seller.h.canceled": "CANCELADO",
+  "seller.h.confirmed": "CONFIRMADO"
 
 }

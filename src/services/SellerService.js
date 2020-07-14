@@ -39,6 +39,14 @@ export function getAllProducts() {
     });
 }
 
+//TODO - implementar esto!
+export function updateSale() {
+    // return secureRequest({
+    //  //   url: API_BASE_URL + '/seller/products',
+    //  //   method: 'GET'
+    // });
+}
+
 //TODO - implementar esto
 export function getSales(userId, callback) {
     // MOCKS
