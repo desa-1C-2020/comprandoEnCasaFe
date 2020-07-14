@@ -76,7 +76,6 @@ class RegisterScreen extends React.Component {
             daysAndHoursOpen: sellerInfo.daysAndHoursOpen,
             arrivalRange: sellerInfo.arrivalRange
         };
-
         this.updateUser(() => registerSeller(commerce),
             this.isValidSeller() && this.isValidAddress() && this.hasAddressLocation(), 'comercio');
     }
@@ -149,7 +148,7 @@ class RegisterScreen extends React.Component {
     isValidSeller() {
         const seller = this.state.sellerInfo;
         return seller !== undefined && seller.commerceName !== '' && seller.commerceBussinessSector !== ''
-            && seller.arrivalRange !== '' && seller.daysAndHoursOpen !== [];
+            && seller.arrivalRange !== '' && seller.daysAndHoursOpen !== [] && seller.paymentMethods !== [];
     }
 
     isValidAddress() {

@@ -20,7 +20,7 @@ export class SellerForm extends React.Component {
                 city: ''
             },
             radio: '',
-            money: false,
+            cash: false,
             debit: false,
             credit: false,
             schedule: [],
@@ -30,6 +30,7 @@ export class SellerForm extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.updateParent = this.updateParent.bind(this);
         this.addSchedule = this.addSchedule.bind(this);
+        this.generatePaymentList = this.generatePaymentList.bind(this);
     }
 
     handleAddressChange(event) {
@@ -58,16 +59,19 @@ export class SellerForm extends React.Component {
             },
             commerceName: this.state.name,
             commerceBusinessSector: this.state.sector,
-            paymentMethods: [
-                {
-                    type: 'Efectivo',
-                    accept: 'Efectivo'
-                }
-            ],
+            paymentMethods: this.generatePaymentList(),
             daysAndHoursOpen: this.state.schedule,
             arrivalRange: this.state.radio
         };
         this.props.update(toUpdate);
+    }
+
+    generatePaymentList(){
+        let paymentMethods = [];
+        if(this.state.cash) paymentMethods.push({type: 'CASH', accept: 'CASH'});
+        if(this.state.debit) paymentMethods.push({type: 'DEBIT', accept: 'DEBIT'});
+        if(this.state.credit) paymentMethods.push({type: 'CREDIT', accept: 'CREDIT'});
+        return paymentMethods;
     }
 
     render() {
@@ -127,9 +131,9 @@ export class SellerForm extends React.Component {
                 <span className="payments">
                     <p className="fdp"><FormattedMessage id='register.payment'/></p>
                     <Checkbox className="check"
-                              checked={this.state.money}
+                              checked={this.state.cash}
                               onBlur={this.updateParent}
-                              onChange={() => this.setState({ money: !this.state.money })}>
+                              onChange={() => this.setState({ cash: !this.state.cash })}>
                         <FormattedMessage id='t.money'/>
                     </Checkbox>
                     <Checkbox className="check"

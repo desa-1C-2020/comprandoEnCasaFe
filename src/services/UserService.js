@@ -2,7 +2,6 @@ import { secureRequest } from '../util/APIUtils';
 import { API_BASE_URL } from '../constants';
 
 export function registerBuyer(address) {
-    console.log(address);
     return secureRequest({
         url: `${API_BASE_URL}/user/buyer/update`,
         method: 'POST',
