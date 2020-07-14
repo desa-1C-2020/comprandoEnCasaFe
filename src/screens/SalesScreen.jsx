@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import '../styles/ShoppingHistory.css'
-import { Alert } from '@blueprintjs/core'
+import { Alert, Spinner } from '@blueprintjs/core'
 import { getSales } from '../services/SellerService'
 import Sale from '../components/Sale'
 
@@ -11,20 +11,21 @@ export class SalesScreen extends React.Component {
     super(props);
     this.state = {
       alert: false,
+      isLoading: false,
       salesComponents: []
     }
     this.createComponents = this.createComponents.bind(this);
   }
 
   componentDidMount(){
-    getSales(this.props.userID, (err, sales) => {
-      if(err) {
-        this.setState({alert: true})
-      }
-      else {
-        this.setState({salesComponents: this.createComponents(sales)})
-      }
-    })
+    this.setState({isLoading: true});
+    getSales()
+      .then((sales) => {
+        this.setState({salesComponents: this.createComponents(sales), isLoading: false})
+      })
+      .catch((_err) => {
+        this.setState({alert: true, isLoading: false})
+      })
   }
 
   createComponents(sales){
@@ -41,6 +42,8 @@ export class SalesScreen extends React.Component {
   render(){
     return(
       <div>
+        {!this.state.isLoading ? 
+        <span>
         <div>
           <p className='sh-title'><FormattedMessage id='seller.sales'/></p>
           {this.state.salesComponents}
@@ -51,7 +54,11 @@ export class SalesScreen extends React.Component {
                intent='danger'
                onClose={() => {this.setState({alert: false})}}>
               <FormattedMessage id='t.error'/>
-        </Alert>
+        </Alert></span>
+        :
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+          <Spinner size='100' intent='primary'/>
+        </div>}
       </div>
     )
   }
