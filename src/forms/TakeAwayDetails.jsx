@@ -93,7 +93,7 @@ export class TakeAwayDetails extends React.Component {
                 </Button>
                 {this.state.suggestionValidated && <div className='suggested-date'>
                     <FormattedMessage id='delivery.suggested'/>
-                    <FormattedDate value={this.state.date.toLocaleDateString()}/>
+                    <FormattedDate value={this.state.date.toLocaleDateString('en')}/>
                     <FormattedMessage id='delivery.at'/>
                     {this.state.date.toLocaleTimeString()}
                 </div>}

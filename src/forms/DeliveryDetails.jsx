@@ -59,7 +59,7 @@ export class DeliveryDetails extends React.Component {
                 {this.state.success &&
                 <div className='delivery-info'>
                     <FormattedMessage id='delivery.arrive'/>
-                    <FormattedDate value={this.state.date.toLocaleDateString()}/>
+                    <FormattedDate value={this.state.date.toLocaleDateString('en')}/>
                     <FormattedMessage id='delivery.at'/>
                     {this.state.date.toLocaleTimeString()}
                 </div>}
