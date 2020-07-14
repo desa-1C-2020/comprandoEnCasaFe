@@ -37,7 +37,7 @@ export class DeliveryDetails extends React.Component {
     formatDate(date) {
         let d = new Date(date);
         const year = d.getFullYear();
-        const month = this.addZeroes(d.getMonth().toString());
+        const month = this.addZeroes((d.getMonth() + 1).toString());
         const day = this.addZeroes(d.getDate().toString());
         const hour = this.addZeroes(d.getHours().toString());
         const minute = this.addZeroes(d.getMinutes().toString());
