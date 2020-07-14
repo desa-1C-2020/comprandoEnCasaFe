@@ -62,21 +62,21 @@ export class CSVLoader extends React.Component {
         const productList = this.getProductList(productsObjet);
 
         saveProductsBatch(productList)
-            .then(() => {
+            .then((_res) => {
                 this.setState({
                     uploading: false,
                     alert: true,
                     alertMsg: 'csv.success',
                     alertIntent: 'success'
                 });
-
-            }).catch(
-            this.setState({
-                uploading: false,
-                alert: true,
-                alertMsg: 't.error',
-                alertIntent: 'danger'
-            })
+            }).catch((_error) => {
+                this.setState({
+                    uploading: false,
+                    alert: true,
+                    alertMsg: 't.error',
+                    alertIntent: 'danger'
+                })
+            }   
         );
     }
 
