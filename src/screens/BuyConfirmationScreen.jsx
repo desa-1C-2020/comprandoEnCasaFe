@@ -3,7 +3,7 @@ import DeliveryPayOptions from '../components/DeliveryPayOptions'
 import { Button, Alert, RadioGroup, Radio } from '@blueprintjs/core'
 import { FormattedMessage } from 'react-intl'
 import '../styles/BuyConfirmationScreen.css'
-import { sendPurchase } from '../services/ProductService'
+import { sendPurchase } from '../services/PurchaseService'
 import DeliveryDetails from '../forms/DeliveryDetails'
 import { TakeAwayDetails } from '../forms/TakeAwayDetails'
 
@@ -107,7 +107,7 @@ export class BuyConfirmationScreen extends React.Component {
   }
 
   doPurchase() {
-    if (this.state.deliver === 'DELIVERY' || this.state.suggestedDay !== '') {
+    if (this.state.suggestedDay !== '') {
       let deliverFee = this.state.deliver === 'TAKE_AWAY' ? 0 : 30;
       const body = {
         shoppingListTO: this.generateShoppingListTO(),
@@ -115,16 +115,17 @@ export class BuyConfirmationScreen extends React.Component {
         deliveryOption: this.generateDeliveryOption(),
         total: (this.calculateTotal() + deliverFee)
       }
-      sendPurchase(body, this.state.deliver, (err, res) => {
+      sendPurchase(body, this.state.deliver, (err, _res) => {
         if (err) {
-          //this.setState({alert: true, alertId: 'cart.error', alertIntent: 'danger'})
+          this.setState({alert: true, alertId: 'cart.error', alertIntent: 'danger'})
         } else {
           console.log(body);
+          //TODO - sacar esto - lo dejo para no vaciar el carrito.
           //this.setState({alert: true, alertId: 'cart.success', alertIntent: 'success'})
         }
       })
     } else {
-      // TODO - alert por favor ingrese fecha valida
+      this.setState({alert: true, alertId: 'cart.date.error', alertIntent: 'danger'})
     }
   }
 
@@ -135,20 +136,10 @@ export class BuyConfirmationScreen extends React.Component {
     return total;
   }
 
-  //TODO - definir esto!
   generateDeliveryOption() {
-    const products = Array.from(JSON.parse(localStorage.getItem('usercart')).cart);
-    let options = {}
-    if (this.state.deliver === 'TAKE_AWAY') {
-      options = {
-        commercesId: this.getShopIds(products),
-        suggestedDay: this.state.suggestedDay
-      }
-    } else {
-      options = {
-        commercesId: this.getShopIds(products),
-        //TODO - Delivery TO?
-      }
+    let options = {
+      type: this.state.deliver,
+      suggestedDay: this.state.suggestedDay //TODO - suggested day para delivery es la fecha que me trae el back
     }
     return options;
   }
@@ -215,7 +206,9 @@ export class BuyConfirmationScreen extends React.Component {
             </div>
             <div><DeliveryDetails /></div>
           </span>}
-          {this.state.deliver === 'TAKE_AWAY' && <div><TakeAwayDetails updateDate={this.handleSuggestedDay} /></div>}
+          {this.state.deliver === 'TAKE_AWAY' && <div>
+            <TakeAwayDetails updateDate={this.handleSuggestedDay} ids={this.getShopIds(this.createArray())}/>
+          </div>}
           <div className='cart-radio'>
             <RadioGroup label={<FormattedMessage id='cart.pay.ops' />}
               onChange={this.handlePayment}

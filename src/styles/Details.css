@@ -27,6 +27,17 @@
   border-radius: 20px;
 }
 
+.suggested-date {
+  font-size: 20px;
+  background-color: rgb(184, 248, 88);
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 20px;
+}
+
 @media (max-width: 700px) {
   .detail-container {
     width: 90%;

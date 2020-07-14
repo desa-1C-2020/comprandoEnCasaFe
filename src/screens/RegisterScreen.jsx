@@ -56,12 +56,10 @@ class RegisterScreen extends React.Component {
 
     registerBuyer() {
         this.updateUser(() => registerBuyer({
-            address: {
-                street: this.state.addressLocation.street,
-                latitud: this.state.addressLocation.latitud,
-                longitud: this.state.addressLocation.longitud
-            }
-        }), this.isValidAddress() && this.hasAddressLocation(), this.intl.formatMessage({id:'t.address'}));
+            street: this.state.addressLocation.street,
+            latitud: this.state.addressLocation.latitud,
+            longitud: this.state.addressLocation.longitud
+        }), this.isValidAddress() && this.hasAddressLocation(), 'dirección');
     }
 
     registerSeller() {
