@@ -2,6 +2,7 @@ export const ACCESS_TOKEN = 'accessToken';
 export const SELLER = 'seller';
 export const BUYER = 'buyer';
 const GEOCODE_JSON = 'geocode/json?';
+export const DAYS_GAP = 30;
 
 export const API_BASE_URL = process.env.REACT_APP_API_URL;
 export const OAUTH2_REDIRECT_URI = process.env.REACT_APP_OAUTH2_REDIRECT_URI;
