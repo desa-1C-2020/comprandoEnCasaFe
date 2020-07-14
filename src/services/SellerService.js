@@ -50,6 +50,6 @@ export function updateSale(saleUpdateTO) {
 export function getSales() {
     return secureRequest({
         url: `${API_BASE_URL}/seller/sales`,
-        method: 'POST'
+        method: 'GET'
     });
 }
