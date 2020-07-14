@@ -1,7 +1,6 @@
 import { API_BASE_URL } from '../constants';
 import { secureRequest } from '../util/APIUtils';
 
-// TODO - en el back hay que cambiarlo a POST!
 export function takeawayOptions(takeAwayTo) {
     return secureRequest({
         url: API_BASE_URL + '/purchase/takeAway',
@@ -17,7 +16,6 @@ export function deliveryOptions() {
     });
 }
 
-// TODO - Hay que probarlo!
 export function sendPurchase(purchase) {
     return secureRequest({
         url: API_BASE_URL + '/purchase',

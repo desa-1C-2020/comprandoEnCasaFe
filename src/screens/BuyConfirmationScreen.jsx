@@ -115,13 +115,15 @@ export class BuyConfirmationScreen extends React.Component {
                 deliveryOption: this.generateDeliveryOption(),
                 total: (this.calculateTotal() + deliverFee)
             };
-            sendPurchase(body, this.state.deliver, (err, _res) => {
-                if (err) {
-                    this.setState({ alert: true, alertId: 'cart.error', alertIntent: 'danger' });
-                } else {
+            console.log(body)
+            sendPurchase(body)
+                .then((_res) => {
                     this.setState({ alert: true, alertId: 'cart.success', alertIntent: 'success' });
-                }
-            });
+                })
+                .catch((err) => {
+                    console.log(err)
+                    this.setState({ alert: true, alertId: 'cart.error', alertIntent: 'danger' });
+                })
         } else {
             this.setState({ alert: true, alertId: 'cart.date.error', alertIntent: 'danger' });
         }
