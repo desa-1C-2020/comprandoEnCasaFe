@@ -34,7 +34,6 @@ export class TakeAwayDetails extends React.Component {
   }
 
   formatDate(date) {
-    console.log(date)
     let d = new Date(date);
     const year = d.getFullYear();
     const month = this.addZeroes(d.getMonth().toString());
@@ -93,7 +92,7 @@ export class TakeAwayDetails extends React.Component {
         </Button>
         {this.state.suggestionValidated && <div className='suggested-date'>
           <FormattedMessage id='delivery.suggested' />
-          {this.state.date.toLocaleDateString()}
+          <FormattedDate value={this.state.date.toLocaleDateString()}/>
           <FormattedMessage id='delivery.at' />
           {this.state.date.toLocaleTimeString()}
         </div>}

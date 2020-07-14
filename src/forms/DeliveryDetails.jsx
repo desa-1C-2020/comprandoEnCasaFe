@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/Details.css'
 import { deliveryOptions } from '../services/PurchaseService'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, FormattedDate } from 'react-intl'
 import { Alert, Spinner } from '@blueprintjs/core'
 
 export class DeliveryDetails extends React.Component {
@@ -59,7 +59,7 @@ export class DeliveryDetails extends React.Component {
         {this.state.success &&
           <div className='delivery-info'>
             <FormattedMessage id='delivery.arrive' />
-            {this.state.date.toLocaleDateString()}
+            <FormattedDate value={this.state.date.toLocaleDateString()}/>
             <FormattedMessage id='delivery.at' />
             {this.state.date.toLocaleTimeString()}
           </div>}
