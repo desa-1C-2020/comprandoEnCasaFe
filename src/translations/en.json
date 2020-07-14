@@ -113,7 +113,7 @@
   "cart.confirmBuy": "Confirm purchase",
   "cart.success": "Purchase completed successfully.",
   "cart.error": "Something went wrong, try again later.",
-  "cart.date.error": "Choose a valid date and time.",
+  "cart.date.error": "Suggest a date before confirming the purchase.",
   "cart.quant": "Quantity of products: ",
   "cart.del.ops": "Delivery options",
   "cart.pay.ops": "Payment options",
@@ -147,5 +147,6 @@
   "delivery.error": "It's not posible to pick up your products this date/hour",
   "delivery.validate": "Suggest",
   "delivery.suggested": "Your turn is on ",
+  "delivery.arrive": "You will recieve your products on ",
   "delivery.at": " at "
 } 

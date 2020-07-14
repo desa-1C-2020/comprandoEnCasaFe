@@ -119,9 +119,7 @@ export class BuyConfirmationScreen extends React.Component {
         if (err) {
           this.setState({alert: true, alertId: 'cart.error', alertIntent: 'danger'})
         } else {
-          console.log(body);
-          //TODO - sacar esto - lo dejo para no vaciar el carrito.
-          //this.setState({alert: true, alertId: 'cart.success', alertIntent: 'success'})
+          this.setState({alert: true, alertId: 'cart.success', alertIntent: 'success'})
         }
       })
     } else {
@@ -139,7 +137,7 @@ export class BuyConfirmationScreen extends React.Component {
   generateDeliveryOption() {
     let options = {
       type: this.state.deliver,
-      suggestedDay: this.state.suggestedDay //TODO - suggested day para delivery es la fecha que me trae el back
+      suggestedDay: this.state.suggestedDay
     }
     return options;
   }
@@ -204,7 +202,7 @@ export class BuyConfirmationScreen extends React.Component {
             <div className='delivery-fee'>
               <span className='delivery-text'><FormattedMessage id='delivery.fee' /></span>
             </div>
-            <div><DeliveryDetails /></div>
+            <div><DeliveryDetails updateDate={this.handleSuggestedDay}/></div>
           </span>}
           {this.state.deliver === 'TAKE_AWAY' && <div>
             <TakeAwayDetails updateDate={this.handleSuggestedDay} ids={this.getShopIds(this.createArray())}/>

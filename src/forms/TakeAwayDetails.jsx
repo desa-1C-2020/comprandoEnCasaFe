@@ -23,6 +23,7 @@ export class TakeAwayDetails extends React.Component {
   }
 
   componentDidMount() {
+    this.props.updateDate('');
     this.setState({ stringDate: this.formatDate(this.state.date) });
   }
 
@@ -33,6 +34,7 @@ export class TakeAwayDetails extends React.Component {
   }
 
   formatDate(date) {
+    console.log(date)
     let d = new Date(date);
     const year = d.getFullYear();
     const month = this.addZeroes(d.getMonth().toString());

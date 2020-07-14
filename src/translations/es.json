@@ -114,7 +114,7 @@
   "cart.confirmBuy": "Realizar compra",
   "cart.success": "Compra realizada correctamente",
   "cart.error": "Algo salió mal, intente más tarde.",
-  "cart.date.error": "Ingrese una fecha y hora válida.",
+  "cart.date.error": "Sugiera una fecha antes de confirmar la compra.",
   "cart.quant": "Cantidad de productos: ",
   "cart.del.ops": "Opciones de envío",
   "cart.pay.ops": "Opciones de pago",
@@ -148,5 +148,6 @@
   "delivery.error": "No es posible retirar en ese día/fecha",
   "delivery.validate": "Sugerir",
   "delivery.suggested": "Su turno es el día ",
+  "delivery.arrive": "Su pedido llegará el ",
   "delivery.at": " a las "
 }

@@ -10,15 +10,14 @@ export function takeawayOptions(takeAwayTo) {
   });
 }
 
+export function deliveryOptions() {
+  return secureRequest({
+    url: API_BASE_URL + '/purchase/delivery',
+    method: 'GET'
+  });
+}
+
 // TODO - implementar
 export function sendPurchase(purchases, callback) {
   callback('', null);
 }
-
-// export function saveProduct(product) {
-//     return secureRequest({
-//         url: API_BASE_URL + '/seller/product',
-//         method: 'POST',
-//         body: JSON.stringify(product)
-//     });
-// }
