@@ -105,7 +105,7 @@ export class TakeAwayDetails extends React.Component {
                     <FormattedMessage id='t.error'/>
                 </Alert>
                 {this.state.isLoading &&
-                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                <div style={{ position: 'absolute', top: '80%', left: '50%', transform: 'translate(-50%, -50%)' }}>
                     <Spinner size='100' intent='primary'/>
                 </div>
                 }

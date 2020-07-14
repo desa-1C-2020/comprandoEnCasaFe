@@ -22,6 +22,8 @@ export class CSVLoader extends React.Component {
         this.handleReadCSV = this.handleReadCSV.bind(this);
         this.uploadProducts = this.uploadProducts.bind(this);
         this.resetState = this.resetState.bind(this);
+        this.validateProducts = this.validateProducts.bind(this);
+        this.validFields = this.validFields.bind(this);
     }
 
     handleReadCSV(event) {
@@ -29,10 +31,7 @@ export class CSVLoader extends React.Component {
             const name = event.target.files[0].name;
             Papa.parse(event.target.files[0], {
                 complete: function (results) {
-                    let products = results.data;
-                    let lastElem = results.data.length;
-                    products.splice(lastElem - 1, 1);
-                    products.splice(0, 1);
+                    let products = this.validateProducts(results.data);
                     this.setState({
                         productArray: products,
                         fileName: name,
@@ -46,13 +45,12 @@ export class CSVLoader extends React.Component {
 
     getProductList(productsObjet) {
         return productsObjet.map(productObject => {
-            const productParts = productObject[0].split('|');
             return {
-                name: productParts[0],
-                brand: productParts[1],
-                stock: parseInt(productParts[2]),
-                price: parseFloat(productParts[3]),
-                imageUrl: productParts[4]
+                name: productObject[0],
+                brand: productObject[1],
+                stock: parseInt(productObject[2]),
+                price: parseFloat(productObject[3]),
+                imageUrl: productObject[4]
             };
         });
     }
@@ -93,6 +91,27 @@ export class CSVLoader extends React.Component {
             alertMsg: 'csv.success',
             alertIntent: 'success'
         });
+    }
+
+    validateProducts(products){
+        let filteredProducts = [];
+        products.forEach((p) => {
+            if(this.validFields(p)){
+                filteredProducts.push(p);
+            }
+        })
+        return filteredProducts;
+    }
+
+    validFields(productArray){
+        return(
+            productArray.length === 5 &&
+            typeof productArray[0] === "string" &&
+            typeof productArray[1] === "string" &&
+            typeof parseInt(productArray[2]) === "number" &&
+            typeof parseFloat(productArray[3]) === "number" &&
+            typeof productArray[4] === "string"
+        )
     }
 
   render(){
