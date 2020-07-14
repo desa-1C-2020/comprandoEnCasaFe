@@ -17,7 +17,11 @@ export function deliveryOptions() {
   });
 }
 
-// TODO - implementar
-export function sendPurchase(purchases, callback) {
-  callback('', null);
+// TODO - Hay que probarlo!
+export function sendPurchase(purchase) {
+  return secureRequest({
+    url: API_BASE_URL + '/purchase',
+    method: 'POST',
+    body: JSON.stringify(purchase)
+  });
 }
