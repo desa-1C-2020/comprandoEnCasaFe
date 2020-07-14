@@ -136,7 +136,7 @@
   "csv.success": "Los productos fueron cargados satisfactoriamente",
   "csv.search": "Seleccione un archivo",
   "csv.load": "Cargar productos",
-  "csv.info": "Los campos necesarios son los siguientes, en el siguiente orden: name, brand, stock, price, imageUrl. Separados por pipes (|)"
+  "csv.info": "Los campos necesarios son los siguientes, en el siguiente orden: name, brand, stock, price, imageUrl. Separados por pipes (|)",
 
   "toast.update": "😀 Gracias por actualizar tu ",
   "toast.updatefail": "😔 No pudimos actualizar tu ",

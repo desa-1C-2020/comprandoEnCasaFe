@@ -1,7 +1,7 @@
 import React from 'react'
 import { FileInput, Button, Alert, Spinner, Icon, Tooltip } from '@blueprintjs/core';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { saveProduct, saveProductsBatch } from '../services/SellerService';
+import { saveProductsBatch } from '../services/SellerService';
 import * as Papa from 'papaparse';
 import '../styles/CSVLoader.css';
 
@@ -45,8 +45,6 @@ export class CSVLoader extends React.Component {
     }
 
     getProductList(productsObjet) {
-        const total = productsObjet.length;
-        let index = 1;
         return productsObjet.map(productObject => {
             const productParts = productObject[0].split('|');
             return {

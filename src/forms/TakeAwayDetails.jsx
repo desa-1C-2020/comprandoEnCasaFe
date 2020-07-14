@@ -2,7 +2,7 @@ import React from 'react'
 import '../styles/Details.css'
 import { Button, Alert, Spinner } from '@blueprintjs/core'
 import { DatePicker, TimePrecision } from "@blueprintjs/datetime";
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, FormattedDate } from 'react-intl'
 import { takeawayOptions } from '../services/PurchaseService'
 
 export class TakeAwayDetails extends React.Component {
