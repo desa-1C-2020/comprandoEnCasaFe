@@ -79,7 +79,7 @@ export class TimeTablePopUp extends React.Component {
       if(day.open){
         let dayTO = {
           dayOfWeek: index,
-          timeRanges: [day.from,day.to]
+          timeRanges: [{left: parseInt(day.from), right: parseInt(day.to)}]
         }
         zipped.push(dayTO);
       }

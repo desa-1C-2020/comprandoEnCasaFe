@@ -76,6 +76,7 @@ class RegisterScreen extends React.Component {
             daysAndHoursOpen: sellerInfo.daysAndHoursOpen,
             arrivalRange: sellerInfo.arrivalRange
         };
+        console.log(commerce)
         this.updateUser(() => registerSeller(commerce),
             this.isValidSeller() && this.isValidAddress() && this.hasAddressLocation(), 'comercio');
     }
@@ -137,6 +138,7 @@ class RegisterScreen extends React.Component {
                     this.showOnSuccessful(message);
                 })
                 .catch((error) => {
+                    console.log(error)
                     this.setState({ isLoading: false });
                     this.showOnError(message);
                 });

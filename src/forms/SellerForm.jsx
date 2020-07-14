@@ -61,16 +61,16 @@ export class SellerForm extends React.Component {
             commerceBusinessSector: this.state.sector,
             paymentMethods: this.generatePaymentList(),
             daysAndHoursOpen: this.state.schedule,
-            arrivalRange: this.state.radio
+            arrivalRange: parseInt(this.state.radio)
         };
         this.props.update(toUpdate);
     }
 
     generatePaymentList(){
         let paymentMethods = [];
-        if(this.state.cash) paymentMethods.push({type: 'CASH', accept: 'CASH'});
-        if(this.state.debit) paymentMethods.push({type: 'DEBIT', accept: 'DEBIT'});
-        if(this.state.credit) paymentMethods.push({type: 'CREDIT', accept: 'CREDIT'});
+        if(this.state.cash) paymentMethods.push('CASH');
+        if(this.state.debit) paymentMethods.push('DEBIT');
+        if(this.state.credit) paymentMethods.push('CREDIT');
         return paymentMethods;
     }
 

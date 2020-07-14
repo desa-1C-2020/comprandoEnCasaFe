@@ -12,7 +12,7 @@ export class Home extends React.Component {
       <div className="login-container" style={{textAlign: 'center'}}>
 					<h1 className="login-title"><FormattedMessage id='login.intro'/></h1>
 					<img className='logo-login' src={logo} alt='CEC'></img>
-          <Button onClick={()=> this.props.history.push('/check-address')}
+          <Button onClick={()=> this.props.history.push('/login')}
             large='true' intent='primary'>
             <FormattedMessage id='login.enter'/>    
           </Button>
