@@ -93,7 +93,10 @@ export class HomeNavBar extends React.PureComponent {
                 {!isSeller && <Button className={Classes.MINIMAL}
                                       icon="history"
                                       text={intl.formatMessage({ id: 'navbar.history' })}
-                                      onClick={() => this.props.goShoppingHistory()}/>}
+                                      onClick={() => {
+                                        this.setState({ alert: true })
+                                    //    this.props.goShoppingHistory()
+                                    }}/>}
             </Menu>
         );
         const searchButton = <Button minimal={true} onClick={this.doSearch}>
@@ -125,7 +128,10 @@ export class HomeNavBar extends React.PureComponent {
                         {!isSeller && <Button className={Classes.MINIMAL}
                                               icon="history"
                                               text={intl.formatMessage({ id: 'navbar.history' })}
-                                              onClick={() => this.props.goShoppingHistory()}/>}
+                                              onClick={() => {
+                                                this.setState({ alert: true })
+                                            //    this.props.goShoppingHistory()
+                                            }}/>}
                         <NavbarDivider/>
                         {!isSeller && <InputGroup style={{ width: '300px' }}
                                                   type="search"
